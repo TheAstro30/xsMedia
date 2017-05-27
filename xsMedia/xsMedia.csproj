@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{166C4FE1-7845-49C3-AA43-1E1C837F78DC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>xsMedia</RootNamespace>
+    <AssemblyName>xsMedia</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>mainIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\Effects\EffectCrop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectCrop.designer.cs">
+      <DependentUpon>EffectCrop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectDeinterlace.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectDeinterlace.designer.cs">
+      <DependentUpon>EffectDeinterlace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectEq.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectEq.Designer.cs">
+      <DependentUpon>EffectEq.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectLogo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectLogo.designer.cs">
+      <DependentUpon>EffectLogo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectMarquee.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectMarquee.Designer.cs">
+      <DependentUpon>EffectMarquee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectAdjust.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Effects\EffectAdjust.Designer.cs">
+      <DependentUpon>EffectAdjust.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MediaPlayback.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmAbout.Designer.cs">
+      <DependentUpon>FrmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmEffects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmEffects.Designer.cs">
+      <DependentUpon>FrmEffects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmNetwork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmNetwork.Designer.cs">
+      <DependentUpon>FrmNetwork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmVideoQuality.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmVideoQuality.Designer.cs">
+      <DependentUpon>FrmVideoQuality.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MainIconUtil.cs" />
+    <Compile Include="Logic\Menus.cs" />
+    <Compile Include="Logic\Player.cs" />
+    <Compile Include="Logic\Media.cs" />
+    <Compile Include="Logic\Open.cs" />
+    <Compile Include="Logic\Playlist.cs" />
+    <Compile Include="Logic\Video.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controls\MediaBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="Controls\Effects\EffectCrop.resx">
+      <DependentUpon>EffectCrop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Effects\EffectDeinterlace.resx">
+      <DependentUpon>EffectDeinterlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Effects\EffectEq.resx">
+      <DependentUpon>EffectEq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Effects\EffectLogo.resx">
+      <DependentUpon>EffectLogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Effects\EffectMarquee.resx">
+      <DependentUpon>EffectMarquee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Effects\EffectAdjust.resx">
+      <DependentUpon>EffectAdjust.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MediaPlayback.resx">
+      <DependentUpon>MediaPlayback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmAbout.resx">
+      <DependentUpon>FrmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmEffects.resx">
+      <DependentUpon>FrmEffects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmNetwork.resx">
+      <DependentUpon>FrmNetwork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmVideoQuality.resx">
+      <DependentUpon>FrmVideoQuality.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\xsCore\xsCore.csproj">
+      <Project>{F87F73B0-30DF-43F4-8F2A-EC0B97F63509}</Project>
+      <Name>xsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xsOlv\libolv.csproj">
+      <Project>{18FEDA0C-D147-4286-B39A-01204808106A}</Project>
+      <Name>libolv</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xsPlaylist\xsPlaylist\xsPlaylist.csproj">
+      <Project>{C22E442F-8E3C-49EF-8E99-D863BCAA9F2A}</Project>
+      <Name>xsPlaylist</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xsSettings\xsSettings.csproj">
+      <Project>{63583DAF-92E2-4FAF-B8AD-FF736B8BA785}</Project>
+      <Name>xsSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xsTrackBar\xsTrackBar.csproj">
+      <Project>{E61FF647-857C-46FF-878B-72B175935DA5}</Project>
+      <Name>xsTrackBar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xsVlc\xsVlc.csproj">
+      <Project>{5B39005B-6D95-4770-BEDB-BFBDCD6D8093}</Project>
+      <Name>xsVlc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\videoWinIcon.ico" />
+    <None Include="Icons\menus\menuCdda.ico" />
+    <None Include="Icons\menus\menuDvd.ico" />
+    <None Include="Icons\menus\menuFile.ico" />
+    <None Include="Icons\menus\menuNet.ico" />
+    <None Include="Icons\menus\menuDisc.ico" />
+    <None Include="Icons\menus\menuList.ico" />
+    <None Include="Icons\menus\menuFolder.ico" />
+    <None Include="Icons\menus\menuSave.ico" />
+    <None Include="Icons\menus\menuClose.ico" />
+    <None Include="Icons\menus\menuNew.ico" />
+    <None Include="Icons\menus\menuSort.ico" />
+    <None Include="Icons\menus\menuRemove.ico" />
+    <None Include="Icons\menus\menuInfo.ico" />
+    <None Include="Icons\menus\menuAspect.ico" />
+    <None Include="Icons\menus\menuAudioTrack.ico" />
+    <None Include="Icons\menus\menuEffects.ico" />
+    <None Include="Icons\menus\menuOptions.ico" />
+    <None Include="Icons\menus\menuSkin.ico" />
+    <None Include="Icons\menus\menuSubFile.ico" />
+    <None Include="Icons\menus\menuVideoTrack.ico" />
+    <None Include="Icons\menus\menuZoom.ico" />
+    <None Include="Icons\menus\menuSnap.ico" />
+    <None Include="Icons\videoWinIcon_xmas.ico" />
+    <Content Include="mainIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

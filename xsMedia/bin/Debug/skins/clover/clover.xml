@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <head name="Clover" author="Koekoeh" version="1.0" copyright="2006" comment="Clover leaf style" />
+
+  <images>
+    <image src="Player.png" id="PLAYER_MAIN" />
+  </images>
+
+  <body>
+    <resources>
+      <resource id="BAR_LEFT" imageId="PLAYER_MAIN" imageArea="0,0,259,47" />
+      <resource id="BAR_MID" imageId="PLAYER_MAIN" imageArea="261,0,286,47" />
+      <resource id="BAR_RIGHT" imageId="PLAYER_MAIN" imageArea="288,0,372,47"/>
+
+      <resource id="PLAYER_TIME" imageId="PLAYER_MAIN" imageArea="159,48,266,61" imageSize="9,13" area="165,20,87,13" />
+
+      <resource id="PLAYER_PREV" area="19,19,18,17">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="45,48,63,65" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_PLAY" area="40,19,19,18">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="64,48,83,66" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_PAUSE" area="64,19,18,18">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="84,48,102,66" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_STOP" area="87,19,18,18">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="103,48,121,66" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_NEXT" area="109,19,18,16">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="122,48,140,64" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_OPEN" area="137,20,17,15">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="141,48,158,63" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_POS" area="14,3,26,11">
+        <rail color="#31AD75" area="2,5,3,7" />
+      </resource>
+
+      <resource id="PLAYER_POS_SLIDER_BUTTON" imageId="PLAYER_MAIN" area="0,0,29,10" imageArea="0,48,29,57" />  
+
+      <resource id="PLAYER_VOL" area="0,16,60,10" areaOffset="72,0">
+        <rail color="#31AD75" area="2,4,3,6" />
+      </resource>
+
+      <resource id="PLAYER_VOL_SLIDER_BUTTON" imageId="PLAYER_MAIN" area="0,0,12,10" imageArea="30,48,44,57" />  
+    </resources>
+
+    <menu>
+      <item id="BG_GRADIENT_TOP" color="#F7F7F7" />
+      <item id="BG_GRADIENT_BOTTOM" color="#6C6C6C" />
+      <item id="MENU_HEADER_FORECOLOR" color="#000000" />
+      <item id="MENU_ITEM_FORECOLOR" color="#000000" />
+      <item id="MENU_BG_GRADIENT_TOP" color="#FEFEFE" />
+      <item id="MENU_BG_GRADIENT_BOTTOM" color="#DADADA" />
+      <item id="IMAGE_MARGIN_GRADIENT_LEFT" color="#F7F7F7" />
+      <item id="IMAGE_MARGIN_GRADIENT_RIGHT" color="#B9B9B9" />
+      <item id="IMAGE_MARGIN_LINE_LIGHT" color="#FFFFFF" />
+      <item id="IMAGE_MARGIN_LINE_DARK" color="#646464" />
+      <item id="SEPARATOR_LIGHT" color="#FFFFFF" />
+      <item id="SEPARATOR_DARK" color="#646464" />
+      <item id="SELECTED_FORECOLOR" color="#FFFFFF" />
+      <item id="SELECTED_GRADIENT_TOP" color="#BBDBCC" />
+      <item id="SELECTED_GRADIENT_BOTTOM" color="#164F35" />
+      <item id="SELECTED_GRADIENT_BORDER" color="#164F35" />
+      <item id="SELECTED_BORDER" color="#164F35" />
+      <item id="SELECTED_DROP_BORDER" color="#164F35" />
+      <item id="BORDER" color="#164F35" />
+      <item id="BUTTON_BORDER" color="#164F35" />
+      <item id="CHECKED_ITEM" color="#2B9565" />
+    </menu>
+
+    <playlist>
+      <item id="BACKCOLOR" color="#000000" />
+      <item id="HEADER_FORECOLOR" color="#000000" />      
+      <item id="HEADER_BACKCOLOR" color="#6C6C6C" />
+      <item id="ITEM_FORECOLOR" color="#40DF97" />
+	  <item id="SELECTED_FORECOLOR" color="#000000" />
+      <item id="SELECTED_BACKCOLOR" color="#91ADA0" />      
+    </playlist>
+  </body>
+</skin>
