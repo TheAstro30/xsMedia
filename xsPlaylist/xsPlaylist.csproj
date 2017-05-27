@@ -66,15 +66,15 @@
     <Compile Include="Utils\AlbumArt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\xsCore\xsCore.csproj">
+    <ProjectReference Include="..\xsCore\xsCore.csproj">
       <Project>{F87F73B0-30DF-43F4-8F2A-EC0B97F63509}</Project>
       <Name>xsCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\xsOlv\libolv.csproj">
+    <ProjectReference Include="..\xsOlv\libolv.csproj">
       <Project>{18FEDA0C-D147-4286-B39A-01204808106A}</Project>
       <Name>libolv</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\xsVlc\xsVlc.csproj">
+    <ProjectReference Include="..\xsVlc\xsVlc.csproj">
       <Project>{5B39005B-6D95-4770-BEDB-BFBDCD6D8093}</Project>
       <Name>xsVlc</Name>
     </ProjectReference>

@@ -1,0 +1,5 @@
+E:\CSharp\xsMedia\xsMedia\xsCore\bin\Release\xsCore.dll
+E:\CSharp\xsMedia\xsMedia\xsCore\bin\Release\xsCore.pdb
+E:\CSharp\xsMedia\xsMedia\xsCore\obj\Release\xsCore.csprojResolveAssemblyReference.cache
+E:\CSharp\xsMedia\xsMedia\xsCore\obj\Release\xsCore.dll
+E:\CSharp\xsMedia\xsMedia\xsCore\obj\Release\xsCore.pdb
