@@ -19,7 +19,8 @@ namespace xsPlaylist.Utils
                                          ,
                                          new FileMasks("Audio Files",
                                                        "*.wav;*.mpa;*.mp2;*.mp3;*.au;*.aif;*.aiff;*.snd;*.ogg;*.wma"),
-                                         new FileMasks("Tracker Modules", "*.mod;*.xm;*.s3m;*.it;*.ned;*.mo3;*.mtm;*.umx") 
+                                         new FileMasks("Tracker Modules", "*.mod;*.xm;*.s3m;*.it;*.ned;*.mo3;*.mtm;*.umx"),
+                                         new FileMasks("MIDI Files", "*.mid;*.midi") 
                                      });
             /* Playlist filters */
             OpenPlaylistFilters = new FilterMasks

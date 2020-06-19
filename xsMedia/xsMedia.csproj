@@ -130,17 +130,13 @@
     <Compile Include="Forms\FrmPlayer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmVideoQuality.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmVideoQuality.Designer.cs">
-      <DependentUpon>FrmVideoQuality.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\MainIconUtil.cs" />
     <Compile Include="Logic\Menus.cs" />
+    <Compile Include="Logic\Open.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Logic\Media.cs" />
-    <Compile Include="Logic\Open.cs" />
     <Compile Include="Logic\Playlist.cs" />
     <Compile Include="Logic\Video.cs" />
     <Compile Include="Program.cs" />
@@ -178,9 +174,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmNetwork.resx">
       <DependentUpon>FrmNetwork.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmVideoQuality.resx">
-      <DependentUpon>FrmVideoQuality.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

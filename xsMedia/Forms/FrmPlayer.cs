@@ -6,6 +6,7 @@ using xsCore.Utils;
 using xsCore.Utils.SystemUtils;
 using xsMedia.Logic;
 using xsSettings;
+using xsVlc.Common;
 
 namespace xsMedia.Forms
 {
@@ -42,7 +43,15 @@ namespace xsMedia.Forms
         /* Form events */
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            Video.VideoControl.Stop();
+            switch (Video.VideoControl.PlayerState)
+            {
+                case MediaState.Buffering:
+                case MediaState.Paused:
+                case MediaState.Opening:
+                case MediaState.Playing:
+                    Video.VideoControl.Stop();
+                    break;
+            }            
             /* Save settings - change path to user directory */
             if (WindowState == FormWindowState.Normal && !Video.VideoControl.IsVideo)
             {

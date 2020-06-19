@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Forms;
 using xsCore.CdUtils;
-using xsCore.Utils.YouTube;
 using xsMedia.Forms;
 using xsPlaylist;
 using xsPlaylist.Utils;
@@ -81,12 +78,7 @@ namespace xsMedia.Logic
                 }
                 Video.VideoControl.SpinnerActive = true;
                 _player.Text = @"xsMedia Player - Opening";
-                var youTubeUrl = new YouTubeUrl(SettingsManager.Settings.NetworkPresets.Proxy);
-
-                youTubeUrl.YouTubeThumbNailParsed += OnYouTubeThumbNailParsed;
-                youTubeUrl.YouTubeUrlParseCompleted += OnYouTubeUrlParseCompleted;
-                youTubeUrl.YouTubeUrlParseFailed += OnYouTubeUrlParseFailed;
-                youTubeUrl.BeginParse(f.SelectedUrl);
+                Video.VideoControl.OpenNetwork(f.SelectedUrl);
             }
         }
 
@@ -181,47 +173,6 @@ namespace xsMedia.Logic
                 path.Location = Path.GetDirectoryName(sfd.FileName);
                 PlaylistManager.Save(sfd.FileName);
             }
-        }
-
-        /* Callbacks/events */
-        private static void OnYouTubeThumbNailParsed(Bitmap bmp)
-        {
-            if (bmp == null) { return; }
-            Video.VideoControl.LogoImage = bmp;
-            Video.VideoControl.LogoImageMaximumSize = bmp.Size;
-            Video.VideoControl.LogoImageAlwaysOnTop = true;
-            Player.Sync.Execute(Video.VideoControl.Refresh);
-        }
-
-        private static void OnYouTubeUrlParseCompleted(List<YouTubeVideoQuality> urls)
-        {
-            if (urls.Count > 1 && SettingsManager.Settings.NetworkPresets.ShowQuality)
-            {
-                /* Multiple formats */
-                Player.Sync.Execute(() => OpenSpecificVideoQuality(urls));
-                return;
-            }
-            /* Single format only */
-            var url = urls[0];
-            Player.Sync.Execute(() => Video.VideoControl.OpenNetwork(url.DownloadUrl, url.VideoTitle, (int)url.Length));
-        }
-
-        private static void OnYouTubeUrlParseFailed(string url)
-        {
-            Player.Sync.Execute(() => Video.VideoControl.OpenNetwork(url));
-        }
-
-        private static void OpenSpecificVideoQuality(IList<YouTubeVideoQuality> urls)
-        {
-            var format = new FrmVideoQuality(urls);
-            if (format.ShowDialog(_player) == DialogResult.Cancel)
-            {
-                /* User cancel */
-                Player.StopClip(false);
-                return;
-            }
-            var url = urls[format.SelectedFormat];
-            Video.VideoControl.OpenNetwork(url.DownloadUrl, url.VideoTitle, (int)url.Length);
         }
     }
 }

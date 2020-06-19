@@ -183,9 +183,31 @@ namespace xsMedia.Logic
 
         private static void OnVideoKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape && IsFullScreen)
+            switch (e.KeyCode)
             {
-                OnVideoFullscreen(sender, EventArgs.Empty);
+                case Keys.F:
+                    OnVideoFullscreen(sender, EventArgs.Empty);
+                    break;
+
+                case Keys.Escape:
+                    if (IsFullScreen)
+                    {
+                        OnVideoFullscreen(sender, EventArgs.Empty);
+                    }
+                    break;
+
+                case Keys.Space:
+                    switch (VideoControl.PlayerState)
+                    {
+                        case MediaState.Playing:
+                            VideoControl.Pause();
+                            break;
+
+                        case MediaState.Paused:
+                            VideoControl.Play();
+                            break;
+                    }
+                    break;
             }
         }
 

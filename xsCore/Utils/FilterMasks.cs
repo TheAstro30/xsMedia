@@ -87,7 +87,7 @@ namespace xsCore.Utils
         public bool AllowAllFiles { get; set; }
         public string AllFiles { get; set; }
         
-        public List<FileMasks> FilterList = new List<FileMasks>();
+        public List<FileMasks> FilterList;
         
         /* Adding methods */
         public void Add(FileMasks masks)
@@ -119,7 +119,7 @@ namespace xsCore.Utils
                 sb.AppendFormat("{0};", fm);
             }
             var final = sb.ToString();
-            return (final.EndsWith(";") ? final.Substring(0, final.Length - 1) : final);
+            return final.EndsWith(";") ? final.Substring(0, final.Length - 1) : final;
         }
 
         /* ToString() override */        
@@ -138,7 +138,7 @@ namespace xsCore.Utils
             {
                 var tmp = sb.ToString();
                 return string.Format("{0}|{1}|{2}", AllFiles,
-                                     (tmp.EndsWith(";") ? tmp.Substring(0, tmp.Length - 1) : tmp), other);
+                                     tmp.EndsWith(";") ? tmp.Substring(0, tmp.Length - 1) : tmp, other);
             }
             return other.ToString();
         }     

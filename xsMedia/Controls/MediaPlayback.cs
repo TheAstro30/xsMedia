@@ -45,7 +45,7 @@ namespace xsMedia.Controls
 
         public event Action<object, MediaPlayerTimeChanged> TimeChanged;
         public event Action<object, MediaPlayerPositionChanged> PositionChanged;
-        public event Action<object,EventArgs> MediaEnded;
+        public event Action<object, EventArgs> MediaEnded;
 
         public event Action<object, MediaStateChange> MediaStateChanged;
         public event Action<object, MediaDurationChange> MediaDurationChanged;
@@ -74,15 +74,15 @@ namespace xsMedia.Controls
             _mediaFactory = new MediaPlayerFactory(options);
             _listPlayer = _mediaFactory.CreateMediaListPlayer<IMediaListPlayer>(PlaylistManager.MediaList);
 
-            foreach (AudioOutputModuleInfo module in _mediaFactory.AudioOutputModules)
-            {
-                System.Diagnostics.Debug.Print("New line");
-                List<AudioOutputDeviceInfo> info = _mediaFactory.GetAudioOutputDevices(module).ToList();
-                foreach (var s in info)
-                {
-                    System.Diagnostics.Debug.Print(s.Id + "-" + s.Longname);
-                }
-            }
+            //foreach (AudioOutputModuleInfo module in _mediaFactory.AudioOutputModules)
+            //{
+            //    System.Diagnostics.Debug.Print("New line");
+            //    List<AudioOutputDeviceInfo> info = _mediaFactory.GetAudioOutputDevices(module).ToList();
+            //    foreach (var s in info)
+            //    {
+            //        System.Diagnostics.Debug.Print(s.Id + "-" + s.Longname);
+            //    }
+            //}
             
             _listPlayer.Events.PlayerPositionChanged += OnPlayerPositionChanged;
             _listPlayer.Events.TimeChanged += OnTimeChanged;

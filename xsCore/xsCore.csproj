@@ -90,9 +90,6 @@
     <Compile Include="Utils\UI\UiSynchronize.cs" />
     <Compile Include="Utils\Win32.cs" />
     <Compile Include="Utils\XmlFormatting.cs" />
-    <Compile Include="Utils\YouTube\YouTubeUrl.cs" />
-    <Compile Include="Utils\YouTube\YouTubeUtils.cs" />
-    <Compile Include="Utils\YouTube\YouTubeUrlParser.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
