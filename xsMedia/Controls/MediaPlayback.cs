@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - Media Player
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -20,7 +25,6 @@ using xsVlc.Common.Events;
 using xsVlc.Common.Filters;
 using xsVlc.Common.Media;
 using xsVlc.Common.Players;
-using xsVlc.Common.Structures;
 using xsVlc.Core.Equalizer;
 using xsVlc.Core;
 
@@ -302,11 +306,7 @@ namespace xsMedia.Controls
                 Directory.CreateDirectory(path);
             }
             /* Create output filename from the current media's input path */
-            var output =Path.GetFileNameWithoutExtension(Uri.UnescapeDataString(CurrentMedia.Input));
-            if (output == null)
-            {
-                return;
-            }
+            var output = Path.GetFileNameWithoutExtension(Uri.UnescapeDataString(CurrentMedia.Input));
             /* Create a unique file name based on output file name - currently limited to 1024 instances */
             var fo = new FileInfo(string.Format("{0}\\{1}.png", path, output));
             var file = fo.MakeUnique();

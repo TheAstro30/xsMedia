@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - Media Player
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Windows.Forms;
 using xsCore.Utils.SystemUtils;
 using xsMedia.Forms;
@@ -9,7 +14,7 @@ namespace xsMedia
     {
         /* Entry point */
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var command = args != null && args.Length > 0 ? args[0] : null;
             if (AppMessenger.CheckPrevInstance(command))

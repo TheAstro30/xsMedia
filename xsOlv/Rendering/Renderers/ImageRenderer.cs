@@ -207,9 +207,10 @@ namespace libolv.Rendering.Renderers
              * If it's a string, we try to find a file by that name.
              * If we can't, we use the string as an index into our image list. */
             Image image = null;
-            if (Aspect is Byte[])
+            var bytes = Aspect as byte[];
+            if (bytes != null)
             {
-                using (var stream = new MemoryStream((Byte[])Aspect))
+                using (var stream = new MemoryStream(bytes))
                 {
                     try
                     {

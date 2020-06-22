@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Windows.Forms;
 using xsCore.Utils.SystemHooking;
 
@@ -24,6 +29,15 @@ namespace xsCore.Utils
             _keyboardHook = new KeyboardHook();
             _keyboardHook.InstallHook();
             _keyboardHook.KeyDown += KeyDown;
+        }
+
+        ~SystemHookManager()
+        {
+            _mouseHook.MouseDoubleClick -= MouseDoubleClick;
+            _mouseHook.RemoveHook();
+
+            _keyboardHook.KeyDown -= KeyDown;
+            _keyboardHook.RemoveHook();
         }
 
         private void MouseDoubleClick(object sender, MouseEventArgs e)

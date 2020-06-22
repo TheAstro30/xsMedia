@@ -229,30 +229,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Icons\videoWinIcon.ico" />
-    <None Include="Icons\menus\menuCdda.ico" />
-    <None Include="Icons\menus\menuDvd.ico" />
-    <None Include="Icons\menus\menuFile.ico" />
-    <None Include="Icons\menus\menuNet.ico" />
-    <None Include="Icons\menus\menuDisc.ico" />
-    <None Include="Icons\menus\menuList.ico" />
-    <None Include="Icons\menus\menuFolder.ico" />
-    <None Include="Icons\menus\menuSave.ico" />
-    <None Include="Icons\menus\menuClose.ico" />
-    <None Include="Icons\menus\menuNew.ico" />
-    <None Include="Icons\menus\menuSort.ico" />
-    <None Include="Icons\menus\menuRemove.ico" />
-    <None Include="Icons\menus\menuInfo.ico" />
-    <None Include="Icons\menus\menuAspect.ico" />
-    <None Include="Icons\menus\menuAudioTrack.ico" />
-    <None Include="Icons\menus\menuEffects.ico" />
-    <None Include="Icons\menus\menuOptions.ico" />
-    <None Include="Icons\menus\menuSkin.ico" />
-    <None Include="Icons\menus\menuSubFile.ico" />
-    <None Include="Icons\menus\menuVideoTrack.ico" />
-    <None Include="Icons\menus\menuZoom.ico" />
-    <None Include="Icons\menus\menuSnap.ico" />
-    <None Include="Icons\videoWinIcon_xmas.ico" />
     <Content Include="mainIcon.ico" />
   </ItemGroup>
   <ItemGroup>

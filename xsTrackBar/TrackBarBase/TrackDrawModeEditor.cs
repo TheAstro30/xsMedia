@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - xsTrackBar
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing.Design;
@@ -14,6 +19,10 @@ namespace xsTrackBar.TrackBarBase
     {
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
+            if (context == null || provider == null)
+            {
+                return TrackBarOwnerDrawParts.None;
+            }
             var parts = TrackBarOwnerDrawParts.None;
             IEnumerator enumerator = null;
             if (!(value is TrackBarOwnerDrawParts))

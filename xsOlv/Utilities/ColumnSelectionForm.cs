@@ -216,6 +216,10 @@ namespace libolv.Utilities
 
             int IComparer<OlvColumn>.Compare(OlvColumn x, OlvColumn y)
             {
+                if (x == null || y == null)
+                {
+                    return -1;
+                }
                 if (_form._mapColumnToVisible[x] && !_form._mapColumnToVisible[y])
                 {
                     return -1;
@@ -225,7 +229,7 @@ namespace libolv.Utilities
                     return 1;
                 }
                 return x.DisplayIndex == y.DisplayIndex
-                           ? String.Compare(x.Text, y.Text, StringComparison.Ordinal)
+                           ? string.Compare(x.Text, y.Text, StringComparison.Ordinal)
                            : x.DisplayIndex - y.DisplayIndex;
             }
         }

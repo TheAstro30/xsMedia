@@ -52,7 +52,7 @@ namespace libolv.Implementation.Comparers
 
         public int Compare(OlvListItem x, OlvListItem y)
         {
-            if (_sortOrder == SortOrder.None)
+            if (_sortOrder == SortOrder.None || x == null || y == null)
             {
                 return 0;
             }
@@ -60,8 +60,8 @@ namespace libolv.Implementation.Comparers
             var x1 = _column.GetValue(x.RowObject);
             var y1 = _column.GetValue(y.RowObject);
             /* Handle nulls. Null values come last */
-            var xIsNull = (x1 == null || x1 == DBNull.Value);
-            var yIsNull = (y1 == null || y1 == DBNull.Value);
+            var xIsNull = x1 == null || x1 == DBNull.Value;
+            var yIsNull = y1 == null || y1 == DBNull.Value;
             if (xIsNull || yIsNull)
             {
                 result = xIsNull && yIsNull ? 0 : (xIsNull ? -1 : 1);

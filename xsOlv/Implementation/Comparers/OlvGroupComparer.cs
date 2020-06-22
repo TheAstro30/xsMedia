@@ -36,6 +36,10 @@ namespace libolv.Implementation.Comparers
         {
             /* If we can compare the sort values, do that.
              * Otherwise do a case insensitive compare on the group header. */
+            if (x == null || y == null)
+            {
+                return 0;
+            }
             int result;
             if (x.SortValue != null && y.SortValue != null)
             {
@@ -43,7 +47,7 @@ namespace libolv.Implementation.Comparers
             }
             else
             {
-                result = String.Compare(x.Header, y.Header, StringComparison.CurrentCultureIgnoreCase);
+                result = string.Compare(x.Header, y.Header, StringComparison.CurrentCultureIgnoreCase);
             }
             if (_sortOrder == SortOrder.Descending)
             {

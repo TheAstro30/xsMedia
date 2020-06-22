@@ -2,7 +2,7 @@
 
 namespace xsVlc.Interop
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method)]
     public class MinimalLibVlcVersion : Attribute
     {
         public MinimalLibVlcVersion(string minVersion)
@@ -13,7 +13,7 @@ namespace xsVlc.Interop
         public string MinimalVersion { get; private set; }
     }
 
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class MaxLibVlcVersion : Attribute
     {
         public MaxLibVlcVersion(string maxVersion)

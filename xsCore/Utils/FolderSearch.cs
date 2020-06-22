@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -21,8 +26,6 @@ namespace xsCore.Utils
         private List<string> _directoryMasks;
         private List<string> _fileMasks;
 
-        private readonly List<DirectoryInfo> _directories = new List<DirectoryInfo>();
-
         private bool _recursive;
 
         public event Action<string> OnFileFound;
@@ -38,8 +41,14 @@ namespace xsCore.Utils
         /* Search methods */
         public void BeginSearch(DirectoryInfo initalDirectory, string fileMask, string directoryMask, bool recursive)
         {
-            if (initalDirectory != null) { _initialDirectory = initalDirectory; }
-            if (_initialDirectory == null) { return; }
+            if (initalDirectory != null)
+            {
+                _initialDirectory = initalDirectory;
+            }
+            else
+            {
+                return;
+            }
             _fileMasks = string.IsNullOrEmpty(fileMask) ? new List<string> { DefaultFileMask } : ParseMask(fileMask);
             _directoryMasks = string.IsNullOrEmpty(directoryMask) ? new List<string> { DefaultDirectoryMask } : ParseMask(directoryMask);
             _recursive = recursive;
@@ -58,7 +67,10 @@ namespace xsCore.Utils
             {
                 foreach (var f in _fileMasks.Select(baseDirectory.GetFiles).SelectMany(files => files.Where(f => OnFileFound != null)))
                 {
-                    OnFileFound(f.FullName);
+                    if (OnFileFound != null)
+                    {
+                        OnFileFound(f.FullName);
+                    }
                 }
             }
             catch (AccessViolationException)
@@ -72,7 +84,6 @@ namespace xsCore.Utils
                 foreach (var dm in _directoryMasks)
                 {
                     directories.AddRange(baseDirectory.GetDirectories(dm));
-                    _directories.AddRange(directories);
                 }
                 foreach (var di in directories)
                 {
@@ -88,9 +99,15 @@ namespace xsCore.Utils
         /* Private methods */
         private static List<string> ParseMask(string mask)
         {
-            if (string.IsNullOrEmpty(mask)) { return null; }
+            if (string.IsNullOrEmpty(mask))
+            {
+                return null;
+            }
             mask = mask.Trim(';');
-            if (mask.Length == 0) { return null; }
+            if (mask.Length == 0)
+            {
+                return null;
+            }
             var masks = new List<string>();
             masks.AddRange(mask.Split(';'));
             return masks;
@@ -99,7 +116,10 @@ namespace xsCore.Utils
         private void ThreadSearch(DirectoryInfo directory)
         {
             BeginSearch(directory);
-            if (OnFileSearchCompleted != null) { OnFileSearchCompleted(this); }
+            if (OnFileSearchCompleted != null)
+            {
+                OnFileSearchCompleted(this);
+            }
         }        
     }
 }

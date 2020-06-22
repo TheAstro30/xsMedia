@@ -64,7 +64,7 @@
     <Compile Include="PlayerControls\Controls\MediaSlider.cs" />
     <Compile Include="PlayerControls\PlayerControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\XmlSerialize.cs" />
+    <Compile Include="Utils\Serialization\XmlSerialize.cs" />
     <Compile Include="Skin\InternalSkinFormat.cs" />
     <Compile Include="Skin\MenuRenderer.cs" />
     <Compile Include="Skin\SkinManager.cs" />

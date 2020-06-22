@@ -13,9 +13,7 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Timers;
 using xsVlc.Common;
@@ -31,16 +29,11 @@ namespace xsVlc.Core.Rendering
         private NewFrameDataEventHandler _callback;
         private readonly Timer _timer = new Timer();
         private volatile int _frameRate;
-        private int _latestFps;
         private readonly object _lock = new object();
-        private readonly List<Delegate> _callbacks = new List<Delegate>();
         private Func<BitmapFormat, BitmapFormat> _formatSetupCb;
         private readonly IntPtr[] _planes = new IntPtr[3];
         private BitmapFormat _format;
         private Action<Exception> _excHandler;
-        private readonly IntPtr _lockCallback;
-        private readonly IntPtr _displayCallback;
-        private readonly IntPtr _formatCallback;
 
         private PlanarPixelData _pixelData = default(PlanarPixelData);
 
@@ -52,19 +45,15 @@ namespace xsVlc.Core.Rendering
             DisplayEventHandler deh = OnpDisplay;
             VideoFormatCallback formatCallback = OnFormatCallback;
 
-            _formatCallback = Marshal.GetFunctionPointerForDelegate(formatCallback);
-            _lockCallback = Marshal.GetFunctionPointerForDelegate(leh);
-            _displayCallback = Marshal.GetFunctionPointerForDelegate(deh);
-
-            _callbacks.Add(leh);
-            _callbacks.Add(deh);
-            _callbacks.Add(formatCallback);
+            var formatCallback1 = Marshal.GetFunctionPointerForDelegate(formatCallback);
+            var lockCallback = Marshal.GetFunctionPointerForDelegate(leh);
+            var displayCallback = Marshal.GetFunctionPointerForDelegate(deh);
 
             _timer.Elapsed += TimerElapsed;
             _timer.Interval = 1000;
 
-            Interop.Api.libvlc_video_set_format_callbacks(_mediaPlayer, _formatCallback, IntPtr.Zero);
-            Interop.Api.libvlc_video_set_callbacks(_mediaPlayer, _lockCallback, IntPtr.Zero, _displayCallback, IntPtr.Zero);
+            Interop.Api.libvlc_video_set_format_callbacks(_mediaPlayer, formatCallback1, IntPtr.Zero);
+            Interop.Api.libvlc_video_set_callbacks(_mediaPlayer, lockCallback, IntPtr.Zero, displayCallback, IntPtr.Zero);
         }
 
         private int OnFormatCallback(void** opaque, char* chroma, int* width, int* height, int* pitches, int* lines)
@@ -95,12 +84,12 @@ namespace xsVlc.Core.Rendering
             catch (Exception)
             {
                 var exc = new ArgumentException("Unsupported chroma type " + chromaStr);
-                if (_excHandler != null)
+                if (_excHandler == null)
                 {
-                    _excHandler(exc);
-                    return 1;
+                    throw exc;
                 }
-                throw exc;
+                _excHandler(exc);
+                return 1;
             }
 
             _format = new BitmapFormat(*width, *height, type);
@@ -124,7 +113,7 @@ namespace xsVlc.Core.Rendering
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            _latestFps = _frameRate;
+            ActualFrameRate = _frameRate;
             _frameRate = 0;
         }
 
@@ -199,13 +188,7 @@ namespace xsVlc.Core.Rendering
             _formatSetupCb = setupCallback;
         }
 
-        public int ActualFrameRate
-        {
-            get
-            {
-                return _latestFps;
-            }
-        }
+        public int ActualFrameRate { get; private set; }
 
         public void SetExceptionHandler(Action<Exception> handler)
         {
@@ -214,7 +197,7 @@ namespace xsVlc.Core.Rendering
 
         protected override void Dispose(bool disposing)
         {
-            IntPtr zero = IntPtr.Zero;
+            var zero = IntPtr.Zero;
             Interop.Api.libvlc_video_set_callbacks(_mediaPlayer, zero, zero, zero, zero);
 
             if (_pixelData != default(PlanarPixelData))
@@ -222,14 +205,14 @@ namespace xsVlc.Core.Rendering
                 _pixelData.Dispose();
             }
 
-            if (disposing)
+            if (!disposing)
             {
-                _timer.Dispose();
-                _formatSetupCb = null;
-                _excHandler = null;
-                _callback = null;
-                _callbacks.Clear();
+                return;
             }
+            _timer.Dispose();
+            _formatSetupCb = null;
+            _excHandler = null;
+            _callback = null;
         }
     }
 }

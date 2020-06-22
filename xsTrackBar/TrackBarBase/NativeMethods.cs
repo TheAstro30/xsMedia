@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - xsTrackBar
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -107,7 +112,7 @@ namespace xsTrackBar.TrackBarBase
 
             public override string ToString()
             {
-                return string.Format(CultureInfo.InvariantCulture, "Hwnd: {0}, ControlID: {1}, Code: {2}", new object[] { HWND, idFrom, code });
+                return string.Format(CultureInfo.InvariantCulture, "Hwnd: {0}, ControlID: {1}, Code: {2}", HWND, idFrom, code);
             }
         }
 
@@ -132,7 +137,7 @@ namespace xsTrackBar.TrackBarBase
 
             public override string ToString()
             {
-                return string.Format(CultureInfo.InvariantCulture, "{0}, {1}, {2}, {3}", new object[] { Left, Top, Right, Bottom });
+                return string.Format(CultureInfo.InvariantCulture, "{0}, {1}, {2}, {3}", Left, Top, Right, Bottom);
             }
 
             public Rectangle ToRectangle()

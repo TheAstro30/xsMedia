@@ -1,8 +1,14 @@
-﻿using System.IO;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System.IO;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 
-namespace xsCore.Serialization
+namespace xsCore.Utils.Serialization
 {
     /* XML Serialization class     
      * © Copyright 2012 - 2013 Jason James Newland
@@ -22,14 +28,22 @@ namespace xsCore.Serialization
             if (!fi.Exists || fi.Length == 0) { return false; }
             try
             {
-                var xml = new XmlSerializer(typeof(TType));
+                //var xml = new XmlSerializer(typeof (TType));
                 bool success;
                 TType cRet;
-                using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                //using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                //{   
+                using (TextReader fs = new StreamReader(fileName, Encoding.UTF8))
                 {
                     try
                     {
-                        cRet = (TType)xml.Deserialize(fs);
+                        //cRet = (TType)xml.Deserialize(fs);
+                        /* This fixes an issue with deserialization of non-ascii characters */
+                        using (var xtr = new XmlTextReader(fs))
+                        {
+                            var s = new XmlSerializer(typeof(TType));
+                            cRet = (TType)s.Deserialize(xtr);
+                        }
                         success = true;
                     }
                     catch
@@ -37,7 +51,10 @@ namespace xsCore.Serialization
                         cRet = default(TType);
                         success = false;
                     }
-                    finally { fs.Close(); }
+                    finally
+                    {
+                        fs.Close();
+                    }
                 }
                 classObject = cRet;
                 return success;
@@ -55,9 +72,9 @@ namespace xsCore.Serialization
         }
 
         public static bool Save(string fileName, TType classObject, XmlNamespace nameSpace)
-        {            
+        {
             try
-            {                
+            {
                 var xml = new XmlSerializer(typeof(TType));
                 XmlSerializerNamespaces ns = null;
                 if (nameSpace != null)
@@ -68,7 +85,6 @@ namespace xsCore.Serialization
                 bool success;
                 using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                 {
-
                     try
                     {
                         using (TextWriter tw = new StreamWriter(fs, Encoding.UTF8))

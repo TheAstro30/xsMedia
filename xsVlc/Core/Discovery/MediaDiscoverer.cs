@@ -11,7 +11,7 @@ namespace xsVlc.Core.Discovery
 {
     internal class MediaDiscoverer : DisposableBase, IMediaDiscoverer, INativePointer, IEventProvider
     {
-        private readonly IntPtr _discovery = IntPtr.Zero;
+        private readonly IntPtr _discovery;
         private IMediaDiscoveryEvents _events;
 
         public MediaDiscoverer(IntPtr hMediaLib, string name)
@@ -28,7 +28,7 @@ namespace xsVlc.Core.Discovery
         {
             get
             {
-                return (Interop.Api.libvlc_media_discoverer_is_running(_discovery) == 1);
+                return Interop.Api.libvlc_media_discoverer_is_running(_discovery) == 1;
             }
         }
 

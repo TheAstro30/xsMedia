@@ -1,4 +1,9 @@
-﻿using System.Net;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System.Net;
 using xsCore.Utils;
 
 namespace xsCore.Internal

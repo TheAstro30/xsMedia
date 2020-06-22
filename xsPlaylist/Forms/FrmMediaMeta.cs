@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - xsPlaylist
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using xsCore.Controls;
@@ -17,7 +22,6 @@ namespace xsPlaylist.Forms
         private readonly string _fileName;
         private readonly UiSynchronize _sync;
         private readonly IMediaFromFile _mediaFile;
-        private readonly IMediaPlayerFactory _factory;
         private string _artworkUrl;
 
         private Bitmap _bmpArt;
@@ -44,8 +48,8 @@ namespace xsPlaylist.Forms
             txtEncoded.TextChanged += OnMetaTextChanged;
             txtComments.TextChanged += OnMetaTextChanged;
             _fileName = fileName;
-            _factory = new MediaPlayerFactory();
-            _mediaFile = _factory.CreateMedia<IMediaFromFile>(fileName);
+            IMediaPlayerFactory factory = new MediaPlayerFactory();
+            _mediaFile = factory.CreateMedia<IMediaFromFile>(fileName);
             _mediaFile.Events.ParsedChanged += MediaParsed;
             _mediaFile.Parse(true);
 
@@ -97,7 +101,7 @@ namespace xsPlaylist.Forms
             /* Select new image for media object */
             var ofd = new OpenFileDialog
                           {
-                              Title = "Select new cover art for media file",
+                              Title = @"Select new cover art for media file",
                               Multiselect = false,
                               Filter = Filters.CoverArtFilters.ToString()
                           };

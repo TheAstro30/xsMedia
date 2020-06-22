@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -174,7 +179,7 @@ namespace xsCore.Utils
         public class CopyDataStruct
         {
             public int dwData = 0;
-            public int cbData = 0;
+            public int cbData;
             public string lpData;
 
             public CopyDataStruct()

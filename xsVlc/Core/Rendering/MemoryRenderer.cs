@@ -13,9 +13,7 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Timers;
@@ -36,7 +34,6 @@ namespace xsVlc.Core.Rendering
         private volatile int _frameRate;
         private int _latestFps;
         private readonly object _lock = new object();
-        private readonly List<Delegate> _callbacks = new List<Delegate>();
 
         private readonly IntPtr _lockCallback;
         private readonly IntPtr _unlockCallback;
@@ -59,10 +56,6 @@ namespace xsVlc.Core.Rendering
             _unlockCallback = Marshal.GetFunctionPointerForDelegate(ueh);
             _displayCallback = Marshal.GetFunctionPointerForDelegate(deh);
 
-            _callbacks.Add(leh);
-            _callbacks.Add(deh);
-            _callbacks.Add(ueh);
-
             _timer.Elapsed += TimerElapsed;
             _timer.Interval = 1000;
         }
@@ -82,7 +75,7 @@ namespace xsVlc.Core.Rendering
 
         private static void OnpUnlock(void* opaque, void* picture, void** plane)
         {
-
+            /* Empty by default */
         }
 
         private void OnpDisplay(void* opaque, void* picture)
@@ -168,7 +161,7 @@ namespace xsVlc.Core.Rendering
 
         protected override void Dispose(bool disposing)
         {
-            IntPtr zero = IntPtr.Zero;
+            var zero = IntPtr.Zero;
             Interop.Api.libvlc_video_set_callbacks(_mediaPlayer, zero, zero, zero, zero);
 
             _pixelDataPtr.Free();
@@ -176,12 +169,12 @@ namespace xsVlc.Core.Rendering
 
             MemoryHeap.Free(_buffer);
 
-            if (disposing)
+            if (!disposing)
             {
-                _timer.Dispose();
-                _callback = null;
-                _callbacks.Clear();
+                return;
             }
+            _timer.Dispose();
+            _callback = null;
         }
     }
 }

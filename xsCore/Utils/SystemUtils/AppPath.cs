@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.IO;
 using System.Text;
 
@@ -20,24 +25,24 @@ namespace xsCore.Utils.SystemUtils
         public static string MainDir(string path, bool forceApplicationDataPath)
         {
             var folder = forceApplicationDataPath ? UserFolder : BaseFolder;
-            if (!string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
             {
-                if (!forceApplicationDataPath && path.ToLower().Contains(folder.ToLower()))
-                {
-                    /* Remove app path */
-                    return @"\" + path.Replace(folder, null);
-                }
-                var currentPath = path.Substring(0, 1) == @"\" ? (folder + path).Replace(@"\\", @"\") : path.Replace(@"\\", @"\");
-                var pathOnly = Path.GetDirectoryName(currentPath);
-                if (forceApplicationDataPath && !string.IsNullOrEmpty(pathOnly) && pathOnly.ToLower() != folder.ToLower() && !Directory.Exists(pathOnly))
-                {
-                    /* If the directory doesn't exists, create it */
-                    Directory.CreateDirectory(pathOnly);
-                }
-                return currentPath;
+                /* Failed */
+                return folder;
             }
-            /* Failed */
-            return folder;
+            if (!forceApplicationDataPath && path.ToLower().Contains(folder.ToLower()))
+            {
+                /* Remove app path */
+                return @"\" + path.Replace(folder, null);
+            }
+            var currentPath = path.Substring(0, 1) == @"\" ? (folder + path).Replace(@"\\", @"\") : path.Replace(@"\\", @"\");
+            var pathOnly = Path.GetDirectoryName(currentPath);
+            if (forceApplicationDataPath && !string.IsNullOrEmpty(pathOnly) && pathOnly.ToLower() != folder.ToLower() && !Directory.Exists(pathOnly))
+            {
+                /* If the directory doesn't exists, create it */
+                Directory.CreateDirectory(pathOnly);
+            }
+            return currentPath;            
         }
 
         public static string TruncatePath(string path, int pathWidth)

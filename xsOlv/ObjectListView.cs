@@ -954,20 +954,13 @@ namespace libolv
 
         public virtual OlvListItem ModelToItem(object modelObject)
         {
-            if (modelObject == null)
-            {
-                return null;
-            }
-            return Items.Cast<OlvListItem>().FirstOrDefault(olvi => olvi.RowObject != null && olvi.RowObject.Equals(modelObject));
+            return modelObject == null ? null : Items.Cast<OlvListItem>().FirstOrDefault(olvi => olvi.RowObject != null && olvi.RowObject.Equals(modelObject));
         }
 
         protected virtual void PostProcessRows()
         {
             /* If this method is called during a BeginUpdate/EndUpdate pair, changes to the
              * Items collection are cached. Getting the Count flushes that cache. */
-#pragma warning disable 168
-            var count = Items.Count;
-#pragma warning restore 168
             var i = 0;
             if (ShowGroups)
             {

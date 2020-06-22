@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
@@ -26,7 +31,6 @@ namespace xsCore.CdUtils
         }
 
         private CdMonitor _fInternal;
-        private readonly IntPtr _fHandle;
         private bool _fDisposed;
 
         public event Action OnCdLookupComplete;
@@ -39,12 +43,12 @@ namespace xsCore.CdUtils
 
         public CdManager(IWin32Window window)
         {
-            _fHandle = window.Handle;
+            var fHandle = window.Handle;
             AvailableDrives = new Dictionary<int, CdInfo>();
             _fInternal = new CdMonitor(this);
             _fDisposed = false;
             CdTrackInfo = new CdDrive();
-            if (_fInternal.Handle == IntPtr.Zero) { _fInternal.AssignHandle(_fHandle); }
+            if (_fInternal.Handle == IntPtr.Zero) { _fInternal.AssignHandle(fHandle); }
             /* Search for CD/DVD drives */
             var t = new Thread(BeginCdLookUp);
             t.Start();

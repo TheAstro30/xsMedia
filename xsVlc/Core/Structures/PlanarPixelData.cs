@@ -13,7 +13,6 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
 using xsVlc.Core.Utils;
 
@@ -63,6 +62,10 @@ namespace xsVlc.Core.Structures
 
         public override bool Equals(object obj)
         {
+            if (obj == null)
+            {
+                return false;
+            }
             var pd = (PlanarPixelData)obj;
             return this == pd;
         }

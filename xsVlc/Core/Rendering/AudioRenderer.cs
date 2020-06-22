@@ -13,9 +13,7 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Timers;
 using xsVlc.Common;
@@ -24,13 +22,12 @@ using xsVlc.Common.Structures;
 
 namespace xsVlc.Core.Rendering
 {
-    internal unsafe sealed class AudioRenderer : DisposableBase, IAudioRenderer
+    internal sealed unsafe class AudioRenderer : DisposableBase, IAudioRenderer
     {
         private readonly IntPtr _mediaPlayer;
         private AudioCallbacks _callbacks = new AudioCallbacks();
         private Func<SoundFormat, SoundFormat> _formatSetupCb;
         private SoundFormat _format;
-        private readonly List<Delegate> _callbacksDelegates = new List<Delegate>();
         private Action<Exception> _excHandler;
         private readonly IntPtr _hSetup;
         private readonly IntPtr _hVolume;
@@ -41,7 +38,6 @@ namespace xsVlc.Core.Rendering
         private readonly IntPtr _hDrain;
         private readonly Timer _timer = new Timer();
         private volatile int _frameRate;
-        private int _latestFps;
 
         public AudioRenderer(IntPtr hMediaPlayer)
         {
@@ -63,21 +59,13 @@ namespace xsVlc.Core.Rendering
             _hFlush = Marshal.GetFunctionPointerForDelegate(flush);
             _hDrain = Marshal.GetFunctionPointerForDelegate(drain);
 
-            _callbacksDelegates.Add(pceh);
-            _callbacksDelegates.Add(vceh);
-            _callbacksDelegates.Add(sceh);
-            _callbacksDelegates.Add(pause);
-            _callbacksDelegates.Add(resume);
-            _callbacksDelegates.Add(flush);
-            _callbacksDelegates.Add(drain);
-
             _timer.Elapsed += TimerElapsed;
             _timer.Interval = 1000;
         }
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            _latestFps = _frameRate;
+            ActualFrameRate = _frameRate;
             _frameRate = 0;
         }
 
@@ -189,12 +177,12 @@ namespace xsVlc.Core.Rendering
             catch (Exception)
             {
                 var exc = new ArgumentException("Unsupported sound type " + formatStr);
-                if (_excHandler != null)
+                if (_excHandler == null)
                 {
-                    _excHandler(exc);
-                    return 1;
+                    throw exc;
                 }
-                throw exc;
+                _excHandler(exc);
+                return 1;
             }
             _format = new SoundFormat(sType, *rate, *channels);
             if (_formatSetupCb != null)
@@ -212,11 +200,13 @@ namespace xsVlc.Core.Rendering
             Interop.Api.libvlc_audio_set_format_callbacks(_mediaPlayer, IntPtr.Zero, IntPtr.Zero);
             Interop.Api.libvlc_audio_set_callbacks(_mediaPlayer, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 
-            if (!disposing) { return; }
+            if (!disposing)
+            {
+                return;
+            }
             _formatSetupCb = null;
             _excHandler = null;
             _callbacks = null;
-            _callbacksDelegates.Clear();
         }
 
         public void SetExceptionHandler(Action<Exception> handler)
@@ -224,12 +214,6 @@ namespace xsVlc.Core.Rendering
             _excHandler = handler;
         }
 
-        public int ActualFrameRate
-        {
-            get
-            {
-                return _latestFps;
-            }
-        }
+        public int ActualFrameRate { get; private set; }
     }
 }

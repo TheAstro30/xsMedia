@@ -1,15 +1,20 @@
-﻿using System;
+﻿/* xsMedia - xsSettings
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Windows.Forms;
 using xsSettings.Internal;
 using xsSettings.Settings;
 
 namespace xsSettings.Controls
 {
-    public partial class OptionVcd : OptionBase
+    public partial class OptionDvd : OptionBase
     {
         private readonly SettingsDisc _disc;
 
-        public OptionVcd(SettingsDisc disc) : base("VCD/SVCD Options")
+        public OptionDvd(SettingsDisc disc) : base("DVD Options")
         {
             InitializeComponent();
             _disc = disc;

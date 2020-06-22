@@ -1,6 +1,6 @@
 ﻿namespace xsSettings.Controls
 {
-    partial class OptionDvd
+    partial class OptionVcd
     {
         /// <summary> 
         /// Required designer variable.

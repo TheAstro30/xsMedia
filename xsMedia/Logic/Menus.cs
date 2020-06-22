@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - Media Player
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -635,7 +640,7 @@ namespace xsMedia.Logic
                         m,
                         new ToolStripSeparator(),
                         MenuHelper.AddMenuItem("Effects", "EFFECTS", Keys.Control | Keys.E, true, false, Resources.menuEffects.ToBitmap(), menuHandler),
-                        MenuHelper.AddMenuItem("Options...", "OPTIONS", Keys.Control | Keys.O, true, false, Resources.menuOptions.ToBitmap(), menuHandler)
+                        MenuHelper.AddMenuItem("Options...", "OPTIONS", Keys.Control | Keys.P, true, false, Resources.menuOptions.ToBitmap(), menuHandler)
                     });
         }
 

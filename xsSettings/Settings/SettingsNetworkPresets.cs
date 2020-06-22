@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - xsSettings
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -15,7 +20,7 @@ namespace xsSettings.Settings
             {
                 public int Compare(SettingsNetworkPresetData x, SettingsNetworkPresetData y)
                 {
-                    return new CaseInsensitiveComparer().Compare(x.Id, y.Id);
+                    return x == null || y == null ? 0 : new CaseInsensitiveComparer().Compare(x.Id, y.Id);
                 }
             }
 

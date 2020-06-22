@@ -13,7 +13,6 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
 using xsVlc.Common;
 using xsVlc.Common.Events;
@@ -27,19 +26,18 @@ namespace xsVlc.Core.Players
 {
     internal class MediaListPlayer : DisposableBase, IMediaListPlayer, IEventProvider
     {
-        private readonly IntPtr _mediaListPlayer = IntPtr.Zero;
+        private readonly IntPtr _mediaListPlayer;
         private readonly IDiskPlayer _videoPlayer;
-        private readonly IMediaList _mediaList;
         private PlaybackMode _playbackMode = PlaybackMode.Default;
         private IntPtr _eventManager = IntPtr.Zero;
         private IMediaListPlayerEvents _mediaListEvents;
 
         public MediaListPlayer(IntPtr hMediaLib, IMediaList mediaList)
         {
-            _mediaList = mediaList;
+            var mediaList1 = mediaList;
             _mediaListPlayer = Api.libvlc_media_list_player_new(hMediaLib);
-            Api.libvlc_media_list_player_set_media_list(_mediaListPlayer, ((INativePointer)_mediaList).Pointer);
-            _mediaList.Dispose();
+            Api.libvlc_media_list_player_set_media_list(_mediaListPlayer, ((INativePointer)mediaList1).Pointer);
+            mediaList1.Dispose();
 
             _videoPlayer = new DiskPlayer(hMediaLib);
             Api.libvlc_media_list_player_set_media_player(_mediaListPlayer, ((INativePointer)_videoPlayer).Pointer);
@@ -193,7 +191,7 @@ namespace xsVlc.Core.Players
         {
             var x1 = (INativePointer)x;
             var y1 = (INativePointer)y;
-            return x1.Pointer == y1.Pointer;
+            return x1 != null && y1 != null && x1.Pointer == y1.Pointer;
         }
 
         public int GetHashCode(IPlayer obj)

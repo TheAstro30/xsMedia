@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -195,13 +200,13 @@ namespace xsCore.Utils.SystemUtils
 
         /* Interop */
         [DllImport("shell32", CharSet = CharSet.Auto)]
-        private extern static int SHGetMalloc(ref IMalloc ppMalloc);
+        private static extern int SHGetMalloc(ref IMalloc ppMalloc);
 
         [DllImport("shell32", CharSet = CharSet.Auto)]
-        private extern static int SHGetDesktopFolder(ref IShellFolder ppshf);
+        private static extern int SHGetDesktopFolder(ref IShellFolder ppshf);
 
         [DllImport("shell32", CharSet = CharSet.Auto)]
-        private extern static int SHGetPathFromIDList(IntPtr pidl, StringBuilder pszPath);
+        private static extern int SHGetPathFromIDList(IntPtr pidl, StringBuilder pszPath);
 
         /* Private members */
         private IMalloc _alloc;

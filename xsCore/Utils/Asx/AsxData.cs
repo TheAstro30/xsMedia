@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System.Collections.Generic;
 
 namespace xsCore.Utils.Asx
 {

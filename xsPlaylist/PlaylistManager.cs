@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - xsPlaylist
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

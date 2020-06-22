@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - xsSettings
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Drawing;
 using System.Xml.Serialization;
 using xsCore.PlayerControls.Controls;
@@ -10,7 +15,7 @@ namespace xsSettings.Internal
     public class PlayerSettings
     {
         public PlayerSettings()
-        {
+        {            
             Window.Location = new Point(100, 100);
             Window.Size = new Size(431, 235);
             Window.CurrentSkin = @"\skins\classic\classic.xml";
@@ -19,14 +24,15 @@ namespace xsSettings.Internal
             Player.CounterType = MediaCounter.TimeDisplay.Elapsed;
 
             Player.Options.Option.AddRange(new[]
-            {
-                new SettingsMediaOptions.MediaOption("--no-osd"),
-                new SettingsMediaOptions.MediaOption("--disable-screensaver"),
-                new SettingsMediaOptions.MediaOption("--ffmpeg-hw"),
-                new SettingsMediaOptions.MediaOption("--sub-filter=marq:logo"),
-                new SettingsMediaOptions.MediaOption("--plugin-path", @"\plugins"),
-                new SettingsMediaOptions.MediaOption("--soundfont", @"\soundfonts\Unison.sf2")
-            });
+                {
+                    new SettingsMediaOptions.MediaOption("--no-osd"),
+                    new SettingsMediaOptions.MediaOption("--disable-screensaver"),
+                    new SettingsMediaOptions.MediaOption("--ffmpeg-hw"),
+                    new SettingsMediaOptions.MediaOption("--sub-filter=marq:logo"),
+                    new SettingsMediaOptions.MediaOption("--plugin-path", @"\plugins"),
+                    new SettingsMediaOptions.MediaOption("--soundfont", @"\soundfonts\Unison.sf2")
+                });
+            Option.Id = "Disc";
             /* Discs */
             Cdda.Options.Option.Add(new SettingsMediaOptions.MediaOption(":disc-caching", "300"));
             Cdda.Cddb.Enabled = true;
@@ -39,33 +45,33 @@ namespace xsSettings.Internal
             /* Basic network preset data */
             NetworkPresets.Options.Option.Add(new SettingsMediaOptions.MediaOption(":network-caching", "1000"));
             NetworkPresets.Preset.AddRange(new[]
-            {
-                new SettingsNetworkPresets.SettingsNetworkPresetData
                 {
-                    Id = "Hobart FM",
-                    Url = "http://203.45.159.151:88/broadwave.mp3?src=1&rate=1&ref="
-                },
-                new SettingsNetworkPresets.SettingsNetworkPresetData
-                {
-                    Id = "ABC News Radio",
-                    Url = "http://live-radio01.mediahubaustralia.com/PBW/mp3/"
-                },
-                new SettingsNetworkPresets.SettingsNetworkPresetData
-                {
-                    Id = "Triple J (NSW)",
-                    Url = "http://live-radio01.mediahubaustralia.com/2TJW/mp3/"
-                },
-                new SettingsNetworkPresets.SettingsNetworkPresetData
-                {
-                    Id = "ABC Radio National (NSW)",
-                    Url = "http://live-radio01.mediahubaustralia.com/2RNW/mp3/"
-                },
-                new SettingsNetworkPresets.SettingsNetworkPresetData
-                {
-                    Id = "GrooveHitzRadio",
-                    Url = "http://server10.reliastream.com:8003/stream"
-                }
-            });
+                    new SettingsNetworkPresets.SettingsNetworkPresetData
+                        {
+                            Id = "Hobart FM",
+                            Url = "http://203.45.159.151:88/broadwave.mp3?src=1&rate=1&ref="
+                        },
+                    new SettingsNetworkPresets.SettingsNetworkPresetData
+                        {
+                            Id = "ABC News Radio",
+                            Url = "http://live-radio01.mediahubaustralia.com/PBW/mp3/"
+                        },
+                    new SettingsNetworkPresets.SettingsNetworkPresetData
+                        {
+                            Id = "Triple J (NSW)",
+                            Url = "http://live-radio01.mediahubaustralia.com/2TJW/mp3/"
+                        },
+                    new SettingsNetworkPresets.SettingsNetworkPresetData
+                        {
+                            Id = "ABC Radio National (NSW)",
+                            Url = "http://live-radio01.mediahubaustralia.com/2RNW/mp3/"
+                        },
+                    new SettingsNetworkPresets.SettingsNetworkPresetData
+                        {
+                            Id = "GrooveHitzRadio",
+                            Url = "http://server10.reliastream.com:8003/stream"
+                        }
+                });
             NetworkPresets.Sort();
             NetworkPresets.ShowQuality = true;
             NetworkPresets.Proxy.Port = 8080;
@@ -73,9 +79,10 @@ namespace xsSettings.Internal
 
         /* Copy constructor */
         public PlayerSettings(PlayerSettings settings)
-        {
+        {            
             Window = new SettingsWindow(settings.Window);
             Player = new SettingsPlayer(settings.Player);
+            Option = new SettingsSelectedTab(settings.Option);
             /* Disc */
             Cdda = new SettingsDisc(settings.Cdda);
             Vcd = new SettingsDisc(settings.Vcd);
@@ -85,6 +92,9 @@ namespace xsSettings.Internal
             /* Filters */
             Filters = new SettingsFilters(settings.Filters);
         }
+
+        [XmlElement("option")] 
+        public SettingsSelectedTab Option = new SettingsSelectedTab();
 
         [XmlElement("window")]
         public SettingsWindow Window = new SettingsWindow();

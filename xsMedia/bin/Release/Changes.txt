@@ -1,0 +1,55 @@
+*** Version 2.1.8 - , 2020 ***
+- Updated libVLC plugins to version 3.0.10
+- Internal code libraries and main exe code clean up
+- Made sure both mouse and keyboard hooks were removed on exit of program
+- Update XML serializer code to handle unicode characters in files (not that this should be an issue - but was updated in another application, so just following through)
+- Added spacebar pause/resume function for already playing media
+- Pressing the "F" key now switches between normal and fullscreen mode on videos
+- Updated network presets as original ones no longer worked
+- Settings dialog now remembers what "tab" is selected (also cleaned up internal code)
+- Added support for playing MIDI files
+- Hopefully fixed an exit crash bug by checking if media is actually playing/paused before calling stop
+- Removed YouTube playback support as it no longer works (YT keep changing it and I can't be bothered constantly chasing it)
+- Unfortunately, as of March 31 2020, freedb (which is used for getting CDDB information on CD tracks) has been shutdown. This means the CDDB function of xsMedia no longer works. The code is left intact even though it doesn't work.
+
+*** Version 1.0.6 - 30 September, 2016 ***
+- Tested and confirmed xsMedia works correctly under Windows 10 - thanks to ExoDragon
+- Fixed a bug in the video effect filters not applying properly while a video is playing
+- Fixed a bug that allowed fullscreen video to be activated with any mouse button rather than just the left
+- Updated libVLC plugins per recent VLC update (2.2.2)
+- Fixed YouTube parser, now YouTube is playable again in xsMedia (YT changed their HTML layout a couple of years ago, I forgot to update xsMedia accordingly)
+- Playlist now uses a different listview control rather than the standard Windows one; as a result _BG_GRADIENT_TOP and _BG_GRADIENT_BOTTOM XML tags have been replaced with _BACKCOLOR in skin files (<playlist> header)
+
+*** Version 1.0.5 - 12 July, 2015 ***
+- Tested and confirmed xsMedia works correctly under Windows 8.x
+- Included fonts needed in the installer that are not part of Windows 7/8 by default (unless Office is installed)
+- Updated libVLC plugins per VLC update
+- Fixed a bug with some video files not allowing fullscreen mode in some instances
+- Implemented an audio equalizer as per change to libVLC 2.2.1
+- Fixed a bug with command line processing that caused "Error - No active input" to be displayed in titlebar and file failing
+  to play when filenames contained # or &, etc.
+- Added support for M3U8 playlist files
+- Added support for opening ASX based web streams
+- Changed drag and dropping of files in the playlist - it now plays from the first file inserted, not the last
+
+*** Version 1.0.4 - 27 June, 2014 ***
+- Sped up YouTube internal parser to make it a little faster retreiving video content urls
+- Added ability to take video snapshots from playing videos which currently saves to the user's
+  "My Pictures" folder under the folder "xsMedia Snapshots"
+- Made the about dialog a bit bigger so the plugins information box didn't look so cramped
+- Included xsTrackBar.dll which was forgotten in previous release
+
+*** Version 1.0.3 - 9 March 2014 ***
+- Added support for playing VCD/SVCD discs
+- Fixed skin change redraw problem
+- Fixed calculation errors in positioning of controls of a skin (had hard-coded numbers instead of using the skin file to calculate
+  correctly)
+- Added "Clover" and "Dark Sacrlett" skins
+- Added selection menus for audio tracks, video tracks, aspect ratio, zoom mode and subtitles tracks
+- Added effects menu to prefrences
+- Added video adjustment effect for hue, brightness, contrast, saturation and gamma
+- Added video filters/effects including marquee, logo, crop and deinterlace
+- Open network list in dialog box now sorts in alphabetical order
+
+*** Version 1.0.2 (First Public Release) - 14 March 2014 ***
+- First public release

@@ -13,7 +13,6 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -217,7 +216,7 @@ namespace xsVlc.Core.Media
         {
             var x1 = (INativePointer)x;
             var y1 = (INativePointer)y;
-            return x1.Pointer == y1.Pointer;
+            return x1 != null && y1 != null && x1.Pointer == y1.Pointer;
         }
 
         public int GetHashCode(IMedia obj)

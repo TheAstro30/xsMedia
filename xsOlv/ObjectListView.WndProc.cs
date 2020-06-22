@@ -703,7 +703,7 @@ namespace libolv
             }
             if (IsVistaOrLater && HasCollapsibleGroups)
             {
-                base.DefWndProc(ref m);
+                DefWndProc(ref m);
             }
             return false;
         }

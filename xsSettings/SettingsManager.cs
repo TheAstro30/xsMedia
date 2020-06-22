@@ -1,6 +1,11 @@
-﻿using System.IO;
+﻿/* xsMedia - xsSettings
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System.IO;
 using System.Windows.Forms;
-using xsCore.Serialization;
+using xsCore.Utils.Serialization;
 using xsSettings.Forms;
 using xsSettings.Internal;
 

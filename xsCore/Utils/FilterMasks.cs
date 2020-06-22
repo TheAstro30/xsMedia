@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,8 +22,8 @@ namespace xsCore.Utils
         public class CompareMasks : IComparer<FileMaskData>
         {
             public int Compare(FileMaskData x, FileMaskData y)
-            {                
-                return new CaseInsensitiveComparer().Compare(x.Mask, y.Mask);
+            {
+                return x == null || y == null ? 0 : new CaseInsensitiveComparer().Compare(x.Mask, y.Mask);
             }
         }
 

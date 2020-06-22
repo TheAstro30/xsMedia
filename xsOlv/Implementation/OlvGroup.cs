@@ -131,7 +131,7 @@ namespace libolv.Implementation
                     System.Diagnostics.Debug.Assert(_groupIdPropInfo != null);
                 }
                 var groupId = _groupIdPropInfo.GetValue(ListViewGroup, null) as int?;
-                return groupId.HasValue ? groupId.Value : -1;
+                return groupId ?? -1;
             }
         }
 

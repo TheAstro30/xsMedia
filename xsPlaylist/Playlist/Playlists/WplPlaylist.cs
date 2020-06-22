@@ -1,10 +1,15 @@
-﻿using System;
+﻿/* xsMedia - xsPlaylist
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
-using xsCore.Serialization;
+using xsCore.Utils.Serialization;
 
 namespace xsPlaylist.Playlist.Playlists
 {
@@ -89,7 +94,7 @@ namespace xsPlaylist.Playlist.Playlists
         }
 
         [XmlElement("head")]
-        public WplHeader Header = new WplHeader();
+        public WplHeader Header { get; set; }
 
         [XmlElement("body")]
         public WplBody Body = new WplBody();

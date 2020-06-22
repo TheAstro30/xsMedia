@@ -13,11 +13,9 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 using xsVlc.Common;
 using xsVlc.Common.Discovery;
 using xsVlc.Common.Internal;

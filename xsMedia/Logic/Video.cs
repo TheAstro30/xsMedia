@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - Media Player
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -183,6 +188,10 @@ namespace xsMedia.Logic
 
         private static void OnVideoKeyDown(object sender, KeyEventArgs e)
         {
+            if (Win32.GetForegroundWindow() != _player.Handle || Playlist.PlaylistControl.Visible)
+            {
+                return;
+            }
             switch (e.KeyCode)
             {
                 case Keys.F:

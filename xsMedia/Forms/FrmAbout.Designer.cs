@@ -85,7 +85,7 @@
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblVersion.Location = new System.Drawing.Point(84, 89);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(49, 15);
+            this.lblVersion.Size = new System.Drawing.Size(48, 15);
             this.lblVersion.TabIndex = 4;
             this.lblVersion.Text = "Version:";
             // 
@@ -117,7 +117,7 @@
             this.lblCopyright.Name = "lblCopyright";
             this.lblCopyright.Size = new System.Drawing.Size(365, 23);
             this.lblCopyright.TabIndex = 7;
-            this.lblCopyright.Text = "Copyright ©2013 - 2017, KangaSoft Software. All Rights Reserved";
+            this.lblCopyright.Text = "Copyright ©2013 - 2020, KangaSoft Software. All Rights Reserved";
             // 
             // linkVlc
             // 

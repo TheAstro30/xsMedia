@@ -13,7 +13,6 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -25,7 +24,7 @@ namespace xsVlc.Core.Events
     internal abstract class EventManager
     {
         public IEventProvider EventProvider;
-        private readonly List<VlcEventHandlerDelegate> _callbacks = new List<VlcEventHandlerDelegate>();
+        public readonly List<VlcEventHandlerDelegate> Callbacks = new List<VlcEventHandlerDelegate>();
         private readonly IntPtr _callback;
 
         protected EventManager(IEventProvider eventProvider)
@@ -35,7 +34,7 @@ namespace xsVlc.Core.Events
             VlcEventHandlerDelegate callback1 = MediaPlayerEventOccured;
 
             _callback = Marshal.GetFunctionPointerForDelegate(callback1);
-            _callbacks.Add(callback1);
+            Callbacks.Add(callback1);
 
             GC.KeepAlive(callback1);
         }

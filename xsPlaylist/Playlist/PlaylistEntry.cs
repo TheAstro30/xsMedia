@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - xsPlaylist
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +36,7 @@ namespace xsPlaylist.Playlist
         {
             public int Compare(PlaylistEntry x, PlaylistEntry y)
             {
-                return new CaseInsensitiveComparer().Compare(x.Title, y.Title);
+                return x == null || y == null ? 0 : new CaseInsensitiveComparer().Compare(x.Title, y.Title);
             }
         }
 
@@ -39,7 +44,7 @@ namespace xsPlaylist.Playlist
         {
             public int Compare(PlaylistEntry x, PlaylistEntry y)
             {
-                return new CaseInsensitiveComparer().Compare(x.Artist, y.Artist);
+                return x == null || y == null ? 0 : new CaseInsensitiveComparer().Compare(x.Artist, y.Artist);
             }
         }
 
@@ -47,7 +52,7 @@ namespace xsPlaylist.Playlist
         {
             public int Compare(PlaylistEntry x, PlaylistEntry y)
             {
-                return new CaseInsensitiveComparer().Compare(x.Location.ToLower(), y.Location.ToLower());
+                return x == null || y == null ? 0 : new CaseInsensitiveComparer().Compare(x.Location.ToLower(), y.Location.ToLower());
             }
         }
 
@@ -55,7 +60,7 @@ namespace xsPlaylist.Playlist
         {
             public bool Equals(PlaylistEntry x, PlaylistEntry y)
             {
-                return x.Location.ToLower() == y.Location.ToLower();
+                return x != null && y != null && string.Equals(x.Location, y.Location, StringComparison.CurrentCultureIgnoreCase);
             }
 
             public int GetHashCode(PlaylistEntry obj)

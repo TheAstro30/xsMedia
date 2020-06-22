@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -262,11 +267,6 @@ namespace xsCore.Controls
                     {
                         /* Increment alpha channel color */
                         percentageOfDarken += bytIncrement;
-                        /* Ensure that we don't exceed the maximum alpha channel value (255) */
-                        if (percentageOfDarken > byte.MaxValue)
-                        {
-                            percentageOfDarken = byte.MaxValue;
-                        }
                         /* Determine the spoke forecolor */
                         objColors[intCursor] = Darken(color, percentageOfDarken);
                     }

@@ -45,11 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\OptionVcd.cs">
+    <Compile Include="Controls\OptionDvd.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\OptionVcd.Designer.cs">
-      <DependentUpon>OptionVcd.cs</DependentUpon>
+    <Compile Include="Controls\OptionDvd.Designer.cs">
+      <DependentUpon>OptionDvd.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\OptionBase.cs">
       <SubType>UserControl</SubType>
@@ -69,11 +69,11 @@
     <Compile Include="Controls\OptionCddb.Designer.cs">
       <DependentUpon>OptionCddb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\OptionDvd.cs">
+    <Compile Include="Controls\OptionVcd.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\OptionDvd.Designer.cs">
-      <DependentUpon>OptionDvd.cs</DependentUpon>
+    <Compile Include="Controls\OptionVcd.Designer.cs">
+      <DependentUpon>OptionVcd.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\OptionNetwork.cs">
       <SubType>UserControl</SubType>
@@ -89,9 +89,6 @@
     </Compile>
     <Compile Include="Forms\FrmSettings.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmSettings.Designer.cs">
-      <DependentUpon>FrmSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Internal\OptionsList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,8 +120,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Controls\OptionVcd.resx">
-      <DependentUpon>OptionVcd.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\OptionDvd.resx">
+      <DependentUpon>OptionDvd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OptionBase.resx">
       <DependentUpon>OptionBase.cs</DependentUpon>
@@ -135,17 +132,14 @@
     <EmbeddedResource Include="Controls\OptionCddb.resx">
       <DependentUpon>OptionCddb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OptionDvd.resx">
-      <DependentUpon>OptionDvd.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\OptionVcd.resx">
+      <DependentUpon>OptionVcd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OptionNetwork.resx">
       <DependentUpon>OptionNetwork.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OptionProxy.resx">
       <DependentUpon>OptionProxy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmSettings.resx">
-      <DependentUpon>FrmSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

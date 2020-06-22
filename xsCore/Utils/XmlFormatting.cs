@@ -1,4 +1,9 @@
-﻿using System.Drawing;
+﻿/* xsMedia - sxCore
+ * (c)2013 - 2020
+ * Jason James Newland
+ * KangaSoft Software, All Rights Reserved
+ * Licenced under the GNU public licence */
+using System.Drawing;
 
 namespace xsCore.Utils
 {
@@ -7,7 +12,7 @@ namespace xsCore.Utils
         /* Xml formatting methods */
         public static int[] ParseXyFormat(string s)
         {
-            var sp = s.Split(new[] { ',' });
+            var sp = s.Split(',');
             var inr = new int[sp.Length];
             for (var i = 0; i < sp.Length; ++i)
             {

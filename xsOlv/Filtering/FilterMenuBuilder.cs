@@ -168,12 +168,7 @@ namespace libolv.Filtering
             var col = column;
             var clearAll = new ToolStripMenuItem(ClearAllFiltersLabel, ClearFilteringImage, (sender, args) => ClearAllFilters(col));
             var apply = new ToolStripMenuItem(ApplyLabel, FilteringImage, (sender, args) => EnactFilter(checkedList, column));
-            var subMenu = new ToolStripMenuItem(FilteringLabel, null, new ToolStripItem[]
-                                                                          {
-                                                                              clearAll,
-                                                                              new ToolStripSeparator(),
-                                                                              checkedList, apply
-                                                                          });
+            var subMenu = new ToolStripMenuItem(FilteringLabel, null, clearAll, new ToolStripSeparator(), checkedList, apply);
             return subMenu;
         }
 

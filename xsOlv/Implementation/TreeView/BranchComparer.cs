@@ -33,7 +33,7 @@ namespace libolv.Implementation.TreeView
 
         public int Compare(Branch x, Branch y)
         {
-            return _actualComparer.Compare(x.Model, y.Model);
+            return x == null || y== null ? 0 : _actualComparer.Compare(x.Model, y.Model);
         } 
     }
 }

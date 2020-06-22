@@ -55,7 +55,7 @@ namespace xsVlc.Core.Vlm
             if (options != null)
             {
                 var enumerable = options as string[] ?? options.ToArray();
-                optionsNumber = enumerable.Count();
+                optionsNumber = enumerable.Length;
                 optionsArray = enumerable.ToArray();
             }
 
@@ -73,7 +73,7 @@ namespace xsVlc.Core.Vlm
             if (options != null)
             {
                 var enumerable = options as string[] ?? options.ToArray();
-                optionsNumber = enumerable.Count();
+                optionsNumber = enumerable.Length;
                 optionsArray = enumerable.ToArray();
             }
             if (Interop.Api.libvlc_vlm_add_vod(_mediaLib, name.ToUtf8(), input.ToUtf8(), optionsNumber, optionsArray, bEnabled ? 1 : 0, mux.ToUtf8()) != 0)
@@ -146,7 +146,7 @@ namespace xsVlc.Core.Vlm
             if (options != null)
             {
                 var enumerable = options as string[] ?? options.ToArray();
-                optionsNumber = enumerable.Count();
+                optionsNumber = enumerable.Length;
                 optionsArray = enumerable.ToArray();
             }
 

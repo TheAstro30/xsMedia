@@ -13,7 +13,6 @@
 //    GNU General Public License for more details.
 //     
 // ========================================================================
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -71,12 +70,16 @@ namespace xsVlc.Core.Media
         {
             using (new MediaListLock(HMediaList))
             {
-                return Interop.Api.libvlc_media_list_index_of_item(HMediaList, ((INativePointer)item).Pointer);
+                return item == null ? -1 : Interop.Api.libvlc_media_list_index_of_item(HMediaList, ((INativePointer)item).Pointer);
             }
         }
 
         public void Insert(int index, IMedia item)
         {
+            if (item == null)
+            {
+                return;
+            }
             using (new MediaListLock(HMediaList))
             {
                 Interop.Api.libvlc_media_list_insert_media(HMediaList, ((INativePointer)item).Pointer, index);
@@ -114,6 +117,10 @@ namespace xsVlc.Core.Media
 
         public void Add(IMedia item)
         {
+            if (item == null)
+            {
+                return;
+            }
             using (new MediaListLock(HMediaList))
             {
                 Interop.Api.libvlc_media_list_add_media(HMediaList, ((INativePointer)item).Pointer);

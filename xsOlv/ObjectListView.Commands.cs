@@ -788,7 +788,7 @@ namespace libolv
                     {
                         foreach (var olvGroup in OlvGroups.Where(olvGroup => olvGroup.GroupId == index))
                         {
-                            @group = olvGroup;
+                            group = olvGroup;
                             break;
                         }
                     }

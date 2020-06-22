@@ -49,14 +49,14 @@ namespace libolv.Rendering.Renderers
         [Category("Behavior"), Description("The index of the image that should be drawn"), DefaultValue(-1)]
         public int ImageIndex
         {
-            get { return _imageSelector is Int32 ? (Int32)_imageSelector : -1; }
+            get { return _imageSelector as int? ?? -1; }
             set { _imageSelector = value; }
         }
 
         [Category("Behavior"), Description("The index of the image that should be drawn"), DefaultValue(null)]
         public string ImageName
         {
-            get { return _imageSelector as String; }
+            get { return _imageSelector as string; }
             set { _imageSelector = value; }
         }
 

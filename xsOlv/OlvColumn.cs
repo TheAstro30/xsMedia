@@ -342,7 +342,7 @@ namespace libolv
         [Category("ObjectListView"), Description("How will the header text be aligned?"), DefaultValue(HorizontalAlignment.Left)]
         public HorizontalAlignment HeaderTextAlign
         {
-            get { return _headerTextAlign.HasValue ? _headerTextAlign.Value : TextAlign; }
+            get { return _headerTextAlign ?? TextAlign; }
             set { _headerTextAlign = value; }
         }
 
@@ -462,7 +462,11 @@ namespace libolv
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public RenderDelegate RendererDelegate
         {
-            get { return Renderer is Version1Renderer ? ((Version1Renderer)Renderer).RenderDelegate : null; }
+            get
+            {
+                var renderer = Renderer as Version1Renderer;
+                return renderer != null ? renderer.RenderDelegate : null;
+            }
             set { Renderer = value == null ? null : new Version1Renderer(value); }
         }
 
@@ -489,7 +493,7 @@ namespace libolv
 
         public new HorizontalAlignment TextAlign
         {
-            get { return _textAlign.HasValue ? _textAlign.Value : base.TextAlign; }
+            get { return _textAlign ?? base.TextAlign; }
             set
             {
                 _textAlign = value;
@@ -516,7 +520,7 @@ namespace libolv
             }
         }
 
-        [Category("ObjectListView"), Description("The tooltip to show when the mouse is hovered over the header of this column"), DefaultValue((String)null), Localizable(true)]
+        [Category("ObjectListView"), Description("The tooltip to show when the mouse is hovered over the header of this column"), DefaultValue(null), Localizable(true)]
         public string ToolTipText { get; set; }
 
         [Category("ObjectListView"), Description("Should values in this column be treated as a tri-state checkbox?"), DefaultValue(false)]
@@ -862,15 +866,15 @@ namespace libolv
                                      }
                                      if (images != null && key < images.Length)
                                      {
-                                         @group.TitleImage = images[key];
+                                         group.TitleImage = images[key];
                                      }
                                      if (subtitles != null && key < subtitles.Length)
                                      {
-                                         @group.Subtitle = subtitles[key];
+                                         group.Subtitle = subtitles[key];
                                      }
                                      if (tasks != null && key < tasks.Length)
                                      {
-                                         @group.Task = tasks[key];
+                                         group.Task = tasks[key];
                                      }
                                  };
         }
@@ -911,15 +915,15 @@ namespace libolv
                                      }
                                      if (images != null && key < images.Length)
                                      {
-                                         @group.TitleImage = images[key];
+                                         group.TitleImage = images[key];
                                      }
                                      if (subtitles != null && key < subtitles.Length)
                                      {
-                                         @group.Subtitle = subtitles[key];
+                                         group.Subtitle = subtitles[key];
                                      }
                                      if (tasks != null && key < tasks.Length)
                                      {
-                                         @group.Task = tasks[key];
+                                         group.Task = tasks[key];
                                      }
                                  };
         }

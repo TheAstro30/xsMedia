@@ -8,7 +8,7 @@ namespace xsVlc.Core.MediaLibrary
 {
     internal class MediaLibraryImpl : DisposableBase, IReferenceCount, INativePointer, IMediaLibrary
     {
-        private readonly IntPtr _mediaLib = IntPtr.Zero;
+        private readonly IntPtr _mediaLib;
 
         public MediaLibraryImpl(IntPtr mediaLib)
         {
