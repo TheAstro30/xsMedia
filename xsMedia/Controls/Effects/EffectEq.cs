@@ -8,10 +8,10 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
+using xsCore.Controls.TrackBar;
 using xsMedia.Logic;
 using xsSettings;
 using xsSettings.Settings;
-using xsTrackBar;
 using xsVlc.Core.Equalizer;
 
 namespace xsMedia.Controls.Effects

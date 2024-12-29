@@ -7,11 +7,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using xsCore.Controls.TrackBar;
 using xsMedia.Logic;
 using xsPlaylist.Utils;
 using xsSettings;
 using xsSettings.Settings;
-using xsTrackBar;
 
 namespace xsMedia.Controls.Effects
 {

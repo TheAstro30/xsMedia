@@ -67,7 +67,14 @@
   <ItemGroup>
     <Compile Include="CdUtils\Cddb.cs" />
     <Compile Include="CdUtils\CddbCache.cs" />
-    <Compile Include="Controls\Spinner.cs">
+    <Compile Include="Controls\Forms\Spinner.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TrackBar\TrackBarBase\Enums.cs" />
+    <Compile Include="Controls\TrackBar\TrackBarBase\NativeMethods.cs" />
+    <Compile Include="Controls\TrackBar\TrackBarBase\TrackBarDrawItemEventArgs.cs" />
+    <Compile Include="Controls\TrackBar\TrackBarBase\TrackDrawModeEditor.cs" />
+    <Compile Include="Controls\TrackBar\TrackBarEx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Internal\ProxyProvider.cs" />
@@ -100,7 +107,7 @@
     <Compile Include="Utils\SystemUtils\ExecuteProcess.cs" />
     <Compile Include="Utils\FilterMasks.cs" />
     <Compile Include="Utils\FolderSearch.cs" />
-    <Compile Include="Controls\FormEx.cs">
+    <Compile Include="Controls\Forms\FormEx.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utils\UI\MenuHelper.cs" />

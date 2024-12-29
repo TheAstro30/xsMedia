@@ -5,7 +5,7 @@
  * Licenced under the GNU public licence */
 using System;
 
-namespace xsTrackBar.TrackBarBase
+namespace xsCore.Controls.TrackBar.TrackBarBase
 {
     public enum TrackBarItemState
     {

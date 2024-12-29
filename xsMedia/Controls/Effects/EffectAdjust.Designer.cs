@@ -1,4 +1,5 @@
 ﻿using xsCore.Controls;
+using xsCore.Controls.TrackBar;
 
 namespace xsMedia.Controls.Effects
 {
@@ -30,15 +31,15 @@ namespace xsMedia.Controls.Effects
         /// </summary>
         private void InitializeComponent()
         {
-            this.trSaturation = new xsTrackBar.TrackBarEx();
+            this.trSaturation = new TrackBarEx();
             this.lblSaturation = new System.Windows.Forms.Label();
-            this.trContrast = new xsTrackBar.TrackBarEx();
-            this.trBright = new xsTrackBar.TrackBarEx();
-            this.trHue = new xsTrackBar.TrackBarEx();
+            this.trContrast = new TrackBarEx();
+            this.trBright = new TrackBarEx();
+            this.trHue = new TrackBarEx();
             this.lblContrast = new System.Windows.Forms.Label();
             this.lblBright = new System.Windows.Forms.Label();
             this.lblHue = new System.Windows.Forms.Label();
-            this.trGamma = new xsTrackBar.TrackBarEx();
+            this.trGamma = new TrackBarEx();
             this.lblGamma = new System.Windows.Forms.Label();
             this.chkVAdjEnable = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trSaturation)).BeginInit();
@@ -204,15 +205,15 @@ namespace xsMedia.Controls.Effects
 
         #endregion
 
-        private xsTrackBar.TrackBarEx trSaturation;
+        private TrackBarEx trSaturation;
         private System.Windows.Forms.Label lblSaturation;
-        private xsTrackBar.TrackBarEx trContrast;
-        private xsTrackBar.TrackBarEx trBright;
-        private xsTrackBar.TrackBarEx trHue;
+        private TrackBarEx trContrast;
+        private TrackBarEx trBright;
+        private TrackBarEx trHue;
         private System.Windows.Forms.Label lblContrast;
         private System.Windows.Forms.Label lblBright;
         private System.Windows.Forms.Label lblHue;
-        private xsTrackBar.TrackBarEx trGamma;
+        private TrackBarEx trGamma;
         private System.Windows.Forms.Label lblGamma;
         private System.Windows.Forms.CheckBox chkVAdjEnable;
 

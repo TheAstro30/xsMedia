@@ -4,13 +4,11 @@
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using libolv;
 using libolv.Rendering.Styles;
-using xsCore.Controls;
+using xsCore.Controls.Forms;
 using xsCore.Skin;
 using xsMedia.Logic;
 using xsMedia.Properties;
@@ -26,8 +24,6 @@ namespace xsMedia.Forms
         private readonly ObjectListView _lv;
         private readonly HeaderFormatStyle _lVHeader;
         private readonly OlvColumn _lvFile;
-
-        private IList _selectedObjects;
 
         public FrmFavorites()
         {
@@ -104,7 +100,7 @@ namespace xsMedia.Forms
             var toolTip = new ToolTip();
             toolTip.SetToolTip(btnAdd, "Add file to favorites");
             toolTip.SetToolTip(btnRemove, "Remove selected file from favorites");
-            toolTip.SetToolTip(btnClear, "Delete entire list");
+            toolTip.SetToolTip(btnClear, "Clear favorites list");
 
             /* Apply skin format */
             SkinChanged();
@@ -131,8 +127,10 @@ namespace xsMedia.Forms
             Size = SettingsManager.Settings.Window.FavoritesWindow.Size;
             /* Populate list */
             _lv.AddObjects(SettingsManager.Settings.Favorites.Favorite);
+            btnClear.Enabled = _lv.Items.Count > 0;
             if (Size == MinimumSize)
             {
+                /* This is kind of annoying, resize doesn't fire if the window size == minimum size... */
                 OnResize(new EventArgs());
             }
             base.OnLoad(e);
@@ -195,6 +193,7 @@ namespace xsMedia.Forms
                 _lv.Items.RemoveAt(0);
             }
             _lv.AddObject(data);
+            btnClear.Enabled = _lv.Items.Count > 0;
         }
 
         /* Skin management - uses same color scheme as the playlist window, I mean - why not? */
@@ -218,8 +217,7 @@ namespace xsMedia.Forms
         private void OnSelectionChanged(object sender, EventArgs e)
         {
             var o = (ObjectListView) sender;
-            _selectedObjects = o.SelectedObjects;
-            var selected = _selectedObjects.Count > 0;
+            var selected = o != null && o.SelectedObjects.Count > 0;
             btnRemove.Enabled = selected;
         }
 
@@ -267,14 +265,16 @@ namespace xsMedia.Forms
                         /* Insert new item */
                         _lv.AddObject(f);
                     }
+                    btnClear.Enabled = true;
                     break;
 
                 case "REMOVE":
-                    if (_selectedObjects != null)
+                    var sel = _lv.SelectedObjects;
+                    if (sel != null)
                     {
-                        for (var i = _selectedObjects.Count - 1; i >= 0; i--)
+                        for (var i = sel.Count - 1; i >= 0; i--)
                         {
-                            var f = (SettingsHistoryData)_selectedObjects[i];
+                            var f = (SettingsHistoryData) sel[i];
                             if (f != null && SettingsManager.RemoveFavorite(f))
                             {
                                 _lv.RemoveObject(f);
@@ -282,11 +282,13 @@ namespace xsMedia.Forms
                         }
                     }
                     btnRemove.Enabled = false;
+                    btnClear.Enabled = _lv.Items.Count > 0;
                     break;
 
                 case "CLEAR":
                     favorites.Clear();
                     _lv.Items.Clear();
+                    btnClear.Enabled = false;
                     break;
 
                 case "OK":

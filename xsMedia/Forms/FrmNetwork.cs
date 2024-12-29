@@ -7,7 +7,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using xsCore.Controls;
+using xsCore.Controls.Forms;
 using xsMedia.Properties;
 using xsSettings;
 using xsSettings.Settings;

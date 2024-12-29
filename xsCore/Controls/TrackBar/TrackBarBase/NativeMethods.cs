@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 
-namespace xsTrackBar.TrackBarBase
+namespace xsCore.Controls.TrackBar.TrackBarBase
 {
     internal static class NativeMethods
     {

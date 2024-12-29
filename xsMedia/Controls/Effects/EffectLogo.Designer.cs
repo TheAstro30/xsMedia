@@ -1,4 +1,6 @@
-﻿namespace xsMedia.Controls.Effects
+﻿using xsCore.Controls.TrackBar;
+
+namespace xsMedia.Controls.Effects
 {
     partial class EffectLogo
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.trOpacity = new xsTrackBar.TrackBarEx();
+            this.trOpacity = new TrackBarEx();
             this.lblOpacity = new System.Windows.Forms.Label();
             this.chkVLogoEnable = new System.Windows.Forms.CheckBox();
             this.lblFile = new System.Windows.Forms.Label();
@@ -197,7 +199,7 @@
 
         #endregion
 
-        private xsTrackBar.TrackBarEx trOpacity;
+        private TrackBarEx trOpacity;
         private System.Windows.Forms.Label lblOpacity;
         private System.Windows.Forms.CheckBox chkVLogoEnable;
         private System.Windows.Forms.Label lblFile;

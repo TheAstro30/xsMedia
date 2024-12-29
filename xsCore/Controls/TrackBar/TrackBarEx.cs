@@ -11,12 +11,12 @@ using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows.Forms;
-using xsTrackBar.TrackBarBase;
+using xsCore.Controls.TrackBar.TrackBarBase;
 
-namespace xsTrackBar
+namespace xsCore.Controls.TrackBar
 {
-    [ToolboxBitmap(typeof(TrackBar))]
-    public class TrackBarEx : TrackBar
+    [ToolboxBitmap(typeof(System.Windows.Forms.TrackBar))]
+    public class TrackBarEx : System.Windows.Forms.TrackBar
     {
         private Rectangle _channelBounds;
         private Rectangle _thumbBounds;

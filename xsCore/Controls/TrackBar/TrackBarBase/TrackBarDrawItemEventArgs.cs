@@ -6,7 +6,7 @@
 using System;
 using System.Drawing;
 
-namespace xsTrackBar.TrackBarBase
+namespace xsCore.Controls.TrackBar.TrackBarBase
 {
     public delegate void TrackBarDrawItemEventHandler(object sender, TrackBarDrawItemEventArgs e);
 

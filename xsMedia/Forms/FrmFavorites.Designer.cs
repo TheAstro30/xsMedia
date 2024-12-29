@@ -65,6 +65,7 @@
             // 
             // btnClear
             // 
+            this.btnClear.Enabled = false;
             this.btnClear.Location = new System.Drawing.Point(70, 304);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(23, 23);

@@ -7,7 +7,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using xsCore.Controls;
+using xsCore.Controls.Forms;
 using xsCore.Utils.SystemUtils;
 using xsSettings.Controls;
 using xsSettings.Internal;

@@ -6,9 +6,9 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using xsCore.Controls.TrackBar;
 using xsMedia.Logic;
 using xsSettings.Settings;
-using xsTrackBar;
 
 namespace xsMedia.Controls.Effects
 {

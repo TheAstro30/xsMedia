@@ -18,6 +18,7 @@
 - Added option to display video title on playback screen for the time determined by "time out" seconds (5 - 30 seconds)
 - Added recent file caching for single files opened by the player (25 max at the moment)
 - Added a favorites dialog to store favorite files (currently only works with local hard drive files, not discs or networks)
+- Removed xsTrackBar.dll and moved code to xsCore.dll
 
 *** Version 2.1.8 - 22 September , 2020 ***
 - Updated libVLC plugins to version 3.0.10

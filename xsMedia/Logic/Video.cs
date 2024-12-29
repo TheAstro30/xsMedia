@@ -208,7 +208,7 @@ namespace xsMedia.Logic
             var volStep = SettingsManager.Settings.Player.VolumeStep;
 
             switch (e.KeyCode)
-            {
+            {                  
                 case Keys.F:
                     OnVideoFullscreen(sender, EventArgs.Empty);
                     break;

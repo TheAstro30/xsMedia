@@ -12,7 +12,7 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-namespace xsTrackBar.TrackBarBase
+namespace xsCore.Controls.TrackBar.TrackBarBase
 {
     [PermissionSet(SecurityAction.LinkDemand, Unrestricted=true), PermissionSet(SecurityAction.InheritanceDemand, Unrestricted=true)]
     public class TrackDrawModeEditor : UITypeEditor

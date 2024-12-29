@@ -6,7 +6,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using xsCore.Controls;
+using xsCore.Controls.Forms;
 using xsCore.Utils.UI;
 using xsPlaylist.Utils;
 using xsVlc.Common;

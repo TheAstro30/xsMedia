@@ -238,10 +238,6 @@
       <Project>{63583DAF-92E2-4FAF-B8AD-FF736B8BA785}</Project>
       <Name>xsSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\xsTrackBar\xsTrackBar.csproj">
-      <Project>{E61FF647-857C-46FF-878B-72B175935DA5}</Project>
-      <Name>xsTrackBar</Name>
-    </ProjectReference>
     <ProjectReference Include="..\xsVlc\xsVlc.csproj">
       <Project>{5B39005B-6D95-4770-BEDB-BFBDCD6D8093}</Project>
       <Name>xsVlc</Name>

@@ -8,7 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using xsCore.Controls;
+using xsCore.Controls.Forms;
 using xsCore.Utils.SystemUtils;
 using xsMedia.Helpers;
 
@@ -100,7 +100,6 @@ namespace xsMedia.Forms
                     string.Format("xsVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\xsVlc.dll"))),
                     string.Format("xsSettings: {0}", GetPluginVersion(AppPath.MainDir(@"\xsSettings.dll"))),
                     string.Format("xsPlaylist: {0}", GetPluginVersion(AppPath.MainDir(@"\xsPlaylist.dll"))),
-                    string.Format("xsTrackBar: {0}", GetPluginVersion(AppPath.MainDir(@"\xsTrackBar.dll"))),
                     string.Format("libVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\libvlc.dll"))),
                     string.Format("libVlcCore: {0}", GetPluginVersion(AppPath.MainDir(@"\libvlccore.dll")))
                 }

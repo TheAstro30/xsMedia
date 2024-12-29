@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using xsCore.CdUtils;
-using xsCore.Controls;
+using xsCore.Controls.Forms;
 using xsCore.Utils;
 using xsCore.Utils.Asx;
 using xsCore.Utils.SystemUtils;
