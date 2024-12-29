@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -33,6 +33,15 @@ namespace xsSettings
             if (XmlSerialize<PlayerSettings>.Load(fileName, ref tmp))
             {
                 Settings = tmp;
+            }
+            /* Check some important variables are set */
+            if (Settings.Player.JumpStep == 0)
+            {
+                Settings.Player.JumpStep = 5;
+            }
+            if (Settings.Player.VolumeStep == 0)
+            {
+                Settings.Player.VolumeStep = 5;
             }
         }
 

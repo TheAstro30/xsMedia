@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -164,13 +164,18 @@ namespace xsMedia.Logic
             {
                 Player.Sync.Execute(() => OnPlaylistMetaDataChanged(index, entry));
                 return;
-            }
+            }            
             PlaylistControl.Update(entry);
             PlaylistControl.SelectedIndex = Video.VideoControl.CurrentTrack;
         }
 
         private static void OnPlaylistDoubleClick(int index)
         {
+            Video.VideoControl.OpenDiscType = DiscType.None;
+            Player.IsVideoWindowInit = false;
+            Media.MediaBarControl.Position = 0;
+            Media.MediaBarControl.ElapsedTime = 0;
+            Video.KeepVideoSize = false;
             Video.VideoControl.Play(index);
         }
 

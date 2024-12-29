@@ -1,16 +1,36 @@
-*** Version 2.1.8 - , 2020 ***
+*** Version 2.1.9 - , 2025 ***
+- Updated VLC libraries to version 3.0.21
+- Implemented an audio mute function
+- Replaced all icons (except main application icon) with better looking ones, and ones that made more sense to the function they were representing
+- Added hotkey support for skip forward/backward (right arrow/left arrow) of media, volume up/down (+/-), mute (m), pause/resume (space or k) and fullscreen (f (esc also exits fullscreen))
+- Minor internal code refactoring
+- Minor dialog cosmetic changes
+- Fixed issue with open network and effects dialogs not initially centering to the main player window
+- Most dialogs now remember the position they were last moved to
+- Fixed issue with main menu bar not being visible during full-screen mode
+- Fixed issue with multiple players being opened if multiple files were selected in Windows explorer
+- Added support for m4v and m4a files
+- Added a right-click context menu for the video window, which is useful for when playing in full-screen mode
+- Added a playback menu to main menu bar
+- Added playback speed adjustment via new right-click context menu, or the "Playback" menu
+- Added a jump to specific time dialog
+- Added the option to either resize the player window to video size, or resize the video to the current window size (default is resize video to window size)
+- Added option to display video title on playback screen for the time determined by "time out" seconds (5 - 30 seconds)
+- Added recent file caching for single files opened by the player (25 max at the moment)
+
+*** Version 2.1.8 - 22 September , 2020 ***
 - Updated libVLC plugins to version 3.0.10
 - Internal code libraries and main exe code clean up
 - Made sure both mouse and keyboard hooks were removed on exit of program
 - Update XML serializer code to handle unicode characters in files (not that this should be an issue - but was updated in another application, so just following through)
-- Added spacebar pause/resume function for already playing media
-- Pressing the "F" key now switches between normal and fullscreen mode on videos
 - Updated network presets as original ones no longer worked
 - Settings dialog now remembers what "tab" is selected (also cleaned up internal code)
 - Added support for playing MIDI files
 - Hopefully fixed an exit crash bug by checking if media is actually playing/paused before calling stop
 - Removed YouTube playback support as it no longer works (YT keep changing it and I can't be bothered constantly chasing it)
-- Unfortunately, as of March 31 2020, freedb (which is used for getting CDDB information on CD tracks) has been shutdown. This means the CDDB function of xsMedia no longer works. The code is left intact even though it doesn't work.
+- Unfortunately, as of March 31 2020, freedb (which is used for getting CDDB information on CD tracks) has been shutdown. I managed to find a working alternative "http://gnudb.gnudb.org/~cddb/cddb.cgi"
+
+*** Update information lost (or I forgot to add any) ***
 
 *** Version 1.0.6 - 30 September, 2016 ***
 - Tested and confirmed xsMedia works correctly under Windows 10 - thanks to ExoDragon
@@ -26,24 +46,21 @@
 - Updated libVLC plugins per VLC update
 - Fixed a bug with some video files not allowing fullscreen mode in some instances
 - Implemented an audio equalizer as per change to libVLC 2.2.1
-- Fixed a bug with command line processing that caused "Error - No active input" to be displayed in titlebar and file failing
-  to play when filenames contained # or &, etc.
+- Fixed a bug with command line processing that caused "Error - No active input" to be displayed in titlebar and file failing to play when filenames contained # or &, etc.
 - Added support for M3U8 playlist files
 - Added support for opening ASX based web streams
 - Changed drag and dropping of files in the playlist - it now plays from the first file inserted, not the last
 
 *** Version 1.0.4 - 27 June, 2014 ***
 - Sped up YouTube internal parser to make it a little faster retreiving video content urls
-- Added ability to take video snapshots from playing videos which currently saves to the user's
-  "My Pictures" folder under the folder "xsMedia Snapshots"
+- Added ability to take video snapshots from playing videos which currently saves to the user's "My Pictures" folder under the folder "xsMedia Snapshots"
 - Made the about dialog a bit bigger so the plugins information box didn't look so cramped
 - Included xsTrackBar.dll which was forgotten in previous release
 
 *** Version 1.0.3 - 9 March 2014 ***
 - Added support for playing VCD/SVCD discs
 - Fixed skin change redraw problem
-- Fixed calculation errors in positioning of controls of a skin (had hard-coded numbers instead of using the skin file to calculate
-  correctly)
+- Fixed calculation errors in positioning of controls of a skin (had hard-coded numbers instead of using the skin file to calculate correctly)
 - Added "Clover" and "Dark Sacrlett" skins
 - Added selection menus for audio tracks, video tracks, aspect ratio, zoom mode and subtitles tracks
 - Added effects menu to prefrences

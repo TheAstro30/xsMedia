@@ -1,12 +1,10 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
 using System;
-using System.Drawing;
 using System.Xml.Serialization;
-using xsCore.Utils;
 
 namespace xsSettings.Settings
 {
@@ -20,32 +18,22 @@ namespace xsSettings.Settings
 
         public SettingsWindow(SettingsWindow window)
         {
-            Size = window.Size;
-            Location = window.Location;
+            MainWindow = new SettingsWindowData(window.MainWindow);
+            EffectsWindow = window.EffectsWindow;
+            NetworkWindow = window.NetworkWindow;
             CurrentSkin = window.CurrentSkin;
         }
 
-        [XmlAttribute("location")]
-        public string LocationString
-        {
-            get { return XmlFormatting.WritePointFormat(Location); }
-            set { Location = XmlFormatting.ParsePointFormat(value); }
-        }
-
-        [XmlAttribute("size")]
-        public string SizeString
-        {
-            get { return XmlFormatting.WriteSizeFormat(Size); }
-            set { Size = XmlFormatting.ParseSizeFormat(value); }
-        }
-
-        [XmlElement("skin")]
+        [XmlAttribute("skin")]
         public string CurrentSkin { get; set; }
 
-        [XmlIgnore]
-        public Point Location { get; set; }
+        [XmlElement("mainWindow")]
+        public SettingsWindowData MainWindow = new SettingsWindowData();
 
-        [XmlIgnore]
-        public Size Size { get; set; }
+        [XmlElement("effectsWindow")]
+        public SettingsWindowData EffectsWindow = new SettingsWindowData();
+
+        [XmlElement("networkWindow")]
+        public SettingsWindowData NetworkWindow = new SettingsWindowData();
     }
 }

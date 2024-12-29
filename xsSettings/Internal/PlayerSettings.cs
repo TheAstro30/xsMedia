@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Xml.Serialization;
 using xsCore.PlayerControls.Controls;
 using xsSettings.Settings;
+using xsSettings.Settings.Enums;
 
 namespace xsSettings.Internal
 {
@@ -15,9 +16,9 @@ namespace xsSettings.Internal
     public class PlayerSettings
     {
         public PlayerSettings()
-        {            
-            Window.Location = new Point(100, 100);
-            Window.Size = new Size(431, 235);
+        {
+            Window.MainWindow.Location = new Point(100, 100);
+            Window.MainWindow.Size = new Size(431, 235);
             Window.CurrentSkin = @"\skins\classic\classic.xml";
             /* Player */
             Player.MediaVolume = 50;
@@ -27,16 +28,25 @@ namespace xsSettings.Internal
                 {
                     new SettingsMediaOptions.MediaOption("--no-osd"),
                     new SettingsMediaOptions.MediaOption("--disable-screensaver"),
-                    new SettingsMediaOptions.MediaOption("--ffmpeg-hw"),
+                    //new SettingsMediaOptions.MediaOption("--ffmpeg-hw"),
                     new SettingsMediaOptions.MediaOption("--sub-filter=marq:logo"),
-                    new SettingsMediaOptions.MediaOption("--plugin-path", @"\plugins"),
+                    //new SettingsMediaOptions.MediaOption("--plugin-path", @"\plugins"),
                     new SettingsMediaOptions.MediaOption("--soundfont", @"\soundfonts\Unison.sf2")
                 });
-            Option.Id = "Disc";
+            Option.Id = "Playback";
+            /* Playback options */
+            Player.Speed = 1;
+            Player.Loop = PlaybackLoopMode.None;
+            Player.JumpStep = 5;
+            Player.VolumeStep = 5;
+
+            Player.Video.Resize = VideoWindowResizeOption.WindowSize;
+            Player.Video.EnableVideoTitle = true;
+            Player.Video.VideoTitleTimeOut = 6;
             /* Discs */
             Cdda.Options.Option.Add(new SettingsMediaOptions.MediaOption(":disc-caching", "300"));
             Cdda.Cddb.Enabled = true;
-            Cdda.Cddb.Host = "http://freedb.freedb.org/~cddb/cddb.cgi";
+            Cdda.Cddb.Host = "http://gnudb.gnudb.org/~cddb/cddb.cgi";
             Cdda.Cddb.Cache = true;
 
             Vcd.Options.Option.Add(new SettingsMediaOptions.MediaOption(":disc-caching", "300"));
@@ -79,7 +89,7 @@ namespace xsSettings.Internal
 
         /* Copy constructor */
         public PlayerSettings(PlayerSettings settings)
-        {            
+        {
             Window = new SettingsWindow(settings.Window);
             Player = new SettingsPlayer(settings.Player);
             Option = new SettingsSelectedTab(settings.Option);

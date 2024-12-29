@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -17,6 +17,7 @@ using xsMedia.Helpers;
 using xsPlaylist;
 using xsPlaylist.Utils;
 using xsSettings;
+using xsSettings.Settings.Enums;
 using xsVlc.Common;
 
 namespace xsMedia.Logic
@@ -27,7 +28,7 @@ namespace xsMedia.Logic
         private static Timer _tmrStart;
 
         public static UiSynchronize Sync { get; set; }
-
+        
         public static bool IsVideoWindowInit { get; set; }
 
         public static void Init(FrmPlayer player, string args)
@@ -45,17 +46,17 @@ namespace xsMedia.Logic
         {
             /* Allows the form to show first */
             _tmrStart = new Timer
-                            {
-                                Interval = 100,
-                                Enabled = true,
-                                Tag = args
-                            };
+            {
+                Interval = 100,
+                Tag = args,
+                Enabled = true
+            };
             _tmrStart.Tick += TimerStartTick;
         }
 
         public static void ProcessCommandLine(string args)
         {
-            if (string.IsNullOrEmpty(args)) { return; }
+            if (string.IsNullOrEmpty(args)) { return; }   
             var sp = args.Split(':');
             //var path = new Uri(args).LocalPath; - this mucks with files that have # and & in them, so changed to next line v1.0.5
             var path = args.Replace(string.Format("{0}:", sp[0]), "");
@@ -71,6 +72,13 @@ namespace xsMedia.Logic
             {
                 path = path.Replace(((char)34).ToString(CultureInfo.InvariantCulture), "");
             }
+
+            Video.VideoControl.OpenDiscType = DiscType.None;
+            IsVideoWindowInit = false;
+            Media.MediaBarControl.Position = 0;
+            Media.MediaBarControl.ElapsedTime = 0;
+            Video.KeepVideoSize = false;
+
             switch (sp[0].ToUpper())
             {
                 case "FILE":
@@ -127,8 +135,8 @@ namespace xsMedia.Logic
             }
             _player.Text = @"xsMedia Player";
             /* Restore original window size */
-            if (keepVideoSize) { return; }
-            _player.Size = SettingsManager.Settings.Window.Size;
+            if (keepVideoSize || SettingsManager.Settings.Player.Video.Resize == VideoWindowResizeOption.WindowSize) { return; }
+            _player.Size = SettingsManager.Settings.Window.MainWindow.Size;
             Video.VideoControl.SpinnerActive = false;
             Video.KeepVideoSize = false;
             Video.VideoControl.Refresh();
@@ -162,6 +170,12 @@ namespace xsMedia.Logic
         {
             if (Video.KeepVideoSize && Video.VideoControl.IsVideo)
             {
+                Video.VideoControl.ApplyFilters();
+                return;
+            }
+            if (Video.VideoControl.IsVideo && SettingsManager.Settings.Player.Video.Resize == VideoWindowResizeOption.WindowSize)
+            {
+                IsVideoWindowInit = true;
                 Video.VideoControl.ApplyFilters();
                 return;
             }
@@ -244,10 +258,13 @@ namespace xsMedia.Logic
 
         /* Start up timer */
         private static void TimerStartTick(object sender, EventArgs e)
-        {
+        {            
             _tmrStart.Enabled = false;
-            if (_tmrStart.Tag == null) { return; }
-            ProcessCommandLine(_tmrStart.Tag.ToString());            
+            if (_tmrStart.Tag == null)
+            {
+                return;
+            }
+            ProcessCommandLine(_tmrStart.Tag.ToString());  
         }
     }
 }

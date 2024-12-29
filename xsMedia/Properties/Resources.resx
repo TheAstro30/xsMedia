@@ -117,18 +117,51 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dlgAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\dlgAdd.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dlgRemove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\dlgRemove.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dlgReset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\dlgReset.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fxAdjust" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\Effects\fxAdjust.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fxCrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\Effects\fxCrop.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fxDeinterlace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\Effects\fxDeinterlace.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fxLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\Effects\fxLogo.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fxMarquee" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\Effects\fxMarquee.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuAbout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuAbout.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menuAspect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuAspect.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuAudioTrack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuAudioTrack.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="menuClear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuClear.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menuClose" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuClose.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuDisc" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuDisc.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuDiscDrive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuDiscDrive.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuEffects" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuEffects.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,11 +172,32 @@
   <data name="menuFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuFolder.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="menuFullScreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuFullScreen.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuFullScreenExit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuFullScreenExit.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menuInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuInfo.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="menuJumpBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuJumpBack.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuJumpForward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuJumpForward.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuJumpToTime" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuJumpToTime.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menuList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuList.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuLoop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuLoop.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuMute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuMute.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuNet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuNet.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -153,6 +207,21 @@
   </data>
   <data name="menuOptions" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuOptions.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuPause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuPause.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuPlay.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuPlaySpeed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuPlaySpeed.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuRecent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuRecent.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuRecentItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuRecentItem.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuRemove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuRemove.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,11 +238,23 @@
   <data name="menuSort" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuSort.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="menuStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuStop.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menuSubFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuSubFile.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="menuSubFileAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuSubFileAdd.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuVideoEffects" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuVideoEffects.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menuVideoTrack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuVideoTrack.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuVlc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuVlc.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuZoom.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -181,7 +262,6 @@
   <data name="videoWinIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\videoWinIcon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="videoWinIcon_xmas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\videoWinIcon_xmas.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

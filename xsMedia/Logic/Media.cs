@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -100,6 +100,7 @@ namespace xsMedia.Logic
         private static void OnPositionChanged(PlayerControl control)
         {
             Video.VideoControl.Position = MediaBarControl.Position / 100;
+            MediaBarControl.ElapsedTime = (int) (Video.VideoControl.Position*Video.VideoControl.Length)/1000;
         }
 
         private static void OnVolumeChanged(PlayerControl control)

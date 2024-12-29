@@ -1,9 +1,10 @@
 ﻿/* xsMedia - sxCore
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using xsCore.Skin;
 
@@ -13,7 +14,10 @@ namespace xsCore.PlayerControls.Controls
     {
         public enum TimeDisplay
         {
+            [Description("Elapsed time")]
             Elapsed = 0,
+
+            [Description("Remaining time")]
             Remain = 1
         }
 

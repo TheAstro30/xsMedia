@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -37,13 +37,18 @@ namespace xsMedia.Controls
         private readonly IMediaPlayerFactory _mediaFactory;
         private readonly IMediaListPlayer _listPlayer;
         private IMedia _originalMedia;
-        
+       
         private bool _eqEnable;
 
         private readonly FolderSearch _folderSearch;
 
         private int _volume;
         private readonly Timer _tmrVolume;
+
+        private bool _titleShown;
+        private int _titleOpacity;
+        private int _titleTimeOut;
+        private readonly Timer _tmrTitleTimeOut;
         
         private List<CdTrackInfo> _cdTrackList;
 
@@ -87,7 +92,7 @@ namespace xsMedia.Controls
             //        System.Diagnostics.Debug.Print(s.Id + "-" + s.Longname);
             //    }
             //}
-            
+
             _listPlayer.Events.PlayerPositionChanged += OnPlayerPositionChanged;
             _listPlayer.Events.TimeChanged += OnTimeChanged;
             _listPlayer.Events.MediaEnded += OnMediaEnded;
@@ -102,10 +107,16 @@ namespace xsMedia.Controls
             _sync = new UiSynchronize(this);
 
             _tmrVolume = new Timer
-                            {
-                                Interval = 100
-                            };
+            {
+                Interval = 100
+            };
             _tmrVolume.Tick += TmrVolumeTick;
+
+            _tmrTitleTimeOut = new Timer
+            {
+                Interval = 100
+            };
+            _tmrTitleTimeOut.Tick += TmrTitleTimeOutTick;
 
             ZoomRatio = ZoomRatioMode.Mode3;
             /* Create a basic equalizer */
@@ -227,6 +238,13 @@ namespace xsMedia.Controls
             get { return _listPlayer.InnerPlayer.VideoTrackDescription; }
         }
 
+        /* Speed playback */
+        public float PlaybackSpeed
+        {
+            get { return _listPlayer.InnerPlayer.PlaybackRate; }
+            set { _listPlayer.InnerPlayer.PlaybackRate = value; }
+        }
+
         /* Aspect ratio control */
         public AspectRatioMode AspectRatio
         {
@@ -250,6 +268,16 @@ namespace xsMedia.Controls
                 }
                 _listPlayer.InnerPlayer.Volume = _volume;
             }
+        }
+
+        public void ToggleMute()
+        {
+            _listPlayer.InnerPlayer.ToggleMute();            
+        }
+
+        public bool IsMuted
+        {
+            get { return _listPlayer.InnerPlayer.Mute; }
         }
 
         public MediaState PlayerState
@@ -360,19 +388,25 @@ namespace xsMedia.Controls
             {
                 case MediaState.Opening:
                 case MediaState.Buffering:
+                    _titleShown = false;
                     SpinnerState(true);
                     BeginTimer();
                     break;
+
                 case MediaState.Playing:
                     SpinnerState(false);                    
                     IsVideo = _listPlayer.InnerPlayer.VideoTrackCount > 0 || OpenDiscType == DiscType.Dvd || OpenDiscType == DiscType.Vcd;
                     LogoImageAlwaysOnTop = false;
                     break;
+
                 case MediaState.Stopped:
+                    _titleShown = false;
                     IsVideo = false;
                     OpenDiscType = DiscType.None;
                     break;
+
                 case MediaState.Error:
+                    _titleShown = false;
                     IsVideo = false;
                     OpenDiscType = DiscType.None;
                     SpinnerState(false);
@@ -490,10 +524,14 @@ namespace xsMedia.Controls
 
         public void ApplyFilters()
         {
+            if (!IsVideo)
+            {
+                return;
+            }
             var enable = SettingsManager.Settings.Filters.Adjust.Enable;
-            /* Adjust */            
+            /* Adjust */
             if (enable)
-            {                
+            {
                 AdjustFilter.Hue = SettingsManager.Settings.Filters.Adjust.Hue;
                 AdjustFilter.Brightness = SettingsManager.Settings.Filters.Adjust.Brightness;
                 AdjustFilter.Contrast = SettingsManager.Settings.Filters.Adjust.Contrast;
@@ -502,18 +540,35 @@ namespace xsMedia.Controls
             }
             AdjustFilter.Enabled = enable;
             /* Marquee */
-            enable = SettingsManager.Settings.Filters.Marquee.Enable;                        
-            if (enable)
+            if (!_titleShown && SettingsManager.Settings.Player.Video.EnableVideoTitle)
             {
-                MarqueeFilter.Text = SettingsManager.Settings.Filters.Marquee.Text;
-                MarqueeFilter.Position = (Position)SettingsManager.Settings.Filters.Marquee.Position;
-                MarqueeFilter.Color = (VlcColor)SettingsManager.Settings.Filters.Marquee.Color;
-                MarqueeFilter.Timeout = SettingsManager.Settings.Filters.Marquee.TimeOut;
-                MarqueeFilter.Opacity = SettingsManager.Settings.Filters.Marquee.Opacity;
+                _titleTimeOut = 0;
+                _titleOpacity = 255;
+                MarqueeFilter.Text = PlaylistManager.Playlist[CurrentTrack].Title;
+                MarqueeFilter.Position = xsVlc.Common.Position.Top;
+                MarqueeFilter.Color = VlcColor.White;
+                MarqueeFilter.Opacity = _titleOpacity;
+                
+                _tmrTitleTimeOut.Enabled = true;
+                _titleShown = true;
+
+                MarqueeFilter.Enabled = true;
             }
-            MarqueeFilter.Enabled = enable;
+            if (!_tmrTitleTimeOut.Enabled)
+            {
+                enable = SettingsManager.Settings.Filters.Marquee.Enable;
+                if (enable)
+                {
+                    MarqueeFilter.Text = SettingsManager.Settings.Filters.Marquee.Text;
+                    MarqueeFilter.Position = (Position) SettingsManager.Settings.Filters.Marquee.Position;
+                    MarqueeFilter.Color = (VlcColor) SettingsManager.Settings.Filters.Marquee.Color;
+                    MarqueeFilter.Timeout = SettingsManager.Settings.Filters.Marquee.TimeOut;
+                    MarqueeFilter.Opacity = SettingsManager.Settings.Filters.Marquee.Opacity;
+                }
+                MarqueeFilter.Enabled = enable;
+            }
             /* Logo */
-            enable = SettingsManager.Settings.Filters.Logo.Enable;            
+            enable = SettingsManager.Settings.Filters.Logo.Enable;
             if (enable)
             {
                 LogoFilter.File = SettingsManager.Settings.Filters.Logo.File;
@@ -521,36 +576,45 @@ namespace xsMedia.Controls
                 LogoFilter.X = SettingsManager.Settings.Filters.Logo.LeftOffset;
                 LogoFilter.Y = SettingsManager.Settings.Filters.Logo.TopOffset;
             }
+            else
+            {
+                /* If this isn't done, and during this instance of the program, it will always show the image if Marquee is showing */
+                LogoFilter.File = null;
+            }
             LogoFilter.Enabled = enable;
             /* Crop */
-            enable = SettingsManager.Settings.Filters.Crop.Enable;            
+            enable = SettingsManager.Settings.Filters.Crop.Enable;
             if (enable)
             {
                 var sz = VideoSize;
                 CropFilter.CropArea = new Rectangle(SettingsManager.Settings.Filters.Crop.Left,
-                                                    SettingsManager.Settings.Filters.Crop.Top,
-                                                    sz.Width - SettingsManager.Settings.Filters.Crop.Right,
-                                                    sz.Height - SettingsManager.Settings.Filters.Crop.Bottom);
+                    SettingsManager.Settings.Filters.Crop.Top,
+                    sz.Width - SettingsManager.Settings.Filters.Crop.Right,
+                    sz.Height - SettingsManager.Settings.Filters.Crop.Bottom);
             }
             CropFilter.Enabled = enable;
             /* Deinterlace */
-            enable = SettingsManager.Settings.Filters.Deinterlace.Enable;            
+            enable = SettingsManager.Settings.Filters.Deinterlace.Enable;
             if (enable)
             {
-                DeinterlaceFilter.Mode = (DeinterlaceMode)SettingsManager.Settings.Filters.Deinterlace.Mode;
+                DeinterlaceFilter.Mode = (DeinterlaceMode) SettingsManager.Settings.Filters.Deinterlace.Mode;
             }
             DeinterlaceFilter.Enabled = enable;
         }
 
         /* Media open methods */
         public void OpenFile(string fileName, bool play = true)
-        {
+        {            
             var media = _mediaFactory.CreateMedia<IMedia>(fileName);
             PlaylistManager.Add(media, (int)_listPlayer.Length / 1000);
-            if (!play) { return; }
+            if (!play)
+            {
+                return;
+            }
             CurrentTrack = PlaylistManager.MediaList.Count - 1;
             MediaEventHandlers(CurrentTrack);
             _listPlayer.PlayItemAt(CurrentTrack);
+            SettingsManager.Settings.Player.AddHistory(fileName);
         }
 
         public void OpenNetwork(string networkUrl)
@@ -630,7 +694,7 @@ namespace xsMedia.Controls
                                                CddbUserName = "xsMedia_User",
                                                CddbApplicationName = "xsMedia",
                                                CddbCacheFile =
-                                                   SettingsManager.Settings.Cdda.Cddb.Enabled
+                                                   SettingsManager.Settings.Cdda.Cddb.Cache
                                                        ? AppPath.MainDir(@"\KangaSoft\xsMedia\cddbCache.xml", true)
                                                        : string.Empty
                                            };
@@ -694,16 +758,16 @@ namespace xsMedia.Controls
             }                       
             ZoomRatio = ZoomRatioMode.Mode3;
             var count = PlaylistManager.MediaList.Count;
-            if (count > 0)
+            if (count <= 0)
             {
-                if (CurrentTrack > count - 1)
-                {
-                    CurrentTrack = 0;
-                }
-                Play(CurrentTrack);
-                return true;
+                return false;
             }
-            return false;
+            if (CurrentTrack > count - 1)
+            {
+                CurrentTrack = 0;
+            }
+            Play(CurrentTrack);
+            return true;
         }
 
         public void Play(int position)
@@ -751,6 +815,7 @@ namespace xsMedia.Controls
                 case DiscType.Dvd:
                     _listPlayer.InnerPlayer.PreviousChapter();
                     break;
+
                 default:
                     CurrentTrack--;
                     Play(CurrentTrack);
@@ -770,6 +835,7 @@ namespace xsMedia.Controls
                 case DiscType.Dvd:
                     _listPlayer.InnerPlayer.NextChapter();
                     break;
+
                 default:
                     CurrentTrack++;
                     Play(CurrentTrack);
@@ -847,6 +913,38 @@ namespace xsMedia.Controls
             }
             /* Volume is incorrectly set, reset it */
             _listPlayer.InnerPlayer.Volume = _volume;
+        }
+
+        private void TmrTitleTimeOutTick(object sender, EventArgs e)
+        {
+            /* This timer does 3 things:
+             * 1) counts to roughly X seconds (based on settings)
+             * 2) gradually fades out the title, and
+             * 3) waits a couple of seconds before applying any currently set Marquee */
+            var timeOut = SettingsManager.Settings.Player.Video.VideoTitleTimeOut*1000;
+            if (_titleTimeOut >= timeOut)
+            {
+                /* Begin opacity change */
+                _titleOpacity -= 15;
+                MarqueeFilter.Opacity = _titleOpacity;
+                if (_titleOpacity > 0)
+                {
+                    return;
+                }
+                /* Wait a couple of seconds */
+                _titleTimeOut = 0;
+                _titleOpacity = 0;
+                MarqueeFilter.Enabled = false;
+            }
+            else if (_titleOpacity == 0 && _titleTimeOut >= 2000)
+            {
+                _tmrTitleTimeOut.Enabled = false;
+                ApplyFilters();
+            }
+            else
+            {
+                _titleTimeOut += 100;
+            }
         }
 
         /* Equalizer */

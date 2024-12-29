@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -75,11 +75,12 @@ namespace xsSettings.Settings
         {
             if (string.IsNullOrEmpty(id)) { return null; }
             var playerOption = Option.FirstOrDefault(o => o.Id.ToLower() == id.ToLower());
-            if (playerOption == null)
+            if (playerOption != null)
             {
-                playerOption = new MediaOption(id);
-                Option.Add(playerOption);
+                return playerOption;
             }
+            playerOption = new MediaOption(id);
+            Option.Add(playerOption);
             return playerOption;
         }
 

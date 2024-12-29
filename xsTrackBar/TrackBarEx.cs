@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsTrackBar
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */

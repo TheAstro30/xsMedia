@@ -1,5 +1,5 @@
 ﻿/* xsMedia - sxCore
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -31,21 +31,25 @@ namespace xsCore.Utils.UI
             return AddMenuItem(text, key, shortCutKeys, true, false, null, callBack);
         }
 
-        public static ToolStripMenuItem AddMenuItem(string text, string key, Keys shortCutKeys, bool enabled,
-                                                    bool bChecked, Image image, EventHandler callBack)
+        public static ToolStripMenuItem AddMenuItem(string text, string key, Keys shortCutKeys, bool enabled, EventHandler callBack)
         {
-            if (!string.IsNullOrEmpty(text))
+            return AddMenuItem(text, key, shortCutKeys, enabled, false, null, callBack);
+        }
+
+        public static ToolStripMenuItem AddMenuItem(string text, string key, Keys shortCutKeys, bool enabled, bool bChecked, Image image, EventHandler callBack)
+        {
+            if (string.IsNullOrEmpty(text))
             {
-                var m = new ToolStripMenuItem(text, image, callBack)
-                {
-                    ShortcutKeys = shortCutKeys,
-                    Tag = key,
-                    Enabled = enabled,
-                    Checked = bChecked
-                };
-                return m;
+                return null;
             }
-            return null;
+            var m = new ToolStripMenuItem(text, image, callBack)
+            {
+                ShortcutKeys = shortCutKeys,
+                Tag = key,
+                Enabled = enabled,
+                Checked = bChecked
+            };
+            return m;
         }
     }
 }

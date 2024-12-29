@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -14,7 +14,7 @@ namespace xsSettings.Controls
     {
         private readonly SettingsNetworkPresets _presets;
 
-        public OptionNetwork(SettingsNetworkPresets presets) : base("Network Options")
+        public OptionNetwork(SettingsNetworkPresets presets) : base("Network Playback")
         {
             InitializeComponent();
             _presets = presets;

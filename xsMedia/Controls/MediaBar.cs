@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -18,7 +18,8 @@ namespace xsMedia.Controls
     {
         private readonly MediaSlider _position;
         private readonly MediaSlider _volume;
-        private readonly MediaCounter _counter;
+
+        public MediaCounter Counter { get; private set; }
 
         private float _currentPosition;
         private int _length;
@@ -93,19 +94,19 @@ namespace xsMedia.Controls
                                                    });
             _volume.OnValueChanged += OnSliderValueChanged;
 
-            _counter = PlayerControls.AddAttach(new MediaCounter
+            Counter = PlayerControls.AddAttach(new MediaCounter
                                                     {
                                                         Tag = "PLAYER_TIME",
                                                         CounterType = SettingsManager.Settings.Player.CounterType
                                                     });
-            _counter.OnDoubleClick += OnCounterDoubleClick;
+            Counter.OnDoubleClick += OnCounterDoubleClick;
         }
 
         public int ElapsedTime
         {
             set
             {
-                _counter.Elapsed = value;
+                Counter.Elapsed = value;
             }
         }
 
@@ -118,7 +119,7 @@ namespace xsMedia.Controls
             set
             {
                 _length = value;
-                _counter.Total = value;
+                Counter.Total = value;
             }
         }
 
@@ -230,7 +231,7 @@ namespace xsMedia.Controls
 
         private void OnCounterDoubleClick(PlayerControl control)
         {
-            SettingsManager.Settings.Player.CounterType = _counter.CounterType;
+            SettingsManager.Settings.Player.CounterType = Counter.CounterType;
         }
 
         private void OnSliderValueChanged(MediaSlider control)

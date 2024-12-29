@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -20,6 +20,8 @@ namespace xsSettings.Forms
         private readonly PlayerSettings _settings;
         private TreeNode _selectedNode;
 
+        private readonly OptionPlayback _optionPlayback;
+        private readonly OptionVideo _optionVideo;
         private readonly OptionCdAudio _optionCdAudio;
         private readonly OptionCddb _optionCddb;
         private readonly OptionVcd _optionVcd;
@@ -29,113 +31,135 @@ namespace xsSettings.Forms
 
         public FrmSettings()
         {
-            Text = @"xsMedia Options";
+            Text = @"xsMedia Playback";
             ClientSize = new Size(495, 389);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             ShowIcon = false;
-            ShowInTaskbar = false;            
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             /* Controls */
             _tvMenu = new TreeView
-                {
-                    Location = new Point(12, 12),
-                    Size = new Size(117, 324),
-                    TabIndex = 0
-                };
+            {
+                Location = new Point(12, 12),
+                Size = new Size(117, 324),
+                TabIndex = 0
+            };
 
             var btnOk = new Button
-                {
-                    DialogResult = DialogResult.OK,
-                    Location = new Point(327, 357),
-                    Size = new Size(75, 23),
-                    TabIndex = 1,
-                    Text = @"OK",
-                    UseVisualStyleBackColor = true
-                };
+            {
+                DialogResult = DialogResult.OK,
+                Location = new Point(327, 357),
+                Size = new Size(75, 23),
+                TabIndex = 1,
+                Text = @"OK",
+                UseVisualStyleBackColor = true
+            };
 
             var btnCancel = new Button
-                {
-                    DialogResult = DialogResult.Cancel,
-                    Location = new Point(408, 357),
-                    Size = new Size(75, 23),
-                    TabIndex = 2,
-                    Text = @"Cancel",
-                    UseVisualStyleBackColor = true
-                };
+            {
+                DialogResult = DialogResult.Cancel,
+                Location = new Point(408, 357),
+                Size = new Size(75, 23),
+                TabIndex = 2,
+                Text = @"Cancel",
+                UseVisualStyleBackColor = true
+            };
 
             /* Init settings */
             _settings = new PlayerSettings(SettingsManager.Settings);
+
             /* Init "panels" */
+            _optionPlayback = new OptionPlayback(_settings.Player)
+            {
+                Size = new Size(348, 324),
+                Location = new Point(135, 12),
+                Visible = false
+            };
+            _optionVideo = new OptionVideo(_settings.Player)
+            {
+                Size = new Size(348, 324),
+                Location = new Point(135, 12),
+                Visible = false
+            };
             _optionCdAudio = new OptionCdAudio(_settings.Cdda)
-                                 {
-                                     Size = new Size(348, 324),
-                                     Location = new Point(135, 12),
-                                     Visible = false
-                                 };
+            {
+                Size = new Size(348, 324),
+                Location = new Point(135, 12),
+                Visible = false
+            };
             _optionCddb = new OptionCddb(_settings.Cdda.Cddb)
-                              {
-                                  Size = new Size(348, 324),
-                                  Location = new Point(135, 12),
-                                  Visible = false
-                              };
+            {
+                Size = new Size(348, 324),
+                Location = new Point(135, 12),
+                Visible = false
+            };
             _optionVcd = new OptionVcd(_settings.Vcd)
-                             {
-                                 Size = new Size(348, 324),
-                                 Location = new Point(135, 12),
-                                 Visible = false
-                             };
+            {
+                Size = new Size(348, 324),
+                Location = new Point(135, 12),
+                Visible = false
+            };
             _optionDvd = new OptionDvd(_settings.Dvd)
-                             {
-                                 Size = new Size(348, 324),
-                                 Location = new Point(135, 12),
-                                 Visible = false
-                             };
+            {
+                Size = new Size(348, 324),
+                Location = new Point(135, 12),
+                Visible = false
+            };
             _optionNetwork = new OptionNetwork(_settings.NetworkPresets)
-                                 {
-                                     Size = new Size(348, 324),
-                                     Location = new Point(135, 12),
-                                     Visible = false
-                                 };
+            {
+                Size = new Size(348, 324),
+                Location = new Point(135, 12),
+                Visible = false
+            };
             _optionProxy = new OptionProxy(_settings.NetworkPresets.Proxy)
-                               {
-                                   Size = new Size(348, 324),
-                                   Location = new Point(135, 12),
-                                   Visible = false
-                               };
+            {
+                Size = new Size(348, 324),
+                Location = new Point(135, 12),
+                Visible = false
+            };
             /* Build treeview nodes */
             _tvMenu.Nodes.AddRange(new[]
+            {
+                new TreeNode("Playback", new[]
                 {
-                    new TreeNode("Disc", new[]
-                        {
-                            new TreeNode("CD Audio", new[]
-                                {
-                                    new TreeNode("CDDB")
-                                }),
-                            new TreeNode("VCD/SVCD"),
-                            new TreeNode("DVD")
-                        }),
-                        new TreeNode("Network", new[]
-                            {
-                                new TreeNode("HTTP Proxy"), 
-                            })
-                });
-            
+                    new TreeNode("General"),
+                    new TreeNode("Video")
+                }),
+
+                new TreeNode("Disc", new[]
+                {
+                    new TreeNode("CD Audio", new[]
+                    {
+                        new TreeNode("CDDB")
+                    }),
+                    new TreeNode("VCD/SVCD"),
+                    new TreeNode("DVD")
+                }),
+
+                new TreeNode("Network", new[]
+                {
+                    new TreeNode("HTTP Proxy")
+                })
+            });
+
             /* Add controls */
             Controls.AddRange(new Control[]
-                                  {
-                                      _tvMenu,
-                                      btnOk,
-                                      btnCancel,
-                                      _optionCdAudio,
-                                      _optionCddb,
-                                      _optionVcd,
-                                      _optionDvd,
-                                      _optionNetwork,
-                                      _optionProxy
-                                  });
+            {
+                _tvMenu,
+                btnOk,
+                btnCancel,
+                _optionPlayback,
+                _optionVideo,
+                _optionCdAudio,
+                _optionCddb,
+                _optionVcd,
+                _optionDvd,
+                _optionNetwork,
+                _optionProxy
+            });
 
             AcceptButton = btnOk;
             _tvMenu.AfterSelect += OnMenuClick;
@@ -181,6 +205,15 @@ namespace xsSettings.Forms
         {
             switch (node.Text.ToUpper())
             {
+                case "PLAYBACK":
+                case "GENERAL":
+                    _optionPlayback.Visible = true;
+                    break;
+
+                case "VIDEO":
+                    _optionVideo.Visible = true;
+                    break;
+
                 case "DISC":
                 case "CD AUDIO":
                     _optionCdAudio.Visible = true;

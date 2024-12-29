@@ -1,5 +1,5 @@
 ﻿/* xsMedia - sxCore
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -15,6 +15,7 @@ namespace xsCore.Utils
         private readonly MouseHook _mouseHook;
         private readonly KeyboardHook _keyboardHook;
 
+        public event Action<object, MouseEventArgs> OnMouseClick;
         public event Action<object, MouseEventArgs> OnMouseDoubleClick;
         public event Action<object, MouseEventArgs> OnMouseMove;
         public event Action<object, KeyEventArgs> OnKeyDown;
@@ -23,6 +24,7 @@ namespace xsCore.Utils
         {
             _mouseHook = new MouseHook();
             _mouseHook.InstallHook();
+            _mouseHook.MouseClick += MouseClick;
             _mouseHook.MouseDoubleClick += MouseDoubleClick;
             _mouseHook.MouseMove += MouseMove;
 
@@ -33,11 +35,21 @@ namespace xsCore.Utils
 
         ~SystemHookManager()
         {
+            _mouseHook.MouseClick -= MouseClick;
             _mouseHook.MouseDoubleClick -= MouseDoubleClick;
+            _mouseHook.MouseMove -= MouseMove;
             _mouseHook.RemoveHook();
 
             _keyboardHook.KeyDown -= KeyDown;
             _keyboardHook.RemoveHook();
+        }
+
+        private void MouseClick(object sender, MouseEventArgs e)
+        {
+            if (OnMouseClick != null)
+            {
+                OnMouseClick(sender, e);
+            }
         }
 
         private void MouseDoubleClick(object sender, MouseEventArgs e)

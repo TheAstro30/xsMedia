@@ -151,6 +151,7 @@ namespace libolv
              * this, iterating over the Items will not work correctly if the ListView handle
              * has not yet been created. */
 #pragma warning disable 168
+            // ReSharper disable once UnusedVariable
             var dummy = Items.Count;
 #pragma warning restore 168
             /* Collect all the information that governs the creation of groups */

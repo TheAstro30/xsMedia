@@ -48,9 +48,9 @@ namespace xsVlc.Core
                                "--ignore-config",
                                "--no-osd",
                                "--disable-screensaver",
-                               "--ffmpeg-hw",
-                               "--sub-filter=marq:logo",
-                               "--plugin-path=./plugins"
+                               //"--ffmpeg-hw",
+                               "--sub-filter=marq:logo"
+                               //"--plugin-path=./plugins"
                            };
             Initialize(args);
         }

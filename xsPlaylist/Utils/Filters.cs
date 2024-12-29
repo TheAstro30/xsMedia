@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsPlaylist
- * (c)2013 - 2020
+ * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -20,12 +20,13 @@ namespace xsPlaylist.Utils
             OpenFilters.AddRange(new[]
                                      {
                                          new FileMasks("Video Files",
-                                                       "*.avi;*.qt;*.mov;*.mpg;*.mpeg;*.m1v;*.mp4;*.mkv;*.rmvb;*.ogm;*.wmv;*.flv")
+                                                       "*.avi;*.qt;*.mov;*.mpg;*.mpeg;*.m1v;*.mp4;*.mkv;*.rmvb;*.ogm;*.wmv;*.flv;*.m4v")
                                          ,
                                          new FileMasks("Audio Files",
-                                                       "*.wav;*.mpa;*.mp2;*.mp3;*.au;*.aif;*.aiff;*.snd;*.ogg;*.wma"),
+                                                       "*.wav;*.mpa;*.mp2;*.mp3;*.au;*.aif;*.aiff;*.snd;*.ogg;*.wma;*.m4a"),
                                          new FileMasks("Tracker Modules", "*.mod;*.xm;*.s3m;*.it;*.ned;*.mo3;*.mtm;*.umx"),
-                                         new FileMasks("MIDI Files", "*.mid;*.midi") 
+                                         new FileMasks("MIDI Files", "*.mid;*.midi"),
+                                         new FileMasks("ASX Files", "*.asx")
                                      });
             /* Playlist filters */
             OpenPlaylistFilters = new FilterMasks
