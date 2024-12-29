@@ -3,6 +3,8 @@
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -10,6 +12,12 @@ namespace xsCore.Controls
 {
     public class FormEx : Form
     {
+        protected override void OnResize(EventArgs e)
+        {
+            Invalidate();
+            base.OnResize(e);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             /* Draws a background color similar to Windows' Task panes */

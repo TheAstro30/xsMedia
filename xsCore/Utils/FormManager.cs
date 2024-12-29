@@ -16,7 +16,8 @@ namespace xsCore.Utils
 
         public static Form Open(Form form, IWin32Window owner)
         {
-            foreach (var f in FormCol.Where(f => f.Name == form.Name))
+            var f = GetForm(form.Name);
+            if (f != null)
             {
                 f.BringToFront();
                 f.Focus();
@@ -28,6 +29,12 @@ namespace xsCore.Utils
             return form;
         }
 
+        public static Form GetForm(string formName)
+        {
+            return FormCol.FirstOrDefault(f => f.Name == formName);
+        }
+
+        /* Callback */
         private static void OnFormClosed(object sender, EventArgs e)
         {
             var f = (Form)sender;

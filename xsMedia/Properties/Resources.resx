@@ -121,6 +121,9 @@
   <data name="dlgAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\dialogs\dlgAdd.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="dlgClear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\dialogs\dlgClear.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="dlgRemove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\dialogs\dlgRemove.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -165,6 +168,12 @@
   </data>
   <data name="menuEffects" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuEffects.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuFavoriteEdit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuFavoriteEdit.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuFavoriteItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuFavoriteItem.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuFile.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

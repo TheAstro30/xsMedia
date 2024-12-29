@@ -614,7 +614,7 @@ namespace xsMedia.Controls
             CurrentTrack = PlaylistManager.MediaList.Count - 1;
             MediaEventHandlers(CurrentTrack);
             _listPlayer.PlayItemAt(CurrentTrack);
-            SettingsManager.Settings.Player.AddHistory(fileName);
+            SettingsManager.AddHistory(fileName);
         }
 
         public void OpenNetwork(string networkUrl)

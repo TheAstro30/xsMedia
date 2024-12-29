@@ -9,7 +9,9 @@ using System.IO;
 using xsCore.PlayerControls;
 using xsCore.Skin;
 using xsCore.PlayerControls.Controls;
+using xsCore.Utils;
 using xsCore.Utils.SystemUtils;
+using xsMedia.Forms;
 using xsSettings;
 
 namespace xsMedia.Controls
@@ -283,6 +285,11 @@ namespace xsMedia.Controls
             /* Call a redraw */
             SettingsManager.Settings.Window.CurrentSkin = AppPath.MainDir(skinFile);
             SkinManager.ApplySkinLayout(this);
+            var favorites = FormManager.GetForm("FrmFavorites");
+            if (favorites != null)
+            {
+                ((FrmFavorites)favorites).SkinChanged(true);
+            }
             Refresh();
         }
     }

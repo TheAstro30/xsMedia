@@ -21,6 +21,7 @@ namespace xsSettings.Settings
             MainWindow = new SettingsWindowData(window.MainWindow);
             EffectsWindow = window.EffectsWindow;
             NetworkWindow = window.NetworkWindow;
+            FavoritesWindow = window.FavoritesWindow;
             CurrentSkin = window.CurrentSkin;
         }
 
@@ -35,5 +36,8 @@ namespace xsSettings.Settings
 
         [XmlElement("networkWindow")]
         public SettingsWindowData NetworkWindow = new SettingsWindowData();
+
+        [XmlElement("favoritesWindow")]
+        public SettingsWindowData FavoritesWindow = new SettingsWindowData();
     }
 }

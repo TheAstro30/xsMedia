@@ -134,6 +134,12 @@
     <Compile Include="Controls\MediaPlayback.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\FrmFavorites.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmFavorites.Designer.cs">
+      <DependentUpon>FrmFavorites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmGoto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MediaPlayback.resx">
       <DependentUpon>MediaPlayback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmFavorites.resx">
+      <DependentUpon>FrmFavorites.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -258,6 +267,9 @@
   <ItemGroup>
     <None Include="Icons\dialogs\dlgReset.ico" />
     <None Include="Icons\menus\menuMute.ico" />
+    <None Include="Icons\dialogs\dlgClear.ico" />
+    <None Include="Icons\menus\menuFavoriteItem.ico" />
+    <None Include="Icons\menus\menuFavoriteEdit.ico" />
     <Content Include="mainIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

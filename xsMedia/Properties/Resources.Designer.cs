@@ -73,6 +73,16 @@ namespace xsMedia.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon dlgClear {
+            get {
+                object obj = ResourceManager.GetObject("dlgClear", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon dlgRemove {
             get {
                 object obj = ResourceManager.GetObject("dlgRemove", resourceCulture);
@@ -216,6 +226,26 @@ namespace xsMedia.Properties {
         internal static System.Drawing.Icon menuEffects {
             get {
                 object obj = ResourceManager.GetObject("menuEffects", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon menuFavoriteEdit {
+            get {
+                object obj = ResourceManager.GetObject("menuFavoriteEdit", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon menuFavoriteItem {
+            get {
+                object obj = ResourceManager.GetObject("menuFavoriteItem", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

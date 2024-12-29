@@ -129,6 +129,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Internal\PlayerSettings.cs" />
+    <Compile Include="Settings\SettingsFavorites.cs" />
     <Compile Include="Settings\SettingsFilterDeinterlace.cs" />
     <Compile Include="Settings\SettingsFilterCrop.cs" />
     <Compile Include="Settings\SettingsFilterEq.cs" />
@@ -154,6 +155,10 @@
     <ProjectReference Include="..\..\xsMedia\xsCore\xsCore.csproj">
       <Project>{F87F73B0-30DF-43F4-8F2A-EC0B97F63509}</Project>
       <Name>xsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xsOlv\libolv.csproj">
+      <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
+      <Name>libolv</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

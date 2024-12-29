@@ -23,6 +23,7 @@ using xsPlaylist.Forms;
 using xsPlaylist.Playlist;
 using xsPlaylist.Utils;
 using xsSettings;
+using xsSettings.Settings;
 using xsSettings.Settings.Enums;
 using xsVlc.Common;
 using xsVlc.Common.Events;
@@ -224,6 +225,7 @@ namespace xsMedia.Logic
             /* This is only done so hot keys work from first play */
             BuildMenuPlayback(MenuPlayback, OnPlaybackMenuItemClicked);
             BuildMenuVideo(MenuVideo, OnVideoMenuItemClicked);
+            IsControlHovering = false;
         }
         #endregion
 
@@ -342,6 +344,27 @@ namespace xsMedia.Logic
                 default:
                     /* CD Device */
                     Open.OpenDisc(Convert.ToInt32(o.Tag));
+                    break;
+            }
+        }
+
+        private static void OnFavoritesMenuItemClicked(object sender, EventArgs e)
+        {
+            var o = (ToolStripItem)sender;
+            var tag = o.Tag.ToString();
+            switch (tag)
+            {
+                case "MANAGE":
+                    var fave = new FrmFavorites();
+                    if (FormManager.Open(fave, _player) == null)
+                    {
+                        System.Diagnostics.Debug.Print("is null");
+                    }
+                    break;
+
+                default:
+                    /* Begin playback */
+                    Video.VideoControl.OpenFile(tag);
                     break;
             }
         }
@@ -482,6 +505,26 @@ namespace xsMedia.Logic
             var tag = o.Tag.ToString();
             switch (tag)
             {
+                case "ADD":
+                    var p = Playlist.PlaylistControl.GetItemAt(Video.VideoControl.CurrentTrack);
+                    if (p == null)
+                    {
+                        return;
+                    }
+                    var data = new SettingsHistoryData(p.Location);
+                    var i = SettingsManager.AddFavorite(data);
+                    if (i == -1)
+                    {
+                        /* Already exists */
+                        return;
+                    }
+                    var fave = FormManager.GetForm("FrmFavorites");
+                    if (fave != null)
+                    {
+                        ((FrmFavorites)fave).AddFavorite(data);
+                    }
+                    break;
+
                 case "DISABLE":
                     Video.VideoControl.VideoTrack = -1;
                     Video.VideoControl.IsVideo = false;
@@ -1031,23 +1074,6 @@ namespace xsMedia.Logic
         private static ToolStripItem[] OpenMenu(EventHandler menuHandler, CdManager cdManager)
         {
             var items = new List<ToolStripItem>();
-            if (SettingsManager.Settings.Player.FileHistory.Count > 0)
-            {
-                var history = new ToolStripMenuItem("Open recent", Resources.menuRecent.ToBitmap());
-                foreach (var h in SettingsManager.Settings.Player.FileHistory)
-                {
-                    history.DropDownItems.Add(MenuHelper.AddMenuItem(h.ToString(), h.Path, Keys.None, true, false, Resources.menuRecentItem.ToBitmap(), OnRecentMenuItemClicked));
-                }
-                history.DropDownItems.AddRange(new ToolStripItem[]
-                {
-                    new ToolStripSeparator(),
-                    MenuHelper.AddMenuItem("Clear history", "CLEAR", Keys.None, true, false, Resources.menuClear.ToBitmap(), OnRecentMenuItemClicked)
-                });
-                items.AddRange(new ToolStripItem[]
-                {
-                    history, new ToolStripSeparator()
-                });
-            }
             items.AddRange(
                 new ToolStripItem[]
                 {
@@ -1078,7 +1104,41 @@ namespace xsMedia.Logic
                                                            true, false, Resources.menuDiscDrive.ToBitmap(),
                                                            menuHandler));
             }
+            items.AddRange(new ToolStripItem[] {m, new ToolStripSeparator()});
+            /* Favorites */
+            m = new ToolStripMenuItem("Favorites", Resources.menuFavoriteItem.ToBitmap());
+            if (SettingsManager.Settings.Favorites.Favorite.Count > 0)
+            {
+                for (var i = 0; i <= 25; i++)
+                {
+                    if (i > SettingsManager.Settings.Favorites.Favorite.Count - 1)
+                    {
+                        break;
+                    }
+                    var f = SettingsManager.Settings.Favorites.Favorite[i];
+                    m.DropDownItems.Add(MenuHelper.AddMenuItem(f.ToString(), f.FilePath, Keys.None, true, false,
+                        Resources.menuFavoriteItem.ToBitmap(), OnFavoritesMenuItemClicked));
+                }
+                m.DropDownItems.Add(new ToolStripSeparator());
+            }
+            m.DropDownItems.Add(MenuHelper.AddMenuItem("Manage favorites", "MANAGE", Keys.Control | Keys.H, true,
+                false, Resources.menuFavoriteEdit.ToBitmap(), OnFavoritesMenuItemClicked));
             items.Add(m);
+            /* History */
+            if (SettingsManager.Settings.Player.FileHistory.Count > 0)
+            {
+                m = new ToolStripMenuItem("Open recent", Resources.menuRecent.ToBitmap());
+                foreach (var h in SettingsManager.Settings.Player.FileHistory)
+                {
+                    m.DropDownItems.Add(MenuHelper.AddMenuItem(h.ToString(), h.FilePath, Keys.None, true, false, Resources.menuRecentItem.ToBitmap(), OnRecentMenuItemClicked));
+                }
+                m.DropDownItems.AddRange(new ToolStripItem[]
+                {
+                    new ToolStripSeparator(),
+                    MenuHelper.AddMenuItem("Clear history", "CLEAR", Keys.None, true, false, Resources.menuClear.ToBitmap(), OnRecentMenuItemClicked)
+                });
+                items.Add(m);
+            }
             return items.ToArray();
         }
         #endregion
@@ -1094,15 +1154,22 @@ namespace xsMedia.Logic
         {
             /* Build context menu - Glenn 20 */
             var items = new List<ToolStripItem>();
-            if (Video.VideoControl.IsVideo && Video.VideoControl.PlayerState != MediaState.Stopped && !Video.IsFullScreen)
+            if (Video.VideoControl.IsVideo && Video.VideoControl.PlayerState != MediaState.Stopped)
             {
-                items.AddRange(new ToolStripItem[] { new ToolStripMenuItem("Full screen", Resources.menuFullScreen.ToBitmap(), OnVideoWindowFullScreenMenuClick), new ToolStripSeparator() });
+                if (!Video.IsFullScreen)
+                {
+                    items.Add(new ToolStripMenuItem("Full screen", Resources.menuFullScreen.ToBitmap(),
+                        OnVideoWindowFullScreenMenuClick));
+                }
+                else
+                {
+                    items.Add(new ToolStripMenuItem("Exit full screen", Resources.menuFullScreenExit.ToBitmap(), OnVideoWindowFullScreenMenuClick));
+                }
+                if (Video.VideoControl.OpenDiscType == DiscType.None)
+                {
+                    items.Add(MenuHelper.AddMenuItem("Add to favorites", "ADD", Keys.None, true, false, Resources.menuFavoriteEdit.ToBitmap(), OnVideoMenuItemClicked));
+                }
             }
-            else if (Video.IsFullScreen)
-            {
-                items.AddRange(new ToolStripItem[] { new ToolStripMenuItem("Exit full screen", Resources.menuFullScreenExit.ToBitmap(), OnVideoWindowFullScreenMenuClick), new ToolStripSeparator() });
-            }
-
             var m = new ToolStripMenuItem { Text = @"Playback speed", Image = Resources.menuPlaySpeed.ToBitmap() };
             BuildMenuPlaybackSpeed(m, OnPlaybackSpeedItemClicked);
             items.AddRange(new ToolStripItem[] { m, new ToolStripSeparator() });

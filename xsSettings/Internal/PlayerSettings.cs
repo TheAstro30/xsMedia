@@ -129,5 +129,8 @@ namespace xsSettings.Internal
 
         [XmlElement("filters")]
         public SettingsFilters Filters = new SettingsFilters();
+
+        [XmlElement("favorites")]
+        public SettingsFavorites Favorites = new SettingsFavorites();
     }
 }

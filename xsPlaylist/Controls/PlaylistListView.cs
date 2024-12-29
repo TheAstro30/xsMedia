@@ -146,6 +146,15 @@ namespace xsPlaylist.Controls
             _lv.AddObject(entry);
         }
 
+        public PlaylistEntry GetItemAt(int index)
+        {
+            if (index > _lv.Items.Count - 1)
+            {
+                return null;
+            }
+            return (PlaylistEntry) _lv.GetItem(index).RowObject;
+        }
+
         public void RemoveAt(int index)
         {
             _lv.Items.RemoveAt(index);
