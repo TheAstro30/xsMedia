@@ -9,19 +9,19 @@ using System.Xml.Serialization;
 using libolv.Implementation;
 using xsCore.Utils;
 
-namespace xsSettings.Settings
+namespace xsCore.Structures
 {
     [Serializable]
-    public class SettingsHistoryData
+    public class HistoryData
     {
         private string _friendlyName;
 
-        public SettingsHistoryData()
+        public HistoryData()
         {
             /* Default constructor */
         }
 
-        public SettingsHistoryData(string fileName)
+        public HistoryData(string fileName)
         {
             FilePath = fileName;
             FriendlyName = Path.GetFileNameWithoutExtension(fileName);
@@ -29,7 +29,7 @@ namespace xsSettings.Settings
             Length = GetLength();
         }
 
-        public SettingsHistoryData(string fileName, int length)
+        public HistoryData(string fileName, int length)
         {
             FilePath = fileName;
             FriendlyName = Path.GetFileNameWithoutExtension(fileName);

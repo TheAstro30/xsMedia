@@ -99,8 +99,12 @@ namespace xsSettings.Internal
             Dvd = new SettingsDisc(settings.Dvd);
             /* Network */
             NetworkPresets = new SettingsNetworkPresets(settings.NetworkPresets);
+            /* Paths */
+            Paths = new SettingsPaths(settings.Paths);
             /* Filters */
             Filters = new SettingsFilters(settings.Filters);
+            /* Favorites */
+            Favorites = new SettingsFavorites(settings.Favorites);
         }
 
         [XmlElement("option")] 

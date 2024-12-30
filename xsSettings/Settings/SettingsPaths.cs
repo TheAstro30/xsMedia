@@ -20,9 +20,15 @@ namespace xsSettings.Settings
                 /* Default constructor */
             }
 
+            //public SettingsPathData(SettingsPathData data)
+            //{
+            //    Id = data.Id;
+            //    Location = data.Location;
+            //}
+
             public SettingsPathData(string id)
             {
-                Id = id;
+                Id = id;                
             }
 
             [XmlAttribute("id")]
@@ -37,13 +43,24 @@ namespace xsSettings.Settings
             }
         }
 
+        public SettingsPaths() 
+        {
+            /* Default constructor */
+        }
+
+        public SettingsPaths(SettingsPaths paths)
+        {
+            /* Copy constructor */
+            Path = new List<SettingsPathData>(paths.Path);
+        }
+
         [XmlElement("path")]
         public List<SettingsPathData> Path = new List<SettingsPathData>();
 
         public SettingsPathData GetPath(string id)
         {
             if (string.IsNullOrEmpty(id)) { return null; }
-            var settingsPathData = Path.FirstOrDefault(o => o.Id.ToLower() == id.ToLower());
+            var settingsPathData = Path.FirstOrDefault(o => string.Equals(o.Id, id, StringComparison.CurrentCultureIgnoreCase));
             if (settingsPathData == null)
             {
                 /* Doesn't exists? add a new one */

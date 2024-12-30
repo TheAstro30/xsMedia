@@ -6,6 +6,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using xsSettings.Internal;
 
 namespace xsSettings.Controls
 {
@@ -21,6 +22,8 @@ namespace xsSettings.Controls
             InitializeComponent();
             lblHeader.Text = header;
         }
+
+        public PlayerSettings Settings { get; set; }
 
         protected override void OnPaint(PaintEventArgs e)
         {

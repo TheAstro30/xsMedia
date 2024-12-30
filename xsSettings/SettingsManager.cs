@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using xsCore.Structures;
 using xsCore.Utils.IO;
 using xsCore.Utils.Serialization;
 using xsSettings.Forms;
@@ -74,7 +75,7 @@ namespace xsSettings
             AddToList(Settings.Player.FileHistory, fileName, 25);
         }
 
-        public static int AddFavorite(SettingsHistoryData data)
+        public static int AddFavorite(HistoryData data)
         {
             /* First check this is even a legal file; CD/DVD/Blueray discs are not */
             if (!Filters.IsValidMediaFile(data.FilePath))
@@ -95,19 +96,19 @@ namespace xsSettings
             return favorite.Count;
         }
 
-        public static bool RemoveFavorite(SettingsHistoryData data)
+        public static bool RemoveFavorite(HistoryData data)
         {            
             return Settings.Favorites.Favorite.Remove(data);
         }
 
         /* Check if item exists method */
-        public static SettingsHistoryData GetHistoryItem(IEnumerable<SettingsHistoryData> historyData, string fileName)
+        public static HistoryData GetHistoryItem(IEnumerable<HistoryData> historyData, string fileName)
         {
             return historyData.FirstOrDefault(h => h.FilePath.Equals(fileName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /* Private add method */
-        private static void AddToList(IList<SettingsHistoryData> historyData, string fileName, int maxEnties, bool append = false)
+        private static void AddToList(IList<HistoryData> historyData, string fileName, int maxEnties, bool append = false)
         {
             /* First check it doesn't already exist in the list */
             if (GetHistoryItem(historyData, fileName) != null)
@@ -115,7 +116,7 @@ namespace xsSettings
                 return;
             }
             /* Now add it */
-            var data = new SettingsHistoryData
+            var data = new HistoryData
             {
                 FilePath = fileName,
                 FriendlyName = Path.GetFileNameWithoutExtension(fileName)

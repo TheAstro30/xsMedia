@@ -5,12 +5,12 @@
  * Licenced under the GNU public licence */
 using System.Collections.Generic;
 using System.Drawing;
+using xsCore;
 using xsCore.CdUtils;
+using xsCore.Controls.Playlist;
+using xsCore.Controls.Playlist.Playlist;
 using xsCore.Utils;
 using xsMedia.Forms;
-using xsPlaylist;
-using xsPlaylist.Controls;
-using xsPlaylist.Playlist;
 using xsVlc.Common;
 
 namespace xsMedia.Logic

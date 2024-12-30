@@ -6,7 +6,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using xsCore.Controls.Forms;
 using xsCore.Utils;
 using xsCore.Utils.IO;
 using xsCore.Utils.UI;
@@ -15,7 +14,7 @@ using xsVlc.Common.Events;
 using xsVlc.Common.Media;
 using xsVlc.Core;
 
-namespace xsPlaylist.Forms
+namespace xsCore.Controls.Forms
 {
     public sealed partial class FrmMediaMeta : FormEx
     {

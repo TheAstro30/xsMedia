@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using libolv.Implementation;
 
-namespace xsPlaylist.Playlist
+namespace xsCore.Controls.Playlist.Playlist
 {
     public enum PlaylistType
     {

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using xsCore.Utils.Serialization;
 
-namespace xsPlaylist.Playlist.Playlists
+namespace xsCore.Controls.Playlist.Playlist.Playlists
 {
     [Serializable]
     public class XsplHeader

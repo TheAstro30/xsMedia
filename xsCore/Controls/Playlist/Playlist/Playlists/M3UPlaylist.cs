@@ -8,23 +8,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
-namespace xsPlaylist.Playlist.Playlists
+namespace xsCore.Controls.Playlist.Playlist.Playlists
 {
-    public class PlsPlaylist : IPlaylist
+    public class M3UPlaylist : IPlaylist
     {
         private List<PlaylistEntry> _list = new List<PlaylistEntry>();
+        private readonly PlaylistType _type;
 
-        public PlsPlaylist()
+        /* Constructors */
+        public M3UPlaylist()
         {
             /* Empty default constructor */
+            _type = PlaylistType.M3U;
         }
 
-        public PlsPlaylist(IPlaylist playlist)
+        public M3UPlaylist(PlaylistType type)
+        {
+            _type = type;
+        }
+
+        public M3UPlaylist(IPlaylist playlist)
         {
             if (playlist.Count == 0) { return; }
             /* Copy playlist */
+            _type = playlist.Type;
             PlaylistTitle = playlist.PlaylistTitle;
             foreach (var entry in playlist)
             {
@@ -35,7 +43,7 @@ namespace xsPlaylist.Playlist.Playlists
         /* Interface methods */
         public PlaylistType Type
         {
-            get { return PlaylistType.Pls; }
+            get { return _type; }
         }
 
         public string PlaylistTitle { get; set; }
@@ -60,43 +68,36 @@ namespace xsPlaylist.Playlist.Playlists
                                 var read = sr.ReadLine();
                                 if (string.IsNullOrEmpty(read)) { continue; }
                                 /* Header */
-                                if (!header && read.ToLower() == "[playlist]")
+                                if (!header && read.ToLower() == "#extm3u")
                                 {
                                     header = true;
                                     continue;
                                 }
-                                if (!header || read.StartsWith("[")) { break; }
-                                var sp = read.Split('=');
-                                if (sp.Length < 2) { continue; }
-                                /* Remove numeric values from item */
-                                var item = Regex.Replace(sp[0], @"\d", "");
-                                switch (item.ToUpper())
+                                if (!header) { break; }
+                                if (read.ToLower().StartsWith("#extinf:"))
                                 {
-                                    case "FILE":
-                                        if (pls != null) { _list.Add(pls); }
-                                        pls = new PlaylistEntry
-                                                  {
-                                                      Location = sp[1]
-                                                  };
-                                        break;
-                                    case "TITLE":
-                                        if (pls != null)
-                                        {
-                                            var data = sp[1].Split('-');
-                                            pls.Artist = data[0].Trim();
-                                            pls.Title = data.Length > 1 ? data[1].Trim() : null;
-                                        }
-                                        break;
-                                    case "LENGTH":
-                                        if (pls != null)
-                                        {
-                                            int length;
-                                            if (Int32.TryParse(sp[1], out length))
-                                            {
-                                                pls.Length = length > 0 ? length * 1000 : 0;
-                                            }
-                                        }
-                                        break;
+                                    var sp = read.Split(':');
+                                    if (sp.Length == 1) { continue; }
+                                    var data = sp[1].Split(',');
+                                    int length;
+                                    Int32.TryParse(data[0], out length);
+                                    pls = new PlaylistEntry
+                                              {
+                                                  Length = length > 0 ? length * 1000 : 0
+                                              };
+                                    if (data.Length == 1) { continue; }
+                                    var title = data[1].Split('-');
+                                    pls.Artist = title[0].Trim();
+                                    pls.Title = title.Length > 1 ? title[1].Trim() : null;
+                                }
+                                else
+                                {
+                                    if (pls != null)
+                                    {
+                                        pls.Location = read;
+                                        _list.Add(pls);
+                                        pls = new PlaylistEntry();
+                                    }
                                 }
                             }
                             success = true;
@@ -108,8 +109,6 @@ namespace xsPlaylist.Playlist.Playlists
                 catch { success = false; }
                 finally { fs.Close(); }
             }
-            /* Add what's left over */
-            if (pls != null) { _list.Add(pls); }
             return success;
         }
 
@@ -130,19 +129,16 @@ namespace xsPlaylist.Playlist.Playlists
                     {
                         try
                         {
-                            sw.WriteLine("[playlist]");
-                            for (var i = 1; i <= entries.Count; i++)
+                            sw.WriteLine("#EXTM3U");
+                            for (var i = 0; i <= entries.Count - 1; i++)
                             {
-                                var pls = entries[i - 1];
-                                sw.WriteLine("File{0}={1}", i, pls.Location);
-                                if (!string.IsNullOrEmpty(pls.Artist) && !string.IsNullOrEmpty(pls.Title))
+                                var pls = entries[i];
+                                if (pls.Length != 0 || !string.IsNullOrEmpty(pls.Artist) || !string.IsNullOrEmpty(pls.Title))
                                 {
-                                    sw.WriteLine("Title{0}={1} - {2}", i, pls.Artist, pls.Title);
+                                    sw.WriteLine("#EXTINF:{0},{1} - {2}", pls.Length / 1000, pls.Artist, pls.Title);
                                 }
-                                sw.WriteLine("Length{0}={1}", i, pls.Length / 1000);
+                                sw.WriteLine(pls.Location);
                             }
-                            sw.WriteLine("NumberOfEntries={0}", _list.Count);
-                            sw.WriteLine("Version=2");
                             sw.Flush();
                             success = true;
                         }

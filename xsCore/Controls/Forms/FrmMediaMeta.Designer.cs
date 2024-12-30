@@ -1,4 +1,4 @@
-﻿namespace xsPlaylist.Forms
+﻿namespace xsCore.Controls.Forms
 {
     partial class FrmMediaMeta
     {

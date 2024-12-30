@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using xsCore.Structures;
 
 namespace xsSettings.Settings
 {
@@ -19,10 +20,11 @@ namespace xsSettings.Settings
 
         public SettingsFavorites(SettingsFavorites favorites)
         {
-            Favorite = new List<SettingsHistoryData>(favorites.Favorite);
+            /* Copy constructor */
+            Favorite = new List<HistoryData>(favorites.Favorite);
         }
 
         [XmlElement("favorite")]
-        public List<SettingsHistoryData> Favorite = new List<SettingsHistoryData>();
+        public List<HistoryData> Favorite = new List<HistoryData>();
     }
 }

@@ -11,19 +11,19 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using xsCore;
 using xsCore.CdUtils;
+using xsCore.Controls.Forms;
+using xsCore.Controls.Playlist.Playlist;
 using xsCore.Skin;
+using xsCore.Structures;
 using xsCore.Utils;
 using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
 using xsMedia.Forms;
 using xsMedia.Properties;
-using xsPlaylist;
-using xsPlaylist.Forms;
-using xsPlaylist.Playlist;
 using xsSettings;
-using xsSettings.Settings;
 using xsSettings.Settings.Enums;
 using xsVlc.Common;
 using xsVlc.Common.Events;
@@ -511,7 +511,7 @@ namespace xsMedia.Logic
                     {
                         return;
                     }
-                    var data = new SettingsHistoryData(p.Location, p.Length / 1000);
+                    var data = new HistoryData(p.Location, p.Length / 1000);
                     var i = SettingsManager.AddFavorite(data);
                     if (i == -1)
                     {

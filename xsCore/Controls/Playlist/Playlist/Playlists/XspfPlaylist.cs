@@ -11,7 +11,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using xsCore.Utils.Serialization;
 
-namespace xsPlaylist.Playlist.Playlists
+namespace xsCore.Controls.Playlist.Playlist.Playlists
 {
     /* XSPF ("spiff" - XML Sharable Playlist Format) is a little more difficult to serialize... */
     [Serializable]

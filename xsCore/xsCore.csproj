@@ -67,9 +67,25 @@
   <ItemGroup>
     <Compile Include="CdUtils\Cddb.cs" />
     <Compile Include="CdUtils\CddbCache.cs" />
+    <Compile Include="Controls\Forms\FrmMediaMeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Forms\FrmMediaMeta.Designer.cs">
+      <DependentUpon>FrmMediaMeta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Forms\Spinner.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\Playlist\PlaylistListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Playlist\Playlist\IPlaylist.cs" />
+    <Compile Include="Controls\Playlist\Playlist\PlaylistEntry.cs" />
+    <Compile Include="Controls\Playlist\Playlist\Playlists\M3UPlaylist.cs" />
+    <Compile Include="Controls\Playlist\Playlist\Playlists\PlsPlaylist.cs" />
+    <Compile Include="Controls\Playlist\Playlist\Playlists\WplPlaylist.cs" />
+    <Compile Include="Controls\Playlist\Playlist\Playlists\XspfPlaylist.cs" />
+    <Compile Include="Controls\Playlist\Playlist\Playlists\XsplPlaylist.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\Enums.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\NativeMethods.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\TrackBarDrawItemEventArgs.cs" />
@@ -78,6 +94,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Internal\ProxyProvider.cs" />
+    <Compile Include="PlaylistManager.cs" />
+    <Compile Include="Structures\HistoryData.cs" />
     <Compile Include="Utils\Asx\AsxData.cs" />
     <Compile Include="Utils\Asx\AsxParser.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
@@ -131,6 +149,21 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\xsOlv\libolv.csproj">
+      <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
+      <Name>libolv</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xsVlc\xsVlc.csproj">
+      <Project>{5b39005b-6d95-4770-bedb-bfbdcd6d8093}</Project>
+      <Name>xsVlc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\Forms\FrmMediaMeta.resx">
+      <DependentUpon>FrmMediaMeta.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

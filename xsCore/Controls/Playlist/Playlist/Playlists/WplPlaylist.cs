@@ -11,7 +11,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using xsCore.Utils.Serialization;
 
-namespace xsPlaylist.Playlist.Playlists
+namespace xsCore.Controls.Playlist.Playlist.Playlists
 {
     /* Windows Media Playlist Format - relatively easy to serialize
      * (Note: The header of a WPL file is normally <?wpl version="1.0"?>, but WMP doesn't seem

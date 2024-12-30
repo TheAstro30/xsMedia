@@ -5,7 +5,7 @@
  * Licenced under the GNU public licence */
 using System.Collections.Generic;
 
-namespace xsPlaylist.Playlist
+namespace xsCore.Controls.Playlist.Playlist
 {
     public interface IPlaylist : IList<PlaylistEntry>
     {

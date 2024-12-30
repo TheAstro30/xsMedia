@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using xsCore.PlayerControls.Controls;
 using xsCore.Utils;
 using xsCore.Utils.SystemUtils;
+using xsSettings.Forms;
 using xsSettings.Properties;
 using xsSettings.Settings;
 using xsSettings.Settings.Enums;
@@ -65,7 +66,7 @@ namespace xsSettings.Controls
             cmbLoop.SelectedIndexChanged += OnOptionChanged;
             btnAdd.Click += OnOptionChanged;
             btnRemove.Click += OnOptionChanged;
-        }
+        }        
 
         #region Option changed callback
         private void OnOptionChanged(object sender, EventArgs e)
@@ -120,7 +121,6 @@ namespace xsSettings.Controls
                     /* Convert the string value to a float value */
                     float f;
                     var s = cmbSpeed.Items[cmbSpeed.SelectedIndex].ToString();
-                    System.Diagnostics.Debug.Print(s);
                     if (s.Equals("Normal"))
                     {
                         f = 1;
@@ -129,7 +129,6 @@ namespace xsSettings.Controls
                     {
                         if (!float.TryParse(s, out f))
                         {
-                            System.Diagnostics.Debug.Print("fuck");
                             return;
                         }
                     }
@@ -140,8 +139,14 @@ namespace xsSettings.Controls
                     _player.Loop = (PlaybackLoopMode) cmbLoop.SelectedIndex;
                     break;
 
-                case "ADD":
-                    var path = SettingsManager.Settings.Paths.GetPath("sound-font");                    
+                case "ADD":                    
+                    var path = Settings.Paths.GetPath("sound-font");
+                    var sfFile = GetSoundFont();
+                    if (!string.IsNullOrEmpty(sfFile) && sfFile.StartsWith(@"\"))
+                    {
+                        /* Persist with app local path */
+                        path.Location = Path.GetDirectoryName(AppPath.MainDir(sfFile));
+                    }
                     using (var ofd = new OpenFileDialog
                     {
                         Title = @"Choose a sound font file",
@@ -153,10 +158,10 @@ namespace xsSettings.Controls
                         if (ofd.ShowDialog(this) == DialogResult.OK)
                         {
                             var file = ofd.FileName;
+                            path.Location = Path.GetDirectoryName(file);
                             var sf = AppPath.MainDir(file);
                             AddSoundFont(sf);
-                            txtSoundFont.Text = sf;
-                            path.Location = Path.GetDirectoryName(file);
+                            txtSoundFont.Text = sf;                            
                         }
                     }
                     break;

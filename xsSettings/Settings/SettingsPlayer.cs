@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using xsCore.PlayerControls.Controls;
+using xsCore.Structures;
 using xsSettings.Settings.Enums;
 
 namespace xsSettings.Settings
@@ -33,7 +34,7 @@ namespace xsSettings.Settings
             Video.VideoTitleTimeOut = player.Video.VideoTitleTimeOut;
 
             Options.Option = new List<SettingsMediaOptions.MediaOption>(player.Options.Option);
-            FileHistory = new List<SettingsHistoryData>(player.FileHistory);
+            FileHistory = new List<HistoryData>(player.FileHistory);
         }
 
         [XmlAttribute("volume")]
@@ -61,6 +62,6 @@ namespace xsSettings.Settings
         public SettingsMediaOptions Options = new SettingsMediaOptions();
 
         [XmlElement("fileHistory")]
-        public List<SettingsHistoryData> FileHistory = new List<SettingsHistoryData>();
+        public List<HistoryData> FileHistory = new List<HistoryData>();
     }
 }

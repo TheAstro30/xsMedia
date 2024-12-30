@@ -5,10 +5,10 @@
  * Licenced under the GNU public licence */
 using System.IO;
 using System.Windows.Forms;
+using xsCore;
 using xsCore.CdUtils;
 using xsCore.Utils.IO;
 using xsMedia.Forms;
-using xsPlaylist;
 using xsSettings;
 using xsVlc.Common;
 

@@ -8,12 +8,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using xsPlaylist.Playlist;
-using xsPlaylist.Playlist.Playlists;
+using xsCore.Controls.Playlist.Playlist;
+using xsCore.Controls.Playlist.Playlist.Playlists;
 using xsVlc.Common.Media;
 using xsVlc.Core;
 
-namespace xsPlaylist
+namespace xsCore
 {
     public static class PlaylistManager
     {

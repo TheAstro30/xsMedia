@@ -8,11 +8,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using libolv;
 using libolv.Rendering.Styles;
+using xsCore.Controls.Playlist.Playlist;
 using xsCore.Skin;
 using xsCore.Utils.UI;
-using xsPlaylist.Playlist;
 
-namespace xsPlaylist.Controls
+namespace xsCore.Controls.Playlist
 {
     /* Playlist listview - Threading aware for Add method
      * - I realise that this control could have been inherited from ObjectListView but it doesn't render correctly, so

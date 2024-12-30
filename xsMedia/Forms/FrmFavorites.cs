@@ -5,17 +5,18 @@
  * Licenced under the GNU public licence */
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using libolv;
 using libolv.Rendering.Styles;
 using xsCore.Controls.Forms;
 using xsCore.Skin;
+using xsCore.Structures;
 using xsCore.Utils.IO;
 using xsCore.Utils.UI;
 using xsMedia.Logic;
 using xsMedia.Properties;
 using xsSettings;
-using xsSettings.Settings;
 
 namespace xsMedia.Forms
 {
@@ -27,7 +28,7 @@ namespace xsMedia.Forms
         private readonly OlvColumn _lvFile;
         private readonly OlvColumn _lvLength;
 
-        private ContextMenuStrip _menu;
+        private readonly ContextMenuStrip _menu;
 
         public FrmFavorites()
         {
@@ -203,7 +204,7 @@ namespace xsMedia.Forms
 
         /* Called externally if window is already open */
 
-        public void AddFavorite(SettingsHistoryData data)
+        public void AddFavorite(HistoryData data)
         {
             var favorites = SettingsManager.Settings.Favorites.Favorite;
             if (SettingsManager.GetHistoryItem(favorites, data.FilePath) != null)
@@ -258,7 +259,7 @@ namespace xsMedia.Forms
             /* An item in listview is double clicked on */
             if (e.Button == MouseButtons.Left && _lv.SelectedItem != null)
             {
-                Video.VideoControl.OpenFile(((SettingsHistoryData) _lv.SelectedObject).FilePath);
+                Video.VideoControl.OpenFile(((HistoryData) _lv.SelectedObject).FilePath);
             }
         }
 
@@ -273,7 +274,7 @@ namespace xsMedia.Forms
             switch (o.Tag.ToString())
             {
                 case "OPEN":
-                    Video.VideoControl.OpenFile(((SettingsHistoryData)_lv.SelectedObject).FilePath);
+                    Video.VideoControl.OpenFile(((HistoryData)_lv.SelectedObject).FilePath);
                     break;
             }
         }
@@ -298,7 +299,9 @@ namespace xsMedia.Forms
                         {
                             return;
                         }
-                        var f = new SettingsHistoryData(ofd.FileName);
+                        var file = ofd.FileName;
+                        path.Location = Path.GetDirectoryName(file);
+                        var f = new HistoryData(file);
                         var i = SettingsManager.AddFavorite(f);
                         if (i == -1)
                         {
@@ -322,7 +325,7 @@ namespace xsMedia.Forms
                     {
                         for (var i = sel.Count - 1; i >= 0; i--)
                         {
-                            var f = (SettingsHistoryData) sel[i];
+                            var f = (HistoryData) sel[i];
                             if (f != null && SettingsManager.RemoveFavorite(f))
                             {
                                 _lv.RemoveObject(f);

@@ -16,8 +16,9 @@ namespace xsSettings.Forms
 {
     public sealed class FrmSettings : FormEx
     {
-        private readonly TreeView _tvMenu;
         private readonly PlayerSettings _settings;
+
+        private readonly TreeView _tvMenu;        
         private TreeNode _selectedNode;
 
         private readonly OptionPlayback _optionPlayback;
@@ -76,49 +77,57 @@ namespace xsSettings.Forms
             {
                 Size = new Size(348, 324),
                 Location = new Point(135, 12),
-                Visible = false
+                Visible = false,
+                Settings = _settings
             };
             _optionVideo = new OptionVideo(_settings.Player)
             {
                 Size = new Size(348, 324),
                 Location = new Point(135, 12),
-                Visible = false
+                Visible = false,
+                Settings = _settings
             };
             _optionCdAudio = new OptionCdAudio(_settings.Cdda)
             {
                 Size = new Size(348, 324),
                 Location = new Point(135, 12),
-                Visible = false
+                Visible = false,
+                Settings = _settings
             };
             _optionCddb = new OptionCddb(_settings.Cdda.Cddb)
             {
                 Size = new Size(348, 324),
                 Location = new Point(135, 12),
-                Visible = false
+                Visible = false,
+                Settings = _settings
             };
             _optionVcd = new OptionVcd(_settings.Vcd)
             {
                 Size = new Size(348, 324),
                 Location = new Point(135, 12),
-                Visible = false
+                Visible = false,
+                Settings = _settings
             };
             _optionDvd = new OptionDvd(_settings.Dvd)
             {
                 Size = new Size(348, 324),
                 Location = new Point(135, 12),
-                Visible = false
+                Visible = false,
+                Settings = _settings
             };
             _optionNetwork = new OptionNetwork(_settings.NetworkPresets)
             {
                 Size = new Size(348, 324),
                 Location = new Point(135, 12),
-                Visible = false
+                Visible = false,
+                Settings = _settings
             };
             _optionProxy = new OptionProxy(_settings.NetworkPresets.Proxy)
             {
                 Size = new Size(348, 324),
                 Location = new Point(135, 12),
-                Visible = false
+                Visible = false,
+                Settings = _settings
             };
             /* Build treeview nodes */
             _tvMenu.Nodes.AddRange(new[]

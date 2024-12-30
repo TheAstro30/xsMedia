@@ -230,10 +230,6 @@
       <Project>{18FEDA0C-D147-4286-B39A-01204808106A}</Project>
       <Name>libolv</Name>
     </ProjectReference>
-    <ProjectReference Include="..\xsPlaylist\xsPlaylist.csproj">
-      <Project>{C22E442F-8E3C-49EF-8E99-D863BCAA9F2A}</Project>
-      <Name>xsPlaylist</Name>
-    </ProjectReference>
     <ProjectReference Include="..\xsSettings\xsSettings.csproj">
       <Project>{63583DAF-92E2-4FAF-B8AD-FF736B8BA785}</Project>
       <Name>xsSettings</Name>

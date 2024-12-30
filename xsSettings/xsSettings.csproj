@@ -146,7 +146,6 @@
     <Compile Include="Settings\SettingsDisc.cs" />
     <Compile Include="Settings\SettingsFilterAdjust.cs" />
     <Compile Include="Settings\SettingsFilters.cs" />
-    <Compile Include="Settings\SettingsHistoryData.cs" />
     <Compile Include="Settings\SettingsMediaOptions.cs" />
     <Compile Include="Settings\SettingsNetworkPresets.cs" />
     <Compile Include="Settings\SettingsPaths.cs" />
@@ -160,10 +159,6 @@
     <ProjectReference Include="..\..\xsMedia\xsCore\xsCore.csproj">
       <Project>{F87F73B0-30DF-43F4-8F2A-EC0B97F63509}</Project>
       <Name>xsCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\xsOlv\libolv.csproj">
-      <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
-      <Name>libolv</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
