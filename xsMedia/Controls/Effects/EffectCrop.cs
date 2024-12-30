@@ -7,17 +7,17 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using xsCore.Settings.Data.Filter;
 using xsMedia.Logic;
-using xsSettings.Settings;
 
 namespace xsMedia.Controls.Effects
 {
     public partial class EffectCrop : UserControl
     {
-        private readonly SettingsFilterCrop _crop;
+        private readonly FilterCrop _crop;
         private Rectangle _cropArea;
 
-        public EffectCrop(SettingsFilterCrop crop)
+        public EffectCrop(FilterCrop crop)
         {
             InitializeComponent();
             _crop = crop;

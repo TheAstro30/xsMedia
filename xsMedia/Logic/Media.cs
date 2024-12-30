@@ -6,13 +6,13 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using xsCore;
 using xsCore.CdUtils;
 using xsCore.PlayerControls;
 using xsCore.PlayerControls.Controls;
 using xsCore.Skin;
 using xsMedia.Controls;
 using xsMedia.Forms;
-using xsSettings;
 using xsVlc.Common;
 
 namespace xsMedia.Logic

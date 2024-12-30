@@ -13,12 +13,12 @@ using System.Windows.Forms;
 using xsCore;
 using xsCore.CdUtils;
 using xsCore.Controls.Forms;
+using xsCore.Settings.Data;
+using xsCore.Settings.Data.Filter;
 using xsCore.Utils.Asx;
 using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
-using xsSettings;
-using xsSettings.Settings;
 using xsVlc.Common;
 using xsVlc.Common.Events;
 using xsVlc.Common.Filters;
@@ -62,8 +62,9 @@ namespace xsMedia.Controls
         public event Action<int, string> CdMediaInserted;
         public event Action<int, string> CdMediaRemoved;
         public event Action<int, string> DvdMediaInserted;
-        public event Action<int, string> DvdMediaRemoved;        
-        
+        public event Action<int, string> DvdMediaRemoved;
+
+        #region MediaPlayback(IWin32Window parentWindow, string[] options)
         public MediaPlayback(IWin32Window parentWindow, string[] options)
         {
             BackColor = Color.Black;
@@ -139,8 +140,9 @@ namespace xsMedia.Controls
             /* Make sure its enabled/disabled */
             EqEnable = SettingsManager.Settings.Filters.Eq.Enable;
         }
+        #endregion
 
-        /* Overrides */
+        #region Paint
         protected override void OnPaint(PaintEventArgs e)
         {
             if (LogoImage == null || (SpinnerActive && !LogoImageAlwaysOnTop) || (IsVideo && (_listPlayer.PlayerState == MediaState.Playing || _listPlayer.PlayerState == MediaState.Paused)))
@@ -159,7 +161,9 @@ namespace xsMedia.Controls
                 base.OnPaint(e);
             }
         }
+        #endregion
 
+        #region Control properties
         /* Control properties */
         public Equalizer Eq { get; private set; }
         public IAdjustFilter AdjustFilter { get { return _listPlayer.InnerPlayer.Adjust; } }
@@ -319,11 +323,23 @@ namespace xsMedia.Controls
             }
         }
 
-        /* Public methods */
+        /* Equalizer */
+        public bool EqEnable
+        {
+            get { return _eqEnable; }
+            set
+            {
+                _eqEnable = value;
+                Eq.SetEqualizer(_listPlayer.InnerPlayer, _eqEnable);
+            }
+        }
+        #endregion
+
+        #region Public methods
         public void TakeSnapShot()
         {
             if (_listPlayer == null || !IsVideo)
-            {                
+            {
                 return;
             }
             /* Create path to My Pictures folder xsMedia Snapshots */
@@ -338,187 +354,6 @@ namespace xsMedia.Controls
             var fo = new FileInfo(string.Format("{0}\\{1}.png", path, output));
             var file = fo.MakeUnique();
             _listPlayer.InnerPlayer.TakeSnapShot(0, file.FullName);
-        }
-
-        /* Callbacks */
-        private void OnPlayerPositionChanged(object sender, MediaPlayerPositionChanged e)
-        {            
-            if (PositionChanged != null)
-            {
-                PositionChanged(sender, e);
-            }
-        }
-
-        private void OnTimeChanged(object sender, MediaPlayerTimeChanged e)
-        {
-            if (TimeChanged != null)
-            {
-                TimeChanged(sender, e);
-            }
-        }
-
-        private void OnMediaDurationChanged(object sender, MediaDurationChange e)
-        {
-            if (MediaDurationChanged != null)
-            {
-                MediaDurationChanged(sender, e);
-            }
-        }
-
-        private void OnMediaEnded(object sender, EventArgs e)
-        {
-            if (MediaEnded != null)
-            {
-                MediaEnded(sender, e);
-            }
-        }
-
-        private void OnMediaParseChanged(object sender, MediaParseChange e)
-        {           
-            if (MediaParseChanged != null)
-            {
-                MediaParseChanged(sender, e);
-            }
-        }
-
-        private void OnMediaStateChanged(object sender, MediaStateChange e)
-        {
-            switch (e.NewState)
-            {
-                case MediaState.Opening:
-                case MediaState.Buffering:
-                    _titleShown = false;
-                    SpinnerState(true);
-                    BeginTimer();
-                    break;
-
-                case MediaState.Playing:
-                    SpinnerState(false);                    
-                    IsVideo = _listPlayer.InnerPlayer.VideoTrackCount > 0 || OpenDiscType == DiscType.Dvd || OpenDiscType == DiscType.Vcd;
-                    LogoImageAlwaysOnTop = false;
-                    break;
-
-                case MediaState.Stopped:
-                    _titleShown = false;
-                    IsVideo = false;
-                    OpenDiscType = DiscType.None;
-                    break;
-
-                case MediaState.Error:
-                    _titleShown = false;
-                    IsVideo = false;
-                    OpenDiscType = DiscType.None;
-                    SpinnerState(false);
-                    LogoImageAlwaysOnTop = false;
-                    break;
-            }
-            if (MediaStateChanged != null)
-            {
-                MediaStateChanged(sender, e);
-            }
-            InvalidateWindow();
-        }
-
-        private void OnCdMediaInserted(int deviceId, string volumeLetter)
-        {
-            if (CdMediaInserted !=null)
-            {
-                CdMediaInserted(deviceId, volumeLetter);
-            }
-        }
-
-        private void OnCdMediaRemoved(int deviceId, string volumeLetter)
-        {
-            if (CdMediaRemoved != null)
-            {
-                CdMediaRemoved(deviceId, volumeLetter);
-            }
-        }
-
-        private void OnDvdMediaInserted(int deviceId, string volumeLetter)
-        {
-            if (DvdMediaInserted != null)
-            {
-                DvdMediaInserted(deviceId, volumeLetter);
-            }
-        }
-
-        private void OnDvdMediaRemoved(int deviceId, string volumeLetter)
-        {
-            if (DvdMediaRemoved != null)
-            {
-                DvdMediaRemoved(deviceId, volumeLetter);
-            }
-        }
-
-        /* CDDB */
-        private void OnCddbQueryComplete(int playlistStartPosition)
-        {
-            var i = playlistStartPosition;
-            foreach (var s in _cdTrackList)
-            {
-                var meta = PlaylistManager.GetMetaData(i);
-                meta.Title = s.Name;
-                meta.Artist = s.Artist;
-                meta.Album = s.Album;
-                PlaylistManager.SetMetaData(i, meta);
-                i++;
-            }
-        }
-
-        /* Folder search callbacks */
-        private void OnFileSearchFileFound(string file)
-        {            
-            var media = _mediaFactory.CreateMedia<IMedia>(file);
-            PlaylistManager.Add(media);
-        }
-
-        private void OnFileSearchCompleted(FolderSearch sender)
-        {
-            if (PlaylistManager.MediaList.Count == 0)
-            {
-                return;
-            }
-            if (CurrentTrack > PlaylistManager.MediaList.Count - 1)
-            {
-                CurrentTrack = PlaylistManager.MediaList.Count - 1;
-            }
-            MediaEventHandlers(CurrentTrack);
-            _listPlayer.PlayItemAt(CurrentTrack);
-        }
-
-        /* Network ASX parser callbacks */
-        private void OnAsxParserCompleted(AsxData data)
-        {
-            AsxParser.ParseCompleted -= OnAsxParserCompleted;
-            AsxParser.ParseFailed -= OnAsxParserFailed;
-            var options = SettingsManager.Settings.NetworkPresets.Options.ToArray();
-            CurrentTrack = CurrentTrack < 0 || CurrentTrack == 0 ? 0 : CurrentTrack++;
-            foreach (var entry in data.Entries)
-            {
-                if (entry == null || string.IsNullOrEmpty(entry.Url))
-                {
-                    continue;
-                }
-                var media = _mediaFactory.CreateMedia<IMedia>(entry.Url, options);
-                PlaylistManager.Add(media, options, 0, entry.Title);
-            }
-            if (PlaylistManager.Playlist.Count == 0)
-            {
-                /* If it fails, force an error */
-                OnMediaStateChanged(this, new MediaStateChange(MediaState.Error));
-                return;
-            }
-            MediaEventHandlers(CurrentTrack);
-            _listPlayer.PlayItemAt(CurrentTrack);
-        }
-
-        private void OnAsxParserFailed()
-        {
-            AsxParser.ParseCompleted -= OnAsxParserCompleted;
-            AsxParser.ParseFailed -= OnAsxParserFailed;
-            /* If it fails, force an error */
-            OnMediaStateChanged(this, new MediaStateChange(MediaState.Error));
         }
 
         public void ApplyFilters()
@@ -601,7 +436,7 @@ namespace xsMedia.Controls
             DeinterlaceFilter.Enabled = enable;
         }
 
-        /* Media open methods */
+        #region Media opening methods
         public void OpenFile(string fileName, bool play = true)
         {            
             var media = _mediaFactory.CreateMedia<IMedia>(fileName);
@@ -653,7 +488,7 @@ namespace xsMedia.Controls
                 increaseCount = true;
             }
             IMedia media;
-            SettingsMediaOptions options;
+            MediaOptions options;
             string[] optionString;
             switch (OpenDiscType)
             {
@@ -665,7 +500,7 @@ namespace xsMedia.Controls
                         _cdTrackList = new List<CdTrackInfo>();
                         for (var i = 1; i <= total; i++)
                         {
-                            options = new SettingsMediaOptions(SettingsManager.Settings.Cdda.Options.Option,
+                            options = new MediaOptions(SettingsManager.Settings.Cdda.Options.Option,
                                                                new[]
                                                                    {
                                                                        ":cdda-track=" + i
@@ -705,14 +540,14 @@ namespace xsMedia.Controls
                     break;
 
                 case DiscType.Vcd:
-                    options = new SettingsMediaOptions(SettingsManager.Settings.Vcd.Options.Option);
+                    options = new MediaOptions(SettingsManager.Settings.Vcd.Options.Option);
                     optionString = options.ToArray();
                     media = _mediaFactory.CreateMedia<IMediaFromFile>(string.Format("vcd:///{0}/", drive), optionString);
                     PlaylistManager.Add(media, optionString);
                     break;
 
                 default:
-                    options = new SettingsMediaOptions(SettingsManager.Settings.Dvd.Options.Option);
+                    options = new MediaOptions(SettingsManager.Settings.Dvd.Options.Option);
                     optionString = options.ToArray();
                     media = _mediaFactory.CreateMedia<IMediaFromFile>(string.Format("dvd:///{0}/", drive), optionString);
                     PlaylistManager.Add(media, optionString);
@@ -744,10 +579,11 @@ namespace xsMedia.Controls
             /* Increase current track pointer */
             CurrentTrack = CurrentTrack < 0 || CurrentTrack == 0 ? 0 : CurrentTrack++;
             /* Begin search */
-            _folderSearch.BeginSearch(new DirectoryInfo(path), Filters.OpenFilters.SupportedMasks(), "*", true);                                   
+            _folderSearch.BeginSearch(new DirectoryInfo(path), FileFilters.OpenFilters.SupportedMasks(), "*", true);                                   
         }
+        #endregion
 
-        /* Playback control */
+        #region Playback/transport control
         public bool Play()
         {            
             if (_listPlayer.PlayerState == MediaState.Paused)
@@ -841,8 +677,269 @@ namespace xsMedia.Controls
                     break;
             }
         }
+        #endregion
 
-        /* Private methods */
+        #region EQ
+        public void EqInitPreset(int index)
+        {
+            if (Eq != null)
+            {
+                Eq.Dispose();
+            }
+            Eq = index > 0
+                      ? new Equalizer(Equalizer.Presets.FirstOrDefault(i => i.Index == index - 1))
+                      : new Equalizer();
+        }
+
+        public void EqPreamp(double value)
+        {
+            Eq.Preamp = (float)value;
+        }
+
+        public void EqAdjustBand(int band, double amplitude)
+        {
+            Eq.Bands[band].Amplitude = (float)amplitude;
+        }
+        #endregion
+        #endregion
+
+        #region Callbacks
+        private void OnPlayerPositionChanged(object sender, MediaPlayerPositionChanged e)
+        {
+            if (PositionChanged != null)
+            {
+                PositionChanged(sender, e);
+            }
+        }
+
+        private void OnTimeChanged(object sender, MediaPlayerTimeChanged e)
+        {
+            if (TimeChanged != null)
+            {
+                TimeChanged(sender, e);
+            }
+        }
+
+        private void OnMediaDurationChanged(object sender, MediaDurationChange e)
+        {
+            if (MediaDurationChanged != null)
+            {
+                MediaDurationChanged(sender, e);
+            }
+        }
+
+        private void OnMediaEnded(object sender, EventArgs e)
+        {
+            if (MediaEnded != null)
+            {
+                MediaEnded(sender, e);
+            }
+        }
+
+        private void OnMediaParseChanged(object sender, MediaParseChange e)
+        {
+            if (MediaParseChanged != null)
+            {
+                MediaParseChanged(sender, e);
+            }
+        }
+
+        private void OnMediaStateChanged(object sender, MediaStateChange e)
+        {
+            switch (e.NewState)
+            {
+                case MediaState.Opening:
+                case MediaState.Buffering:
+                    _titleShown = false;
+                    SpinnerState(true);
+                    BeginTimer();
+                    break;
+
+                case MediaState.Playing:
+                    SpinnerState(false);
+                    IsVideo = _listPlayer.InnerPlayer.VideoTrackCount > 0 || OpenDiscType == DiscType.Dvd || OpenDiscType == DiscType.Vcd;
+                    LogoImageAlwaysOnTop = false;
+                    break;
+
+                case MediaState.Stopped:
+                    _titleShown = false;
+                    IsVideo = false;
+                    OpenDiscType = DiscType.None;
+                    break;
+
+                case MediaState.Error:
+                    _titleShown = false;
+                    IsVideo = false;
+                    OpenDiscType = DiscType.None;
+                    SpinnerState(false);
+                    LogoImageAlwaysOnTop = false;
+                    break;
+            }
+            if (MediaStateChanged != null)
+            {
+                MediaStateChanged(sender, e);
+            }
+            InvalidateWindow();
+        }
+
+        private void OnCdMediaInserted(int deviceId, string volumeLetter)
+        {
+            if (CdMediaInserted != null)
+            {
+                CdMediaInserted(deviceId, volumeLetter);
+            }
+        }
+
+        private void OnCdMediaRemoved(int deviceId, string volumeLetter)
+        {
+            if (CdMediaRemoved != null)
+            {
+                CdMediaRemoved(deviceId, volumeLetter);
+            }
+        }
+
+        private void OnDvdMediaInserted(int deviceId, string volumeLetter)
+        {
+            if (DvdMediaInserted != null)
+            {
+                DvdMediaInserted(deviceId, volumeLetter);
+            }
+        }
+
+        private void OnDvdMediaRemoved(int deviceId, string volumeLetter)
+        {
+            if (DvdMediaRemoved != null)
+            {
+                DvdMediaRemoved(deviceId, volumeLetter);
+            }
+        }
+
+        /* CDDB */
+        private void OnCddbQueryComplete(int playlistStartPosition)
+        {
+            var i = playlistStartPosition;
+            foreach (var s in _cdTrackList)
+            {
+                var meta = PlaylistManager.GetMetaData(i);
+                meta.Title = s.Name;
+                meta.Artist = s.Artist;
+                meta.Album = s.Album;
+                PlaylistManager.SetMetaData(i, meta);
+                i++;
+            }
+        }
+
+        /* Folder search callbacks */
+        private void OnFileSearchFileFound(string file)
+        {
+            var media = _mediaFactory.CreateMedia<IMedia>(file);
+            PlaylistManager.Add(media);
+        }
+
+        private void OnFileSearchCompleted(FolderSearch sender)
+        {
+            if (PlaylistManager.MediaList.Count == 0)
+            {
+                return;
+            }
+            if (CurrentTrack > PlaylistManager.MediaList.Count - 1)
+            {
+                CurrentTrack = PlaylistManager.MediaList.Count - 1;
+            }
+            MediaEventHandlers(CurrentTrack);
+            _listPlayer.PlayItemAt(CurrentTrack);
+        }
+
+        /* Network ASX parser callbacks */
+        private void OnAsxParserCompleted(AsxData data)
+        {
+            AsxParser.ParseCompleted -= OnAsxParserCompleted;
+            AsxParser.ParseFailed -= OnAsxParserFailed;
+            var options = SettingsManager.Settings.NetworkPresets.Options.ToArray();
+            CurrentTrack = CurrentTrack < 0 || CurrentTrack == 0 ? 0 : CurrentTrack++;
+            foreach (var entry in data.Entries)
+            {
+                if (entry == null || string.IsNullOrEmpty(entry.Url))
+                {
+                    continue;
+                }
+                var media = _mediaFactory.CreateMedia<IMedia>(entry.Url, options);
+                PlaylistManager.Add(media, options, 0, entry.Title);
+            }
+            if (PlaylistManager.Playlist.Count == 0)
+            {
+                /* If it fails, force an error */
+                OnMediaStateChanged(this, new MediaStateChange(MediaState.Error));
+                return;
+            }
+            MediaEventHandlers(CurrentTrack);
+            _listPlayer.PlayItemAt(CurrentTrack);
+        }
+
+        private void OnAsxParserFailed()
+        {
+            AsxParser.ParseCompleted -= OnAsxParserCompleted;
+            AsxParser.ParseFailed -= OnAsxParserFailed;
+            /* If it fails, force an error */
+            OnMediaStateChanged(this, new MediaStateChange(MediaState.Error));
+        }
+
+        private void TmrVolumeTick(object sender, EventArgs e)
+        {
+            /* Check video also */
+            if (!IsVideo && _listPlayer.InnerPlayer.VideoTrackCount > 0)
+            {
+                IsVideo = true;
+            }
+            if (_listPlayer.InnerPlayer.Volume == -1)
+            {
+                /* Uninitialized - need to wait until it is initialized */
+                return;
+            }
+            if (_listPlayer.InnerPlayer.Volume == _volume)
+            {
+                /* Volume is set correctly - disable timer */
+                _tmrVolume.Enabled = false;
+                return;
+            }
+            /* Volume is incorrectly set, reset it */
+            _listPlayer.InnerPlayer.Volume = _volume;
+        }
+
+        private void TmrTitleTimeOutTick(object sender, EventArgs e)
+        {
+            /* This timer does 3 things:
+             * 1) counts to roughly X seconds (based on settings)
+             * 2) gradually fades out the title, and
+             * 3) waits a couple of seconds before applying any currently set Marquee */
+            var timeOut = SettingsManager.Settings.Player.Video.VideoTitleTimeOut * 1000;
+            if (_titleTimeOut >= timeOut)
+            {
+                /* Begin opacity change */
+                _titleOpacity -= 15;
+                MarqueeFilter.Opacity = _titleOpacity;
+                if (_titleOpacity > 0)
+                {
+                    return;
+                }
+                /* Wait a couple of seconds */
+                _titleTimeOut = 0;
+                _titleOpacity = 0;
+                MarqueeFilter.Enabled = false;
+            }
+            else if (_titleOpacity == 0 && _titleTimeOut >= 2000)
+            {
+                _tmrTitleTimeOut.Enabled = false;
+                ApplyFilters();
+            }
+            else
+            {
+                _titleTimeOut += 100;
+            }
+        }
+        #endregion
+
+        #region Private methods
         private void InvalidateWindow()
         {
             if (InvokeRequired)
@@ -891,91 +988,6 @@ namespace xsMedia.Controls
             }
             _tmrVolume.Enabled = true;
         }
-
-        private void TmrVolumeTick(object sender, EventArgs e)
-        {            
-            /* Check video also */
-            if (!IsVideo && _listPlayer.InnerPlayer.VideoTrackCount > 0)
-            {
-                IsVideo = true;
-            }
-            if (_listPlayer.InnerPlayer.Volume == -1)
-            {
-                /* Uninitialized - need to wait until it is initialized */
-                return;
-            }
-            if (_listPlayer.InnerPlayer.Volume == _volume)
-            {
-                /* Volume is set correctly - disable timer */
-                _tmrVolume.Enabled = false;
-                return;
-            }
-            /* Volume is incorrectly set, reset it */
-            _listPlayer.InnerPlayer.Volume = _volume;
-        }
-
-        private void TmrTitleTimeOutTick(object sender, EventArgs e)
-        {
-            /* This timer does 3 things:
-             * 1) counts to roughly X seconds (based on settings)
-             * 2) gradually fades out the title, and
-             * 3) waits a couple of seconds before applying any currently set Marquee */
-            var timeOut = SettingsManager.Settings.Player.Video.VideoTitleTimeOut*1000;
-            if (_titleTimeOut >= timeOut)
-            {
-                /* Begin opacity change */
-                _titleOpacity -= 15;
-                MarqueeFilter.Opacity = _titleOpacity;
-                if (_titleOpacity > 0)
-                {
-                    return;
-                }
-                /* Wait a couple of seconds */
-                _titleTimeOut = 0;
-                _titleOpacity = 0;
-                MarqueeFilter.Enabled = false;
-            }
-            else if (_titleOpacity == 0 && _titleTimeOut >= 2000)
-            {
-                _tmrTitleTimeOut.Enabled = false;
-                ApplyFilters();
-            }
-            else
-            {
-                _titleTimeOut += 100;
-            }
-        }
-
-        /* Equalizer */
-        public bool EqEnable
-        {
-            get { return _eqEnable; }
-            set
-            {
-                _eqEnable = value;
-                Eq.SetEqualizer(_listPlayer.InnerPlayer, _eqEnable);
-            }
-        }
-
-        public void EqInitPreset(int index)
-        {
-            if (Eq != null)
-            {
-                Eq.Dispose();
-            }
-            Eq = index > 0
-                      ? new Equalizer(Equalizer.Presets.FirstOrDefault(i => i.Index == index - 1))
-                      : new Equalizer();
-        }
-
-        public void EqPreamp(double value)
-        {
-            Eq.Preamp = (float) value;
-        }
-
-        public void EqAdjustBand(int band, double amplitude)
-        {
-            Eq.Bands[band].Amplitude = (float)amplitude;
-        }
+        #endregion       
     }
 }

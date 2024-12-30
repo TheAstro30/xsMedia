@@ -6,13 +6,13 @@
 using System;
 using System.Drawing;
 using System.IO;
+using xsCore;
 using xsCore.PlayerControls;
 using xsCore.Skin;
 using xsCore.PlayerControls.Controls;
 using xsCore.Utils;
 using xsCore.Utils.SystemUtils;
 using xsMedia.Forms;
-using xsSettings;
 
 namespace xsMedia.Controls
 {

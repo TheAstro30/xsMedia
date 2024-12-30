@@ -9,14 +9,14 @@ using System.IO;
 using System.Windows.Forms;
 using libolv;
 using libolv.Rendering.Styles;
+using xsCore;
 using xsCore.Controls.Forms;
+using xsCore.Settings.Data;
 using xsCore.Skin;
-using xsCore.Structures;
 using xsCore.Utils.IO;
 using xsCore.Utils.UI;
 using xsMedia.Logic;
 using xsMedia.Properties;
-using xsSettings;
 
 namespace xsMedia.Forms
 {
@@ -128,7 +128,6 @@ namespace xsMedia.Forms
         }
 
         /* Overrides */
-
         protected override void OnLoad(EventArgs e)
         {
             /* Set the forms saved position and size */
@@ -195,7 +194,6 @@ namespace xsMedia.Forms
         }
 
         /* Public methods */
-
         public new void Focus()
         {
             /* Ensure listview has focus all the time */
@@ -203,7 +201,6 @@ namespace xsMedia.Forms
         }
 
         /* Called externally if window is already open */
-
         public void AddFavorite(HistoryData data)
         {
             var favorites = SettingsManager.Settings.Favorites.Favorite;
@@ -220,8 +217,12 @@ namespace xsMedia.Forms
             btnClear.Enabled = _lv.Items.Count > 0;
         }
 
-        /* Skin management - uses same color scheme as the playlist window, I mean - why not? */
+        public void UpdateFavorite(HistoryData data)
+        {
+            _lv.RefreshObject(data);
+        }
 
+        /* Skin management - uses same color scheme as the playlist window, I mean - why not? */
         public void SkinChanged(bool refresh = false)
         {
             /* Update listview's appearance */
@@ -276,6 +277,10 @@ namespace xsMedia.Forms
                 case "OPEN":
                     Video.VideoControl.OpenFile(((HistoryData)_lv.SelectedObject).FilePath);
                     break;
+
+                case "REMOVE":
+                    RemoveSelected();
+                    break;
             }
         }
 
@@ -292,7 +297,7 @@ namespace xsMedia.Forms
                         Title = @"Add Media File...",
                         InitialDirectory = path.Location,
                         Multiselect = false,
-                        Filter = Filters.OpenFilters.ToString()
+                        Filter = FileFilters.OpenFilters.ToString()
                     })
                     {
                         if (ofd.ShowDialog(this) != DialogResult.OK)
@@ -320,20 +325,7 @@ namespace xsMedia.Forms
                     break;
 
                 case "REMOVE":
-                    var sel = _lv.SelectedObjects;
-                    if (sel != null)
-                    {
-                        for (var i = sel.Count - 1; i >= 0; i--)
-                        {
-                            var f = (HistoryData) sel[i];
-                            if (f != null && SettingsManager.RemoveFavorite(f))
-                            {
-                                _lv.RemoveObject(f);
-                            }
-                        }
-                    }
-                    btnRemove.Enabled = false;
-                    btnClear.Enabled = _lv.Items.Count > 0;
+                    RemoveSelected();
                     break;
 
                 case "CLEAR":
@@ -348,16 +340,35 @@ namespace xsMedia.Forms
             }
         }
 
-        /* Private menu building method */
+        /* Private methods */
         private void BuildContextMenu()
         {
             _menu.Items.Clear();
             if (_lv.SelectedObjects.Count == 1)
             {
-                _menu.Items.Add(MenuHelper.AddMenuItem("Open", "OPEN", Keys.None, true, false, Resources.menuPlay.ToBitmap(),
-                    OnContextMenuItemClicked));
+                _menu.Items.Add(MenuHelper.AddMenuItem("Open", "OPEN", Keys.None, true, false,
+                    Resources.menuPlay.ToBitmap(), OnContextMenuItemClicked));
             }
-            _menu.Items.Add(MenuHelper.AddMenuItem("Remove", "REMOVE", Keys.None, true, false, Resources.dlgRemove.ToBitmap(), OnButtonClick));
+            _menu.Items.Add(MenuHelper.AddMenuItem("Remove", "REMOVE", Keys.None, true, false,
+                Resources.dlgRemove.ToBitmap(), OnContextMenuItemClicked));
+        }
+
+        private void RemoveSelected()
+        {
+            var sel = _lv.SelectedObjects;
+            if (sel != null)
+            {
+                for (var i = sel.Count - 1; i >= 0; i--)
+                {
+                    var f = (HistoryData)sel[i];
+                    if (f != null && SettingsManager.RemoveFavorite(f))
+                    {
+                        _lv.RemoveObject(f);
+                    }
+                }
+            }
+            btnRemove.Enabled = false;
+            btnClear.Enabled = _lv.Items.Count > 0;
         }
     }
 }

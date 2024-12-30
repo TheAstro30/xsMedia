@@ -6,18 +6,18 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using xsCore.Settings.Data.Filter;
 using xsCore.Utils;
 using xsMedia.Logic;
-using xsSettings.Settings;
 using xsVlc.Common;
 
 namespace xsMedia.Controls.Effects
 {
     public partial class EffectDeinterlace : UserControl
     {
-        private readonly SettingsFilterDeinterlace _deint;
+        private readonly FilterDeinterlace _deint;
 
-        public EffectDeinterlace(SettingsFilterDeinterlace deint)
+        public EffectDeinterlace(FilterDeinterlace deint)
         {
             InitializeComponent();
             _deint = deint;

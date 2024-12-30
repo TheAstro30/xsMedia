@@ -6,10 +6,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using xsCore;
 using xsCore.Utils;
 using xsMedia.Controls.Effects;
 using xsMedia.Properties;
-using xsSettings;
 
 namespace xsMedia.Forms
 {

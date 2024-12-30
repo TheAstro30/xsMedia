@@ -96,7 +96,6 @@ namespace xsMedia.Forms
                 Lines = new[]
                 {
                     string.Format("xsCore: {0}", GetPluginVersion(AppPath.MainDir(@"\xsCore.dll"))),                                        
-                    string.Format("xsSettings: {0}", GetPluginVersion(AppPath.MainDir(@"\xsSettings.dll"))),
                     string.Format("xsVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\xsVlc.dll"))),
                     string.Format("libOlv: {0}", GetPluginVersion(AppPath.MainDir(@"\libolv.dll"))),
                     string.Format("libVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\libvlc.dll"))),

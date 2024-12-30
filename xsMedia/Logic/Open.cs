@@ -9,7 +9,6 @@ using xsCore;
 using xsCore.CdUtils;
 using xsCore.Utils.IO;
 using xsMedia.Forms;
-using xsSettings;
 using xsVlc.Common;
 
 namespace xsMedia.Logic
@@ -35,7 +34,7 @@ namespace xsMedia.Logic
                                      Title = @"Open Media File...",
                                      InitialDirectory = path.Location,
                                      Multiselect = multi,
-                                     Filter = Filters.OpenFilters.ToString()
+                                     Filter = FileFilters.OpenFilters.ToString()
                                  })
             {
                 if (ofd.ShowDialog(_player) != DialogResult.OK)
@@ -129,7 +128,7 @@ namespace xsMedia.Logic
             }
             else
             {
-                /* Disc is CD/DVD Rom - attempt to open as a folder ... */
+                /* DiscData is CD/DVD Rom - attempt to open as a folder ... */
                 Video.VideoControl.OpenFolder(DriveLetter);
             }
         }
@@ -141,7 +140,7 @@ namespace xsMedia.Logic
                                  {
                                      Title = @"Select a supported playlist file to load",
                                      InitialDirectory = path.Location,
-                                     Filter = Filters.OpenPlaylistFilters.ToString()
+                                     Filter = FileFilters.OpenPlaylistFilters.ToString()
                                  })
             {
                 if (ofd.ShowDialog(_player) == DialogResult.Cancel)
@@ -168,7 +167,7 @@ namespace xsMedia.Logic
                                  {
                                      Title = @"Select a playlist file to save to",
                                      InitialDirectory = path.Location,
-                                     Filter = Filters.SavePlaylistFilters.ToString()
+                                     Filter = FileFilters.SavePlaylistFilters.ToString()
                                  })
             {
                 if (sfd.ShowDialog(_player) == DialogResult.Cancel)

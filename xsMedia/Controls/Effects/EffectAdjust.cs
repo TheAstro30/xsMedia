@@ -7,16 +7,16 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using xsCore.Controls.TrackBar;
+using xsCore.Settings.Data.Filter;
 using xsMedia.Logic;
-using xsSettings.Settings;
 
 namespace xsMedia.Controls.Effects
 {
     public partial class EffectAdjust : UserControl
     {
-        private readonly SettingsFilterAdjust _adjust;
+        private readonly FilterAdjust _adjust;
 
-        public EffectAdjust(SettingsFilterAdjust adjust)
+        public EffectAdjust(FilterAdjust adjust)
         {
             InitializeComponent();
             _adjust = adjust;

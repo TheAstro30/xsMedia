@@ -6,8 +6,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using xsCore.Utils;
 using xsCore.Utils.IO;
+using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
 using xsVlc.Common;
 using xsVlc.Common.Events;
@@ -98,12 +98,13 @@ namespace xsCore.Controls.Forms
 
         private void CmdNewClick(object sender, EventArgs e)
         {
+            /* need to delete the cached image, or it won't change */
             /* Select new image for media object */
             var ofd = new OpenFileDialog
                           {
                               Title = @"Select new cover art for media file",
                               Multiselect = false,
-                              Filter = Filters.CoverArtFilters.ToString()
+                              Filter = FileFilters.CoverArtFilters.ToString()
                           };
             if (ofd.ShowDialog(this) == DialogResult.Cancel)
             {

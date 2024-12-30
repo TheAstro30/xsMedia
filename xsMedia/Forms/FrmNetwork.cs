@@ -7,10 +7,10 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using xsCore;
 using xsCore.Controls.Forms;
+using xsCore.Settings.Data;
 using xsMedia.Properties;
-using xsSettings;
-using xsSettings.Settings;
 
 namespace xsMedia.Forms
 {
@@ -175,7 +175,7 @@ namespace xsMedia.Forms
             {
                 return;
             }
-            var newData = new SettingsNetworkPresets.SettingsNetworkPresetData
+            var newData = new NetworkPresets.SettingsNetworkPresetData
                               {
                                   Id = _cmbPreset.Text, 
                                   Url = _txtUrl.Text

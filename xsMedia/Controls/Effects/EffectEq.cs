@@ -8,19 +8,19 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
+using xsCore;
 using xsCore.Controls.TrackBar;
+using xsCore.Settings.Data.Filter;
 using xsMedia.Logic;
-using xsSettings;
-using xsSettings.Settings;
 using xsVlc.Core.Equalizer;
 
 namespace xsMedia.Controls.Effects
 {
     public partial class EffectEq : UserControl
     {
-        private readonly SettingsFilterEq _eq;
+        private readonly FilterEq _eq;
 
-        public EffectEq(SettingsFilterEq eq)
+        public EffectEq(FilterEq eq)
         {
             _eq = eq;
             InitializeComponent();            

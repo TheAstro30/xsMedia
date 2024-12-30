@@ -6,11 +6,11 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using xsCore;
+using xsCore.Settings.Data.Enums;
 using xsCore.Skin;
 using xsCore.Utils.SystemUtils;
 using xsMedia.Logic;
-using xsSettings;
-using xsSettings.Settings.Enums;
 using xsVlc.Common;
 
 namespace xsMedia.Forms
@@ -30,7 +30,6 @@ namespace xsMedia.Forms
             StartPosition = FormStartPosition.Manual;
             MinimumSize = new Size(431, 235);
             MaximizeBox = false;
-            TopMost = true;
             /* Setup settings file */
             SettingsManager.Load(AppPath.MainDir(@"\KangaSoft\xsMedia\xsMedia.xml", true));
             /* Main menu renderer */
@@ -66,7 +65,6 @@ namespace xsMedia.Forms
                 Location = loc;
                 Size = SettingsManager.Settings.Window.MainWindow.Size;
             }
-            //Win32.SetWindowPos(Handle, Win32.HwndTopMost, 0, 0, 0, 0, Win32.TopMostFlags);
             base.OnLoad(e);
         }
 

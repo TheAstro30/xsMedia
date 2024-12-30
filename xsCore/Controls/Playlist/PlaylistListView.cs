@@ -178,12 +178,28 @@ namespace xsCore.Controls.Playlist
 
         public void SkinChanged()
         {
+            if (InvokeRequired)
+            {
+                _sync.Execute(SkinChanged);
+                return;
+            }
             /* Update listview's appearance */            
             _lVHeader.Normal.BackColor = SkinManager.GetPlaylistColor("HEADER_BACKCOLOR");            
             _lv.BackColor = SkinManager.GetPlaylistColor("BACKCOLOR");
             _lv.ForeColor = SkinManager.GetPlaylistColor("ITEM_FORECOLOR");
             _lv.HighlightBackgroundColor = SkinManager.GetPlaylistColor("SELECTED_BACKCOLOR");
             _lv.HighlightForegroundColor = SkinManager.GetPlaylistColor("SELECTED_FORECOLOR");
+            /* We need to update the list view */
+            if (_lv.Objects == null)
+            {
+                return;
+            }
+            /* Kind of annoying that the control doesn't do this by default; I didn't write it, so I ain't fixing it! */
+            foreach (var o in _lv.Objects)
+            {
+                _lv.RefreshObject(o);
+            }
+            _lv.Refresh();
         }
 
         /* Private callbacks */

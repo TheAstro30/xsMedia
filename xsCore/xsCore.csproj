@@ -76,6 +76,63 @@
     <Compile Include="Controls\Forms\Spinner.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Settings\Controls\Base\OptionBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\Base\OptionBase.Designer.cs">
+      <DependentUpon>OptionBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionCdAudio.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionCdAudio.Designer.cs">
+      <DependentUpon>OptionCdAudio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionCddb.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionCddb.Designer.cs">
+      <DependentUpon>OptionCddb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionDvd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionDvd.Designer.cs">
+      <DependentUpon>OptionDvd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionNetwork.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionNetwork.Designer.cs">
+      <DependentUpon>OptionNetwork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionPlayback.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionPlayback.Designer.cs">
+      <DependentUpon>OptionPlayback.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionProxy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionProxy.Designer.cs">
+      <DependentUpon>OptionProxy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionVcd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionVcd.Designer.cs">
+      <DependentUpon>OptionVcd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionVideo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings\Controls\OptionVideo.Designer.cs">
+      <DependentUpon>OptionVideo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Forms\FrmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\Playlist\PlaylistListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -86,6 +143,27 @@
     <Compile Include="Controls\Playlist\Playlist\Playlists\WplPlaylist.cs" />
     <Compile Include="Controls\Playlist\Playlist\Playlists\XspfPlaylist.cs" />
     <Compile Include="Controls\Playlist\Playlist\Playlists\XsplPlaylist.cs" />
+    <Compile Include="Internal\OptionsList.cs" />
+    <Compile Include="Internal\PlayerSettings.cs" />
+    <Compile Include="Settings\Data\Enums\PlaybackLoopMode.cs" />
+    <Compile Include="Settings\Data\Enums\VideoWindowResizeOption.cs" />
+    <Compile Include="Settings\Data\CddbData.cs" />
+    <Compile Include="Settings\Data\DiscData.cs" />
+    <Compile Include="Settings\Data\Favorites.cs" />
+    <Compile Include="Settings\Data\Filter\FilterAdjust.cs" />
+    <Compile Include="Settings\Data\Filter\FilterCrop.cs" />
+    <Compile Include="Settings\Data\Filter\FilterDeinterlace.cs" />
+    <Compile Include="Settings\Data\Filter\FilterEq.cs" />
+    <Compile Include="Settings\Data\Filter\FilterLogo.cs" />
+    <Compile Include="Settings\Data\Filter\FilterMarquee.cs" />
+    <Compile Include="Settings\Data\Filters.cs" />
+    <Compile Include="Settings\Data\MediaOptions.cs" />
+    <Compile Include="Settings\Data\NetworkPresets.cs" />
+    <Compile Include="Settings\Data\Paths.cs" />
+    <Compile Include="Settings\Data\Player.cs" />
+    <Compile Include="Settings\Data\SelectedTab.cs" />
+    <Compile Include="Settings\Data\VideoOptions.cs" />
+    <Compile Include="Settings\Data\Window.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\Enums.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\NativeMethods.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\TrackBarDrawItemEventArgs.cs" />
@@ -95,13 +173,19 @@
     </Compile>
     <Compile Include="Internal\ProxyProvider.cs" />
     <Compile Include="PlaylistManager.cs" />
-    <Compile Include="Structures\HistoryData.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SettingsManager.cs" />
+    <Compile Include="Settings\Data\HistoryData.cs" />
     <Compile Include="Utils\Asx\AsxData.cs" />
     <Compile Include="Utils\Asx\AsxParser.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
-    <Compile Include="Utils\IO\Filters.cs" />
+    <Compile Include="Utils\IO\FileFilters.cs" />
     <Compile Include="Utils\FormManager.cs" />
-    <Compile Include="Utils\MediaInfo.cs" />
+    <Compile Include="Utils\SystemUtils\MediaInfo.cs" />
     <Compile Include="Utils\Proxy.cs" />
     <Compile Include="PlayerControls\ControlRenderer.cs">
       <SubType>UserControl</SubType>
@@ -140,17 +224,6 @@
     <Compile Include="Utils\XmlFormatting.cs" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Shell32">
-      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\xsOlv\libolv.csproj">
       <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
       <Name>libolv</Name>
@@ -164,6 +237,44 @@
     <EmbeddedResource Include="Controls\Forms\FrmMediaMeta.resx">
       <DependentUpon>FrmMediaMeta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\Base\OptionBase.resx">
+      <DependentUpon>OptionBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\OptionCdAudio.resx">
+      <DependentUpon>OptionCdAudio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\OptionCddb.resx">
+      <DependentUpon>OptionCddb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\OptionDvd.resx">
+      <DependentUpon>OptionDvd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\OptionNetwork.resx">
+      <DependentUpon>OptionNetwork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\OptionPlayback.resx">
+      <DependentUpon>OptionPlayback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\OptionProxy.resx">
+      <DependentUpon>OptionProxy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\OptionVcd.resx">
+      <DependentUpon>OptionVcd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\Controls\OptionVideo.resx">
+      <DependentUpon>OptionVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\dlgAdd.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dlgRemove.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

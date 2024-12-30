@@ -8,13 +8,13 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using xsCore;
 using xsCore.CdUtils;
+using xsCore.Settings.Data;
 using xsCore.Utils;
 using xsMedia.Controls;
 using xsMedia.Forms;
 using xsMedia.Helpers;
-using xsSettings;
-using xsSettings.Settings;
 using xsVlc.Common;
 using xsVlc.Common.Events;
 
@@ -38,7 +38,7 @@ namespace xsMedia.Logic
         public static void Init(FrmPlayer player)
         {
             _player = player;
-            var options = new SettingsMediaOptions(SettingsManager.Settings.Player.Options.Option,
+            var options = new MediaOptions(SettingsManager.Settings.Player.Options.Option,
                                                    new[]
                                                        {
                                                            "-I",
@@ -191,7 +191,7 @@ namespace xsMedia.Logic
             }
             if (string.Format("{0}\\", Open.DriveLetter) == volumeLetter)
             {
-                /* Disc was removed mid-stream ... stop playback */
+                /* DiscData was removed mid-stream ... stop playback */
                 Player.StopClip(false);
             }
         }

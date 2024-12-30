@@ -8,18 +8,18 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using xsCore.Controls.TrackBar;
+using xsCore.Settings.Data.Filter;
 using xsCore.Utils;
 using xsMedia.Logic;
-using xsSettings.Settings;
 using xsVlc.Common;
 
 namespace xsMedia.Controls.Effects
 {
     public partial class EffectMarquee : UserControl
     {
-        private readonly SettingsFilterMarquee _marquee;
+        private readonly FilterMarquee _marquee;
 
-        public EffectMarquee(SettingsFilterMarquee marquee)
+        public EffectMarquee(FilterMarquee marquee)
         {
             InitializeComponent();
             _marquee = marquee;

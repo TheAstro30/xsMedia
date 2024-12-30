@@ -15,16 +15,15 @@ using xsCore;
 using xsCore.CdUtils;
 using xsCore.Controls.Forms;
 using xsCore.Controls.Playlist.Playlist;
+using xsCore.Settings.Data;
+using xsCore.Settings.Data.Enums;
 using xsCore.Skin;
-using xsCore.Structures;
 using xsCore.Utils;
 using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
 using xsMedia.Forms;
 using xsMedia.Properties;
-using xsSettings;
-using xsSettings.Settings.Enums;
 using xsVlc.Common;
 using xsVlc.Common.Events;
 
@@ -600,7 +599,7 @@ namespace xsMedia.Logic
                         Title = @"Open Subtitle File",
                         InitialDirectory = path.Location,
                         Multiselect = false,
-                        Filter = Filters.SubtitleFilters.ToString()
+                        Filter = FileFilters.SubtitleFilters.ToString()
                     })
                     {
                         if (ofd.ShowDialog(_player) != DialogResult.OK)
@@ -1095,7 +1094,7 @@ namespace xsMedia.Logic
                         menuHandler),
                     new ToolStripSeparator()
                 });
-            var m = MenuHelper.AddMenuItem("Open Disc", Resources.menuDisc.ToBitmap());
+            var m = MenuHelper.AddMenuItem("Open DiscData", Resources.menuDisc.ToBitmap());
 
             foreach (var drv in cdManager.AvailableDrives)
             {

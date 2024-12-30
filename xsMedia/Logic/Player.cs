@@ -11,13 +11,12 @@ using System.Linq;
 using System.Windows.Forms;
 using xsCore;
 using xsCore.CdUtils;
+using xsCore.Settings.Data.Enums;
 using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
 using xsMedia.Forms;
 using xsMedia.Helpers;
-using xsSettings;
-using xsSettings.Settings.Enums;
 using xsVlc.Common;
 
 namespace xsMedia.Logic
@@ -245,7 +244,7 @@ namespace xsMedia.Logic
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
             var added = false;
             Video.VideoControl.CurrentTrack = Video.VideoControl.CurrentTrack < 0 || Video.VideoControl.CurrentTrack == 0 ? 0 : Video.VideoControl.CurrentTrack++;
-            foreach (var file in files.Where(file => Filters.OpenFilters.IsSupported(file)))
+            foreach (var file in files.Where(file => FileFilters.OpenFilters.IsSupported(file)))
             {                
                 Video.VideoControl.OpenFile(file, false);
                 added = true;

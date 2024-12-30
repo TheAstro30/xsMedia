@@ -19,10 +19,12 @@
 - Added recent file caching for single files opened by the player (25 max at the moment)
 - Added a favorites dialog to store favorite files (currently only works with local hard drive files, not discs; why would it?)
 - Removed xsTrackBar.dll and moved code to xsCore.dll
+- xsPlaylist.dll removed and code moved to xsCore.dll
+- xsSettings.dll removed and code moved to xsCore.dll
 - Playlist now shows the length aligned right (looks better if one media file is MM:SS and the next is HH:MM:SS)
 - Added ability to change or remove MIDI soundfont support file (SF2)
-- xsPlaylist.dll removed and code moved to xsCore.dll
 - Fixed an issue with some settings not being saved to xsMedia.xml after the settings dialog OK button was clicked
+- Fixed an update issue on the playlist window when skin was changed, text colors were not changing
 
 *** Version 2.1.8 - 22 September , 2020 ***
 - Updated libVLC plugins to version 3.0.10

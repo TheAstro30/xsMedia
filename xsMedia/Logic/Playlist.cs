@@ -10,6 +10,7 @@ using xsCore.CdUtils;
 using xsCore.Controls.Playlist;
 using xsCore.Controls.Playlist.Playlist;
 using xsCore.Utils;
+using xsCore.Utils.SystemUtils;
 using xsMedia.Forms;
 using xsVlc.Common;
 
@@ -50,8 +51,25 @@ namespace xsMedia.Logic
         {
             var index = Video.VideoControl.CurrentTrack;
             var meta = PlaylistManager.GetMetaData(index);
-            if (meta == null) { return; }
+            if (meta == null)
+            {
+                return;
+            }
             UpdatePlaylistMeta(meta, index, duration, parsed);
+            /* Also update favorites entry, if it exists */
+            var favorite = SettingsManager.GetHistoryItem(SettingsManager.Settings.Favorites.Favorite, meta.Location);
+            if (favorite == null)
+            {
+                return;
+            }
+            favorite.Length = duration/1000;
+            /* Is the favorites form open? */
+            var f = FormManager.GetForm("FrmFavorites");
+            if (f == null)
+            {
+                return;
+            }
+            ((FrmFavorites)f).UpdateFavorite(favorite);
         }
 
         public static void UpdatePlaylistMeta(PlaylistEntry entry, int index, int duration, bool parsed)

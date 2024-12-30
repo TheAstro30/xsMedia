@@ -7,19 +7,19 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using xsCore;
 using xsCore.Controls.TrackBar;
+using xsCore.Settings.Data.Filter;
 using xsCore.Utils.IO;
 using xsMedia.Logic;
-using xsSettings;
-using xsSettings.Settings;
 
 namespace xsMedia.Controls.Effects
 {
     public partial class EffectLogo : UserControl
     {
-        private readonly SettingsFilterLogo _logo;
+        private readonly FilterLogo _logo;
 
-        public EffectLogo(SettingsFilterLogo logo)
+        public EffectLogo(FilterLogo logo)
         {
             InitializeComponent();
             _logo = logo;
@@ -55,7 +55,7 @@ namespace xsMedia.Controls.Effects
                 Title = @"Open Logo Image",
                 InitialDirectory = path.Location,
                 Multiselect = false,
-                Filter = Filters.CoverArtFilters.ToString()
+                Filter = FileFilters.CoverArtFilters.ToString()
             })
             {
                 if (ofd.ShowDialog(this) != DialogResult.OK)
