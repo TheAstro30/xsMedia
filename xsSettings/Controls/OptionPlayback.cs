@@ -5,10 +5,13 @@
  * Licenced under the GNU public licence */
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using xsCore.PlayerControls.Controls;
 using xsCore.Utils;
+using xsCore.Utils.SystemUtils;
+using xsSettings.Properties;
 using xsSettings.Settings;
 using xsSettings.Settings.Enums;
 
@@ -23,7 +26,7 @@ namespace xsSettings.Controls
             InitializeComponent();
 
             _player = player;
-
+            
             foreach (var index in from c in (MediaCounter.TimeDisplay[]) Enum.GetValues(typeof (MediaCounter.TimeDisplay)) let index = cmbCounter.Items.Add(EnumUtils.GetDescriptionFromEnumValue(c)) where c == _player.CounterType select index)
             {
                 cmbCounter.SelectedIndex = index;
@@ -47,7 +50,12 @@ namespace xsSettings.Controls
             foreach (var index in from l in (PlaybackLoopMode[])Enum.GetValues(typeof(PlaybackLoopMode)) let index = cmbLoop.Items.Add(EnumUtils.GetDescriptionFromEnumValue(l)) where l == _player.Loop select index)
             {
                 cmbLoop.SelectedIndex = index;
-            }           
+            }
+
+            btnAdd.Image = Resources.dlgAdd.ToBitmap();
+            btnRemove.Image = Resources.dlgRemove.ToBitmap();
+
+            txtSoundFont.Text = GetSoundFont();
 
             /* Handlers */
             cmbCounter.SelectedIndexChanged += OnOptionChanged;
@@ -55,8 +63,11 @@ namespace xsSettings.Controls
             txtVol.TextChanged += OnOptionChanged;
             cmbSpeed.SelectedIndexChanged += OnOptionChanged;
             cmbLoop.SelectedIndexChanged += OnOptionChanged;
+            btnAdd.Click += OnOptionChanged;
+            btnRemove.Click += OnOptionChanged;
         }
 
+        #region Option changed callback
         private void OnOptionChanged(object sender, EventArgs e)
         {
             int t;
@@ -128,7 +139,66 @@ namespace xsSettings.Controls
                 case "LOOP":
                     _player.Loop = (PlaybackLoopMode) cmbLoop.SelectedIndex;
                     break;
+
+                case "ADD":
+                    var path = SettingsManager.Settings.Paths.GetPath("sound-font");                    
+                    using (var ofd = new OpenFileDialog
+                    {
+                        Title = @"Choose a sound font file",
+                        Multiselect = false,
+                        InitialDirectory = path.Location,
+                        Filter = @"Sound font files (*.sf2)|*.sf2"
+                    })
+                    {
+                        if (ofd.ShowDialog(this) == DialogResult.OK)
+                        {
+                            var file = ofd.FileName;
+                            var sf = AppPath.MainDir(file);
+                            AddSoundFont(sf);
+                            txtSoundFont.Text = sf;
+                            path.Location = Path.GetDirectoryName(file);
+                        }
+                    }
+                    break;
+
+                case "REMOVE":
+                    RemoveSoundFont();
+                    txtSoundFont.Text = string.Empty;
+                    break;
             }
         }
+        #endregion
+
+        #region Private sound font methods (SF2)
+        private string GetSoundFont()
+        {
+            foreach (var s in _player.Options.Option.Where(s => s.Id.ToLower().Equals("--soundfont")))
+            {
+                return s.Data;
+            }
+            return string.Empty;
+        }
+
+        private void AddSoundFont(string fileName)
+        {
+            foreach (var s in _player.Options.Option.Where(s => s.Id.ToLower().Equals("--soundfont")))
+            {
+                s.Data = fileName;
+                break;
+            }
+            /* Still here? */
+            var m = new SettingsMediaOptions.MediaOption("--soundfont", fileName);
+            _player.Options.Option.Add(m);
+        }
+
+        private void RemoveSoundFont()
+        {
+            foreach (var s in _player.Options.Option.Where(s => s.Id.ToLower().Equals("--soundfont")))
+            {
+                _player.Options.Option.Remove(s);
+                break;
+            }
+        }
+        #endregion
     }
 }

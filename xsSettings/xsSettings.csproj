@@ -123,6 +123,11 @@
     <Compile Include="Forms\FrmSettings.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings\Enums\PlaybackLoopMode.cs" />
     <Compile Include="Settings\Enums\VideoWindowResizeOption.cs" />
     <Compile Include="Internal\OptionsList.cs" />
@@ -161,7 +166,6 @@
       <Name>libolv</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Controls\OptionDvd.resx">
       <DependentUpon>OptionDvd.cs</DependentUpon>
@@ -190,6 +194,16 @@
     <EmbeddedResource Include="Controls\OptionVideo.resx">
       <DependentUpon>OptionVideo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dlgAdd.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dlgRemove.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

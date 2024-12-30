@@ -221,6 +221,11 @@ namespace xsCore.Utils
             public MouseInfo xi;
         }
 
+        public static readonly IntPtr HwndTopMost = new IntPtr(-1);
+        public const UInt32 SwpNoSize = 0x0001;
+        public const UInt32 SwpNoMove = 0x0002;
+        public const UInt32 TopMostFlags = SwpNoMove | SwpNoSize;
+
         public const int WindowsHookKeyboard = 13;
         public const int WindowsHookMouse = 14;
         public const int WmCopydata = 0x4A;
@@ -231,6 +236,10 @@ namespace xsCore.Utils
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
         [DllImport("user32", EntryPoint = "SendMessageA")]
         public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, CopyDataStruct lParam);

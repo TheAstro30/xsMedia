@@ -93,10 +93,10 @@ namespace xsCore.PlayerControls.Controls
         {
             /* Calculate which image section represents what number */            
             var ts = new TimeSpan(0, 0, 0, CounterType == TimeDisplay.Elapsed ? _elapsed : Total - _elapsed);
-            var hrs = ((ts.Days * 24) + ts.Hours) % 10;
-            var time = (CounterType == TimeDisplay.Remain ? "-" : null) +
-                       (hrs > 0 ? string.Format("{0:00}:", hrs) : null) + 
-                       string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+            var remain = CounterType == TimeDisplay.Remain ? "-" : string.Empty;
+            var time = ts.TotalSeconds >= 3600
+                ? string.Format("{0}{1:00}:{2:00}:{3:00}", remain, ts.Hours, ts.Minutes, ts.Seconds)
+                : string.Format("{0}{1:00}:{2:00}", remain, ts.Minutes, ts.Seconds);
             /* Center the counter */
             var width = (_counterCharacterSize.Width + 1) * time.Length;
             var left = (Area.Width / 2) - (width / 2);            

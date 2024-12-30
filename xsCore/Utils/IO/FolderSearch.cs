@@ -4,12 +4,12 @@
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Collections.Generic;
 
-namespace xsCore.Utils
+namespace xsCore.Utils.IO
 {
     /*  Recursive folder/file search class
      *  By Jason James Newland

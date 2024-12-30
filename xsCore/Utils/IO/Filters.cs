@@ -3,9 +3,9 @@
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
-using xsCore.Utils;
+using System;
 
-namespace xsPlaylist.Utils
+namespace xsCore.Utils.IO
 {
     public static class Filters
     {
@@ -70,5 +70,22 @@ namespace xsPlaylist.Utils
         public static FilterMasks SavePlaylistFilters { get; private set; }
         public static FilterMasks CoverArtFilters { get; private set; }
         public static FilterMasks SubtitleFilters { get; private set; }
+
+        /* Method is used mainly for adding of favorites - files and streams are legal; discs are not */
+        public static bool IsValidMediaFile(string fileName)
+        {
+            var s = fileName.Split(new[]{":"}, StringSplitOptions.RemoveEmptyEntries);
+            if (s.Length == 0)
+            {
+                return false;
+            }
+            switch (s[0].ToUpper())
+            {
+                case "HTTP":
+                case "HTTPS":
+                    return true;
+            }
+            return OpenFilters.IsSupported(fileName);
+        }
     }
 }

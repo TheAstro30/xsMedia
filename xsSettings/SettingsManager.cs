@@ -3,12 +3,12 @@
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using xsCore.Utils.IO;
 using xsCore.Utils.Serialization;
 using xsSettings.Forms;
 using xsSettings.Internal;
@@ -74,13 +74,13 @@ namespace xsSettings
             AddToList(Settings.Player.FileHistory, fileName, 25);
         }
 
-        public static void AddFavorite(string fileName)
-        {
-            AddToList(Settings.Favorites.Favorite, fileName, 1000, true);
-        }
-
         public static int AddFavorite(SettingsHistoryData data)
         {
+            /* First check this is even a legal file; CD/DVD/Blueray discs are not */
+            if (!Filters.IsValidMediaFile(data.FilePath))
+            {
+                return -1;
+            }
             /* First check it doesn't exist */
             var favorite = Settings.Favorites.Favorite;
             if (GetHistoryItem(favorite, data.FilePath) != null)

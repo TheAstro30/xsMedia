@@ -14,6 +14,7 @@ using System.Xml;
 using xsCore.CdUtils;
 using xsCore.Skin;
 using xsCore.Utils;
+using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
 using xsMedia.Forms;
@@ -21,7 +22,6 @@ using xsMedia.Properties;
 using xsPlaylist;
 using xsPlaylist.Forms;
 using xsPlaylist.Playlist;
-using xsPlaylist.Utils;
 using xsSettings;
 using xsSettings.Settings;
 using xsSettings.Settings.Enums;
@@ -511,7 +511,7 @@ namespace xsMedia.Logic
                     {
                         return;
                     }
-                    var data = new SettingsHistoryData(p.Location);
+                    var data = new SettingsHistoryData(p.Location, p.Length / 1000);
                     var i = SettingsManager.AddFavorite(data);
                     if (i == -1)
                     {
@@ -1246,10 +1246,12 @@ namespace xsMedia.Logic
                     {
                         MenuHelper.AddMenuItem("Remove selected", "REMOVE", Keys.None, true, false, Resources.menuRemove.ToBitmap(), menuHandler),
                         new ToolStripSeparator(),
+                        MenuHelper.AddMenuItem("Add to favorites", "ADD", Keys.None, Playlist.PlaylistControl.SelectedIndex != -1, false,
+                                               Resources.menuFavoriteEdit.ToBitmap(), OnVideoMenuItemClicked),
                         MenuHelper.AddMenuItem("Media information", "INFO", Keys.None, Playlist.PlaylistControl.SelectedIndex != -1, false,
                                                Resources.menuInfo.ToBitmap(), menuHandler)
                     }
-                );
+                );           
         }
         #endregion
         #endregion

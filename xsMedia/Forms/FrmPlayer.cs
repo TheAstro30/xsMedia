@@ -29,7 +29,8 @@ namespace xsMedia.Forms
             BackColor = Color.Black;
             StartPosition = FormStartPosition.Manual;
             MinimumSize = new Size(431, 235);
-            MaximizeBox = false;            
+            MaximizeBox = false;
+            TopMost = true;
             /* Setup settings file */
             SettingsManager.Load(AppPath.MainDir(@"\KangaSoft\xsMedia\xsMedia.xml", true));
             /* Main menu renderer */
@@ -65,6 +66,7 @@ namespace xsMedia.Forms
                 Location = loc;
                 Size = SettingsManager.Settings.Window.MainWindow.Size;
             }
+            //Win32.SetWindowPos(Handle, Win32.HwndTopMost, 0, 0, 0, 0, Win32.TopMostFlags);
             base.OnLoad(e);
         }
 

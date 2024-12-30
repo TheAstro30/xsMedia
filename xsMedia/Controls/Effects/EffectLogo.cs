@@ -8,8 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using xsCore.Controls.TrackBar;
+using xsCore.Utils.IO;
 using xsMedia.Logic;
-using xsPlaylist.Utils;
 using xsSettings;
 using xsSettings.Settings;
 

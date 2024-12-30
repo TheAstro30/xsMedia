@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace xsCore.Utils
+namespace xsCore.Utils.IO
 {
     /*  Open/Save file dialog supported filters
      *  By Jason James Newland

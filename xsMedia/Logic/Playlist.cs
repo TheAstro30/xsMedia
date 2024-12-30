@@ -6,11 +6,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 using xsCore.CdUtils;
+using xsCore.Utils;
 using xsMedia.Forms;
 using xsPlaylist;
 using xsPlaylist.Controls;
 using xsPlaylist.Playlist;
-using xsPlaylist.Utils;
 using xsVlc.Common;
 
 namespace xsMedia.Logic
@@ -84,7 +84,7 @@ namespace xsMedia.Logic
                             entry.Album = Video.VideoControl.CurrentMedia.GetMetaData(MetaDataType.Album);
                         }
                         /* Get album art - have to do it the long way */
-                        var bmp = AlbumArt.GetAlbumArt(entry.Location, entry.Artist, entry.Album);
+                        var bmp = MediaInfo.GetAlbumArt(entry.Location, entry.Artist, entry.Album);
                         if (bmp != null)
                         {
                             Video.VideoControl.LogoImage = new Bitmap(bmp);

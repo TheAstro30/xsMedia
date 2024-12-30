@@ -10,9 +10,10 @@ using libolv;
 using libolv.Rendering.Styles;
 using xsCore.Controls.Forms;
 using xsCore.Skin;
+using xsCore.Utils.IO;
+using xsCore.Utils.UI;
 using xsMedia.Logic;
 using xsMedia.Properties;
-using xsPlaylist.Utils;
 using xsSettings;
 using xsSettings.Settings;
 
@@ -24,6 +25,9 @@ namespace xsMedia.Forms
         private readonly ObjectListView _lv;
         private readonly HeaderFormatStyle _lVHeader;
         private readonly OlvColumn _lvFile;
+        private readonly OlvColumn _lvLength;
+
+        private ContextMenuStrip _menu;
 
         public FrmFavorites()
         {
@@ -73,13 +77,23 @@ namespace xsMedia.Forms
                 Groupable = false,
                 Hideable = false,
                 IsEditable = false,
-                Searchable = false, 
+                Searchable = false,
                 ImageIndex = 0,
                 Width = 120
             };
 
-            _lv.AllColumns.AddRange(new[] {_lvFile});
-            _lv.Columns.AddRange(new ColumnHeader[] {_lvFile});
+            _lvLength = new OlvColumn(@"Length:", "LengthString")
+            {
+                Groupable = false,
+                Hideable = false,
+                IsEditable = false,
+                Searchable = false,
+                TextAlign = HorizontalAlignment.Right,
+                Width = 80
+            };
+
+            _lv.AllColumns.AddRange(new[] {_lvFile, _lvLength});
+            _lv.Columns.AddRange(new ColumnHeader[] {_lvFile, _lvLength});
 
             _dockPanel.Controls.Add(_lv, 0, 0);
 
@@ -89,6 +103,7 @@ namespace xsMedia.Forms
 
             Controls.Add(_dockPanel);
 
+            _lv.MouseClick += OnMouseClick;
             _lv.MouseDoubleClick += OnDoubleClick;
             _lv.SelectionChanged += OnSelectionChanged;
 
@@ -102,11 +117,17 @@ namespace xsMedia.Forms
             toolTip.SetToolTip(btnRemove, "Remove selected file from favorites");
             toolTip.SetToolTip(btnClear, "Clear favorites list");
 
+            /* Right-click menu */
+            _menu = new ContextMenuStrip();
+            _menu.Opening += OnContextMenuOpening;
+            BuildContextMenu();
+
             /* Apply skin format */
             SkinChanged();
         }
 
         /* Overrides */
+
         protected override void OnLoad(EventArgs e)
         {
             /* Set the forms saved position and size */
@@ -116,8 +137,8 @@ namespace xsMedia.Forms
                 if (Owner != null)
                 {
                     /* We set this form to centered parent (which CenterToParent property doesn't work with the main form, for whatever reason) */
-                    Location = new Point(Owner.Location.X + Owner.Width / 2 - Width / 2,
-                        Owner.Location.Y + Owner.Height / 2 - Height / 2);
+                    Location = new Point(Owner.Location.X + Owner.Width/2 - Width/2,
+                        Owner.Location.Y + Owner.Height/2 - Height/2);
                 }
             }
             else
@@ -155,7 +176,7 @@ namespace xsMedia.Forms
             }
             /* Move controls */
             _dockPanel.Size = new Size(ClientSize.Width, ClientSize.Height - 40);
-            _lvFile.Width = _lv.Width;
+            _lvFile.Width = _lv.Width - _lvLength.Width;
 
             var buttonStartY = ClientSize.Height - 32;
             btnAdd.Location = new Point(btnAdd.Location.X, buttonStartY);
@@ -173,6 +194,7 @@ namespace xsMedia.Forms
         }
 
         /* Public methods */
+
         public new void Focus()
         {
             /* Ensure listview has focus all the time */
@@ -180,6 +202,7 @@ namespace xsMedia.Forms
         }
 
         /* Called externally if window is already open */
+
         public void AddFavorite(SettingsHistoryData data)
         {
             var favorites = SettingsManager.Settings.Favorites.Favorite;
@@ -197,8 +220,9 @@ namespace xsMedia.Forms
         }
 
         /* Skin management - uses same color scheme as the playlist window, I mean - why not? */
+
         public void SkinChanged(bool refresh = false)
-        {            
+        {
             /* Update listview's appearance */
             _lVHeader.Normal.BackColor = SkinManager.GetPlaylistColor("HEADER_BACKCOLOR");
             _lv.BackColor = SkinManager.GetPlaylistColor("BACKCOLOR");
@@ -221,12 +245,36 @@ namespace xsMedia.Forms
             btnRemove.Enabled = selected;
         }
 
+        private void OnMouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && _lv.SelectedObjects.Count > 0)
+            {
+                _menu.Show(_lv, e.Location);
+            }
+        }
+
         private void OnDoubleClick(object sender, MouseEventArgs e)
         {
             /* An item in listview is double clicked on */
             if (e.Button == MouseButtons.Left && _lv.SelectedItem != null)
             {
-                Video.VideoControl.OpenFile(((SettingsHistoryData)_lv.SelectedObject).FilePath);
+                Video.VideoControl.OpenFile(((SettingsHistoryData) _lv.SelectedObject).FilePath);
+            }
+        }
+
+        private void OnContextMenuOpening(object sender, EventArgs e)
+        {
+            BuildContextMenu();
+        }
+
+        private void OnContextMenuItemClicked(object sender, EventArgs e)
+        {
+            var o = (ToolStripMenuItem) sender;
+            switch (o.Tag.ToString())
+            {
+                case "OPEN":
+                    Video.VideoControl.OpenFile(((SettingsHistoryData)_lv.SelectedObject).FilePath);
+                    break;
             }
         }
 
@@ -295,6 +343,18 @@ namespace xsMedia.Forms
                     Close();
                     break;
             }
+        }
+
+        /* Private menu building method */
+        private void BuildContextMenu()
+        {
+            _menu.Items.Clear();
+            if (_lv.SelectedObjects.Count == 1)
+            {
+                _menu.Items.Add(MenuHelper.AddMenuItem("Open", "OPEN", Keys.None, true, false, Resources.menuPlay.ToBitmap(),
+                    OnContextMenuItemClicked));
+            }
+            _menu.Items.Add(MenuHelper.AddMenuItem("Remove", "REMOVE", Keys.None, true, false, Resources.dlgRemove.ToBitmap(), OnButtonClick));
         }
     }
 }

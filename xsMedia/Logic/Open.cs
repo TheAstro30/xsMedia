@@ -6,9 +6,9 @@
 using System.IO;
 using System.Windows.Forms;
 using xsCore.CdUtils;
+using xsCore.Utils.IO;
 using xsMedia.Forms;
 using xsPlaylist;
-using xsPlaylist.Utils;
 using xsSettings;
 using xsVlc.Common;
 

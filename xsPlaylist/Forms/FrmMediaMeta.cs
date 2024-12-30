@@ -7,8 +7,9 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using xsCore.Controls.Forms;
+using xsCore.Utils;
+using xsCore.Utils.IO;
 using xsCore.Utils.UI;
-using xsPlaylist.Utils;
 using xsVlc.Common;
 using xsVlc.Common.Events;
 using xsVlc.Common.Media;
@@ -79,7 +80,7 @@ namespace xsPlaylist.Forms
             txtCopyright.Text = _mediaFile.GetMetaData(MetaDataType.Copyright);
             txtEncoded.Text = _mediaFile.GetMetaData(MetaDataType.EncodedBy);
             txtComments.Text = _mediaFile.GetMetaData(MetaDataType.Description);
-            _bmpArt = AlbumArt.GetAlbumArt(_fileName, txtArtist.Text, txtAlbum.Text);
+            _bmpArt = MediaInfo.GetAlbumArt(_fileName, txtArtist.Text, txtAlbum.Text);
             if (_bmpArt != null)
             {
                 pnlArt.Refresh();

@@ -97,10 +97,11 @@ namespace xsPlaylist.Playlist
             get
             {
                 /* Format the "Length" field as 00:00 - lengths are in milliseconds */
-                var length = Length;
-                var ts = new TimeSpan(0, 0, 0, length > 1000 ? length / 1000 : 0);
-                var hrs = (ts.Days * 24) + ts.Hours;
-                return (hrs > 0 ? string.Format("{0:00}:", hrs) : null) + string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+                var length = Length > 1000 ? Length / 1000 : 0;
+                var ts = new TimeSpan(0, 0, 0, length);
+                return (length >= 3600
+                    ? string.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds)
+                    : string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds));
             }
         }
 

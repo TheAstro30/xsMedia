@@ -88,7 +88,8 @@ namespace xsPlaylist.Controls
                                 Groupable = false,
                                 Hideable = false,
                                 IsEditable = false,
-                                Searchable = false,                                
+                                Searchable = false, 
+                                TextAlign = HorizontalAlignment.Right,
                                 Width = 80                              
                             };
             _lv.AllColumns.AddRange(new[] {_lvTrack, _lvAlbum, _lvLength});

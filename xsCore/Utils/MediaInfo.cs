@@ -1,4 +1,4 @@
-﻿/* xsMedia - xsPlaylist
+﻿/* xsMedia - Media Player
  * (c)2013 - 2024
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
@@ -7,12 +7,31 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using Shell32;
 using xsCore.Utils.SystemUtils;
 
-namespace xsPlaylist.Utils
+namespace xsCore.Utils
 {
-    public static class AlbumArt
+    public static class MediaInfo
     {
+        public static bool GetDuration(string filename, out TimeSpan timeSpan)
+        {
+            try
+            {
+                var shl = new Shell();
+                var fldr = shl.NameSpace(Path.GetDirectoryName(filename));
+                var itm = fldr.ParseName(Path.GetFileName(filename));
+                /* Index 27 is the video duration [This may not always be the case] */
+                var propValue = fldr.GetDetailsOf(itm, 27);
+                return TimeSpan.TryParse(propValue, out timeSpan);
+            }
+            catch (Exception)
+            {
+                timeSpan = new TimeSpan();
+                return false;
+            }
+        }
+
         public static Bitmap GetAlbumArt(string fileName, string artist, string album)
         {
             /* Get album art - have to do it the long way */
@@ -20,7 +39,7 @@ namespace xsPlaylist.Utils
             {
                 return null;
             }
-            var art = new[] {"art", "art.jpg", "art.png", "art.bmp"};
+            var art = new[] { "art", "art.jpg", "art.png", "art.bmp" };
             foreach (var path in art.Select(a => string.Format("{0}\\vlc\\art\\artistalbum\\{1}\\{2}\\{3}",
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 CleanInvalidCharacters(artist), CleanInvalidCharacters(album), a)).Where(File.Exists))
@@ -29,9 +48,9 @@ namespace xsPlaylist.Utils
             }
             /* Attempt to get album art from file */
             var thumb = new ShellThumbnail
-                {
-                    DesiredSize = new Size(128, 128)
-                };
+            {
+                DesiredSize = new Size(128, 128)
+            };
             var bmp = thumb.GetThumbnail(fileName);
             if (bmp != null)
             {

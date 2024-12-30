@@ -95,11 +95,11 @@ namespace xsMedia.Forms
                 Size = new Size(362, 162),
                 Lines = new[]
                 {
-                    string.Format("libOlv: {0}", GetPluginVersion(AppPath.MainDir(@"\libolv.dll"))),
-                    string.Format("xsCore: {0}", GetPluginVersion(AppPath.MainDir(@"\xsCore.dll"))),
-                    string.Format("xsVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\xsVlc.dll"))),
-                    string.Format("xsSettings: {0}", GetPluginVersion(AppPath.MainDir(@"\xsSettings.dll"))),
+                    string.Format("xsCore: {0}", GetPluginVersion(AppPath.MainDir(@"\xsCore.dll"))),                                        
                     string.Format("xsPlaylist: {0}", GetPluginVersion(AppPath.MainDir(@"\xsPlaylist.dll"))),
+                    string.Format("xsSettings: {0}", GetPluginVersion(AppPath.MainDir(@"\xsSettings.dll"))),
+                    string.Format("xsVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\xsVlc.dll"))),
+                    string.Format("libOlv: {0}", GetPluginVersion(AppPath.MainDir(@"\libolv.dll"))),
                     string.Format("libVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\libvlc.dll"))),
                     string.Format("libVlcCore: {0}", GetPluginVersion(AppPath.MainDir(@"\libvlccore.dll")))
                 }

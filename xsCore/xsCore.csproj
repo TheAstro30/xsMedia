@@ -81,7 +81,9 @@
     <Compile Include="Utils\Asx\AsxData.cs" />
     <Compile Include="Utils\Asx\AsxParser.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
+    <Compile Include="Utils\IO\Filters.cs" />
     <Compile Include="Utils\FormManager.cs" />
+    <Compile Include="Utils\MediaInfo.cs" />
     <Compile Include="Utils\Proxy.cs" />
     <Compile Include="PlayerControls\ControlRenderer.cs">
       <SubType>UserControl</SubType>
@@ -105,8 +107,8 @@
     <Compile Include="Utils\TabManager.cs" />
     <Compile Include="Utils\UI\Drawing.cs" />
     <Compile Include="Utils\SystemUtils\ExecuteProcess.cs" />
-    <Compile Include="Utils\FilterMasks.cs" />
-    <Compile Include="Utils\FolderSearch.cs" />
+    <Compile Include="Utils\IO\FilterMasks.cs" />
+    <Compile Include="Utils\IO\FolderSearch.cs" />
     <Compile Include="Controls\Forms\FormEx.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,7 +122,15 @@
     <Compile Include="Utils\XmlFormatting.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\debugWinIcon.ico" />
+    <COMReference Include="Shell32">
+      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

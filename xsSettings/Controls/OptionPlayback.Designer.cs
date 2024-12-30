@@ -39,6 +39,12 @@
             this.cmbSpeed = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbLoop = new System.Windows.Forms.ComboBox();
+            this.gbMidi = new System.Windows.Forms.GroupBox();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.txtSoundFont = new System.Windows.Forms.TextBox();
+            this.lblSoundFont = new System.Windows.Forms.Label();
+            this.gbMidi.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblCounter
@@ -145,10 +151,59 @@
             this.cmbLoop.TabIndex = 14;
             this.cmbLoop.Tag = "LOOP";
             // 
+            // gbMidi
+            // 
+            this.gbMidi.Controls.Add(this.btnRemove);
+            this.gbMidi.Controls.Add(this.btnAdd);
+            this.gbMidi.Controls.Add(this.txtSoundFont);
+            this.gbMidi.Controls.Add(this.lblSoundFont);
+            this.gbMidi.Location = new System.Drawing.Point(14, 232);
+            this.gbMidi.Name = "gbMidi";
+            this.gbMidi.Size = new System.Drawing.Size(320, 76);
+            this.gbMidi.TabIndex = 15;
+            this.gbMidi.TabStop = false;
+            this.gbMidi.Text = "MIDI support:";
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(291, 37);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(23, 23);
+            this.btnRemove.TabIndex = 3;
+            this.btnRemove.Tag = "REMOVE";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(262, 37);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(23, 23);
+            this.btnAdd.TabIndex = 2;
+            this.btnAdd.Tag = "ADD";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            // 
+            // txtSoundFont
+            // 
+            this.txtSoundFont.Location = new System.Drawing.Point(9, 37);
+            this.txtSoundFont.Name = "txtSoundFont";
+            this.txtSoundFont.ReadOnly = true;
+            this.txtSoundFont.Size = new System.Drawing.Size(247, 23);
+            this.txtSoundFont.TabIndex = 1;
+            // 
+            // lblSoundFont
+            // 
+            this.lblSoundFont.AutoSize = true;
+            this.lblSoundFont.Location = new System.Drawing.Point(6, 19);
+            this.lblSoundFont.Name = "lblSoundFont";
+            this.lblSoundFont.Size = new System.Drawing.Size(111, 15);
+            this.lblSoundFont.TabIndex = 0;
+            this.lblSoundFont.Text = "Current sound font:";
+            // 
             // OptionPlayback
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.gbMidi);
             this.Controls.Add(this.cmbLoop);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbSpeed);
@@ -173,6 +228,9 @@
             this.Controls.SetChildIndex(this.cmbSpeed, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.cmbLoop, 0);
+            this.Controls.SetChildIndex(this.gbMidi, 0);
+            this.gbMidi.ResumeLayout(false);
+            this.gbMidi.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,6 +249,11 @@
         private System.Windows.Forms.ComboBox cmbSpeed;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbLoop;
+        private System.Windows.Forms.GroupBox gbMidi;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.TextBox txtSoundFont;
+        private System.Windows.Forms.Label lblSoundFont;
 
 
     }
