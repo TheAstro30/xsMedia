@@ -9,12 +9,12 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using xsCore.PlayerControls.Controls;
+using xsCore.Properties;
 using xsCore.Settings.Controls.Base;
 using xsCore.Settings.Data;
 using xsCore.Settings.Data.Enums;
 using xsCore.Utils;
 using xsCore.Utils.SystemUtils;
-using xsSettings.Properties;
 
 namespace xsCore.Settings.Controls
 {

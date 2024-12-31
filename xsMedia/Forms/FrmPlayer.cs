@@ -28,7 +28,7 @@ namespace xsMedia.Forms
             Font = new Font("Segoe UI", 9);
             BackColor = Color.Black;
             StartPosition = FormStartPosition.Manual;
-            MinimumSize = new Size(431, 235);
+            MinimumSize = new Size(620, 420);
             MaximizeBox = false;
             /* Setup settings file */
             SettingsManager.Load(AppPath.MainDir(@"\KangaSoft\xsMedia\xsMedia.xml", true));

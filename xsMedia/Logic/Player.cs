@@ -124,6 +124,32 @@ namespace xsMedia.Logic
             var count = PlaylistManager.MediaList.Count;
             if (nextTrack && count > 1)
             {
+                /* Process loop setting */
+                switch (SettingsManager.Settings.Player.Loop)
+                {
+                    case PlaybackLoopMode.LoopOne:
+                        /* Loop same track */
+                        Video.VideoControl.Play(Video.VideoControl.CurrentTrack);
+                        return;
+
+                    case PlaybackLoopMode.LoopAll:
+                        /* Check that current track is total list count */
+                        if (Video.VideoControl.CurrentTrack == count - 1)
+                        {
+                            Video.VideoControl.CurrentTrack = 0;
+                            Video.VideoControl.Play(0);
+                            return;
+                        }
+                        break;
+
+                    case PlaybackLoopMode.Shuffle:
+                        /* Get a random playlist index */
+                        var rnd = new Random();
+                        var track = rnd.Next(0, count);
+                        Video.VideoControl.CurrentTrack = track;
+                        Video.VideoControl.Play(track);
+                        return;
+                }
                 Video.VideoControl.CurrentTrack++;
                 /* Check we haven't reached the end of the playlist */
                 if (Video.VideoControl.CurrentTrack <= count - 1)
@@ -224,12 +250,27 @@ namespace xsMedia.Logic
 
         public static void ResizeVideoWindow()
         {
-            var y = !Video.IsFullScreen ? Menus.MainMenu.Height : 0;
-            var height = _player.ClientRectangle.Height - (!Video.IsFullScreen ? Menus.MainMenu.Height + Media.MediaBarControl.Height : 0);
-            Video.VideoControl.SetBounds(0, y, _player.ClientRectangle.Width, height);
+            var y = Media.MediaBarControl.Visible ? Menus.MainMenu.Height : 0;
+            var third = _player.ClientRectangle.Width/3;
+            var width = _player.ClientRectangle.Width - third;
+            var height = _player.ClientRectangle.Height - (Media.MediaBarControl.Visible ? y + Media.MediaBarControl.Height : 0);
+            /* Adjust playlist size to start with */
+            Playlist.PlaylistControl.SetBounds(third, y, width, height);
+
+            if (Playlist.PlaylistControl.Visible)
+            {
+                /* Split the video and playlist window vertically */
+                var cs = new Size(_player.ClientSize.Width - width,
+                    _player.ClientSize.Height - (Media.MediaBarControl.Visible ? Media.MediaBarControl.Height : 0) - y);
+                var startY = Video.VideoControl.Location.Y;
+                Video.VideoControl.SetBounds(0, startY, third, cs.Height);
+            }
+            else 
+            {        
+                /* Normal video view */        
+                Video.VideoControl.SetBounds(0, y, _player.ClientRectangle.Width, height);
+            }
             Video.VideoControl.Refresh();
-            /* Also adjust playlist even if not in view */
-            Playlist.PlaylistControl.SetBounds(0, y, _player.ClientRectangle.Width, height);            
         }
 
         /* Callbacks/events */
@@ -243,16 +284,22 @@ namespace xsMedia.Logic
         {
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
             var added = false;
-            Video.VideoControl.CurrentTrack = Video.VideoControl.CurrentTrack < 0 || Video.VideoControl.CurrentTrack == 0 ? 0 : Video.VideoControl.CurrentTrack++;
+            var lastIndex = PlaylistManager.MediaList.Count;
             foreach (var file in files.Where(file => FileFilters.OpenFilters.IsSupported(file)))
             {                
                 Video.VideoControl.OpenFile(file, false);
                 added = true;
             }
-            if (added)
+            if (!added)
             {
-                Video.VideoControl.Play(Video.VideoControl.CurrentTrack);
+                return;
             }
+            /* Play the first added track */
+            if (lastIndex > 0)
+            {
+                Video.VideoControl.CurrentTrack = lastIndex;
+            }
+            Video.VideoControl.Play(Video.VideoControl.CurrentTrack);
         }
 
         /* Start up timer */

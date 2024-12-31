@@ -6,6 +6,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using xsCore.Controls.Playlist.Playlist;
 using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
@@ -25,6 +26,10 @@ namespace xsCore.Controls.Forms
         private string _artworkUrl;
 
         private Bitmap _bmpArt;
+
+        private PlaylistEntry _entry;
+
+        public Action<PlaylistEntry> OnMetaDataChanged;
 
         public FrmMediaMeta(string fileName)
         {
@@ -52,6 +57,8 @@ namespace xsCore.Controls.Forms
             _mediaFile = factory.CreateMedia<IMediaFromFile>(fileName);
             _mediaFile.Events.ParsedChanged += MediaParsed;
             _mediaFile.Parse(true);
+
+            _entry = new PlaylistEntry {Location = fileName};
 
             tmrMeta.Enabled = true;
         }
@@ -109,10 +116,11 @@ namespace xsCore.Controls.Forms
             if (ofd.ShowDialog(this) == DialogResult.Cancel)
             {
                 return;
-            }
+            }            
             _artworkUrl = ofd.FileName;
             _bmpArt = new Bitmap(Image.FromFile(_artworkUrl));
-            pnlArt.Refresh();
+            MediaInfo.ReplaceCachedArtFile(_fileName, txtArtist.Text, txtAlbum.Text, _bmpArt);
+            pnlArt.Refresh();            
             cmdSave.Visible = true;
         }
 
@@ -134,9 +142,17 @@ namespace xsCore.Controls.Forms
             if (!string.IsNullOrEmpty(_artworkUrl))
             {
                 _mediaFile.SetMetaData(MetaDataType.ArtworkUrl, new Uri(_artworkUrl).AbsoluteUri);
-            }
-            _mediaFile.SaveMetaData();
+            }           
+            _mediaFile.SaveMetaData();            
             cmdSave.Visible = false;
+
+            _entry.Artist = txtArtist.Text;
+            _entry.Album = txtAlbum.Text;
+
+            if (OnMetaDataChanged != null)
+            {
+                OnMetaDataChanged(_entry);
+            }
         }
 
         private void OnPanelPaint(object sender, PaintEventArgs e)

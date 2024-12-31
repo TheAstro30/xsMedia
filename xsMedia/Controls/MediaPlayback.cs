@@ -438,7 +438,7 @@ namespace xsMedia.Controls
 
         #region Media opening methods
         public void OpenFile(string fileName, bool play = true)
-        {            
+        {
             var media = _mediaFactory.CreateMedia<IMedia>(fileName);
             PlaylistManager.Add(media, (int)_listPlayer.Length / 1000);
             if (!play)

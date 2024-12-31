@@ -343,6 +343,8 @@ namespace xsMedia.Logic
 
                 Media.MediaBarControl.BringToFront();
                 Media.MediaBarControl.Visible = true;
+
+                Player.ResizeVideoWindow();
             }
             _tmrHide.Enabled = true;
         }
@@ -361,6 +363,8 @@ namespace xsMedia.Logic
                 Menus.MainMenu.Visible = false;
                 Media.MediaBarControl.Visible = false;
                 Menus.MenuOpen.Visible = false;
+
+                Player.ResizeVideoWindow();
             }
             _tmrHide.Enabled = false;
         }

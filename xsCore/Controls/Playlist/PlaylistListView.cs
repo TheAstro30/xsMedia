@@ -89,8 +89,7 @@ namespace xsCore.Controls.Playlist
                                 Hideable = false,
                                 IsEditable = false,
                                 Searchable = false, 
-                                TextAlign = HorizontalAlignment.Right,
-                                Width = 80                              
+                                Width = 100                              
                             };
             _lv.AllColumns.AddRange(new[] {_lvTrack, _lvAlbum, _lvLength});
             _lv.Columns.AddRange(new ColumnHeader[] { _lvTrack, _lvAlbum, _lvLength });

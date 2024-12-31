@@ -23,6 +23,7 @@ using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
 using xsMedia.Forms;
+using xsMedia.Helpers;
 using xsMedia.Properties;
 using xsVlc.Common;
 using xsVlc.Common.Events;
@@ -286,15 +287,17 @@ namespace xsMedia.Logic
         public static void OnMenuListClicked(object sender, EventArgs e)
         {
             /* Switch list visiblity */
-            Video.VideoControl.Visible = !Video.VideoControl.Visible;
+            //Video.VideoControl.Visible = !Video.VideoControl.Visible;
             Playlist.PlaylistControl.Visible = !Playlist.PlaylistControl.Visible;
             if (Playlist.PlaylistControl.Visible)
             {
                 Playlist.PlaylistControl.Focus();
             }
             /* Change "arrow" direction */
-            MenuList.Text = Video.VideoControl.Visible ? ")" : "*";
-            MenuList.ToolTipText = Video.VideoControl.Visible ? "Show playlist" : "Hide playlist";
+            var visible = Playlist.PlaylistControl.Visible;
+            MenuList.Text = visible ? ")" : "*";
+            MenuList.ToolTipText = visible ? "Show playlist" : "Hide playlist";
+            Player.ResizeVideoWindow();
         }
 
         /* Toggle full screen */
@@ -739,9 +742,13 @@ namespace xsMedia.Logic
 
                 case "INFO":
                     var index = Playlist.PlaylistControl.SelectedIndex;
-                    if (index == -1) { return; }
+                    if (index == -1)
+                    {
+                        return;
+                    }
                     using (var meta = new FrmMediaMeta(PlaylistManager.Playlist[index].Location))
                     {
+                        meta.OnMetaDataChanged += OnMetaDataChanged;
                         meta.ShowDialog(_player);
                     }
                     break;
@@ -770,6 +777,27 @@ namespace xsMedia.Logic
                     Player.Sync.Execute(UpdateMenus);
                     break;
             }
+        }
+
+        /* MP3 cover art change callback */
+        private static void OnMetaDataChanged(PlaylistEntry entry)
+        {
+            var index = Playlist.PlaylistControl.SelectedIndex;
+            if (index == -1)
+            {
+                return;
+            }
+            var p = PlaylistManager.Playlist[index];
+            if (index != Video.VideoControl.CurrentTrack ||
+                (Video.VideoControl.PlayerState != MediaState.Playing &&
+                 Video.VideoControl.PlayerState != MediaState.Paused))
+            {
+                return;
+            }
+            var bmp = MediaInfo.GetAlbumArt(p.Location, p.Artist, p.Album);
+            Video.VideoControl.LogoImage = bmp != null ? new Bitmap(bmp) : MainIconUtil.VideoWindowIcon();
+            Video.VideoControl.LogoImageMaximumSize = Video.VideoControl.LogoImage.Size;
+            Video.VideoControl.Refresh();
         }
 
         /* Skin file callback */

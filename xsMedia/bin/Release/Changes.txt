@@ -18,13 +18,17 @@
 - Added option to display video title on playback screen for the time determined by "time out" seconds (5 - 30 seconds)
 - Added recent file caching for single files opened by the player (25 max at the moment)
 - Added a favorites dialog to store favorite files (currently only works with local hard drive files, not discs; why would it?)
-- Removed xsTrackBar.dll and moved code to xsCore.dll
+- xsTrackBar.dll removed and moved code to xsCore.dll
 - xsPlaylist.dll removed and code moved to xsCore.dll
 - xsSettings.dll removed and code moved to xsCore.dll
-- Playlist now shows the length aligned right (looks better if one media file is MM:SS and the next is HH:MM:SS)
 - Added ability to change or remove MIDI soundfont support file (SF2)
 - Fixed an issue with some settings not being saved to xsMedia.xml after the settings dialog OK button was clicked
 - Fixed an update issue on the playlist window when skin was changed, text colors were not changing
+- Fixed issue with drag and drop files from explorer not playing from the first added file (would play the same currently playing file (if playing))
+- Implemented looping playback function; it can now loop one track over and over, loop all tracks (after playlist end is reached, restart from beginning) and random track play
+- Changed it so when playlist window is showing, like most media players, we still have a media preview of playing file visible on the left
+- Fixed an issue with the main window still displaying cover art from a previous audio file (and current playing one has no cover art)
+- Managed to fix changing of album art of an MP3 file to update the cached information and show the change on the video window (it's probably not a good idea to change the album art while the file is playing)
 
 *** Version 2.1.8 - 22 September , 2020 ***
 - Updated libVLC plugins to version 3.0.10

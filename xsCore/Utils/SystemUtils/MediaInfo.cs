@@ -5,6 +5,7 @@
  * Licenced under the GNU public licence */
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
@@ -40,6 +41,32 @@ namespace xsCore.Utils.SystemUtils
             var filePath = Path.GetDirectoryName(fileName);
             var file = string.Format("{0}\\Folder.jpg", filePath);
             return File.Exists(file) ? new Bitmap(Image.FromFile(file)) : null;
+        }
+
+        public static void ReplaceCachedArtFile(string fileName, string artist, string album, Bitmap newImage)
+        {
+            if (string.IsNullOrEmpty(artist) || string.IsNullOrEmpty(album))
+            {
+                return;
+            }
+            var art = new[] { "art", "art.jpg", "art.png", "art.bmp" };
+            foreach (var path in art.Select(a => string.Format("{0}\\vlc\\art\\artistalbum\\{1}\\{2}\\{3}",
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                CleanInvalidCharacters(artist), CleanInvalidCharacters(album), a)).Where(File.Exists))
+            {
+                try
+                {
+                    File.Delete(path);
+                    var newPath = string.Format("{0}\\art.png", Path.GetDirectoryName(path));
+                    newImage.Save(newPath, ImageFormat.Png);                    
+                }
+                catch (Exception)
+                {
+                    /* Silently return */
+                    return;
+                }                
+                return;
+            }
         }
 
         private static string CleanInvalidCharacters(string s)

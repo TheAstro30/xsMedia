@@ -12,6 +12,7 @@ using xsCore.Controls.Playlist.Playlist;
 using xsCore.Utils;
 using xsCore.Utils.SystemUtils;
 using xsMedia.Forms;
+using xsMedia.Helpers;
 using xsVlc.Common;
 
 namespace xsMedia.Logic
@@ -103,12 +104,10 @@ namespace xsMedia.Logic
                         }
                         /* Get album art - have to do it the long way */
                         var bmp = MediaInfo.GetAlbumArt(entry.Location, entry.Artist, entry.Album);
-                        if (bmp != null)
-                        {
-                            Video.VideoControl.LogoImage = new Bitmap(bmp);
-                            Video.VideoControl.LogoImageMaximumSize = Video.VideoControl.LogoImage.Size;
-                            Video.VideoControl.Refresh();
-                        }
+                        Video.VideoControl.LogoImage = bmp != null ? new Bitmap(bmp) : MainIconUtil.VideoWindowIcon();
+                        System.Diagnostics.Debug.Print(Video.VideoControl.LogoImage.Size.ToString());
+                        Video.VideoControl.LogoImageMaximumSize = Video.VideoControl.LogoImage.Size;
+                        Video.VideoControl.Refresh();
                         break;
                 }
             }
