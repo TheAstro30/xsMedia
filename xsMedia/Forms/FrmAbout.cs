@@ -42,7 +42,7 @@ namespace xsMedia.Forms
                 Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0),
                 Location = new Point(82, 9),
                 Size = new Size(161, 30),
-                Text = @"xsMedia PlayerData"
+                Text = @"xsMedia Player"
             };
 
             var lblCodeName = new Label

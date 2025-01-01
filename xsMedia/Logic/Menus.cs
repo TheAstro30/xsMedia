@@ -58,7 +58,7 @@ namespace xsMedia.Logic
         public static ContextMenuStrip MenuPlaylist { get; private set; }
         public static ContextMenuStrip MenuPlaylistItem { get; private set; }
 
-        #region Init(FrmPlayer PlayerData)
+        #region Init(FrmPlayer player)
         public static void Init(FrmPlayer player)
         {
             /* This file is pretty big and complicated... */
@@ -644,6 +644,12 @@ namespace xsMedia.Logic
             var tag = o.Tag.ToString();
             switch (tag)
             {
+                case "ONTOP":
+                    var onTop = !SettingsManager.Settings.Player.AlwaysOnTop;
+                    SettingsManager.Settings.Player.AlwaysOnTop = onTop;
+                    _player.TopMost = onTop;
+                    break;
+
                 case "EFFECTS":
                     var effects = new FrmEffects();
                     FormManager.Open(effects, _player);
@@ -1056,25 +1062,28 @@ namespace xsMedia.Logic
         private static void BuildMenuPrefs(ToolStripDropDownItem menu, EventHandler menuHandler)
         {
             menu.DropDownItems.Clear();
-            var skinIco = Resources.menuSkin.ToBitmap();
-            var m = MenuHelper.AddMenuItem("Skin", "SKIN", Keys.None, true, false, skinIco, menuHandler);
+            /* Build start of menu */
+            menu.DropDownItems.AddRange(
+                new ToolStripItem[]
+                {
+                    MenuHelper.AddMenuItem("Always on top", "ONTOP", Keys.None, true, SettingsManager.Settings.Player.AlwaysOnTop, null, menuHandler),
+                    new ToolStripSeparator(),
+                    MenuHelper.AddMenuItem("Options...", "OPTIONS", Keys.Control | Keys.P, true, false, Resources.menuOptions.ToBitmap(), menuHandler),
+                    MenuHelper.AddMenuItem("Effects", "EFFECTS", Keys.Control | Keys.E, true, false, Resources.menuEffects.ToBitmap(), menuHandler),
+                    new ToolStripSeparator()
+                });
+
+            /* Skins */
+            var m = MenuHelper.AddMenuItem("Skin", "SKIN", Keys.None, true, false, Resources.menuSkin.ToBitmap(), menuHandler);
             var i = 0;
             foreach (var skin in SkinManager.AvailableSkins)
             {
-                m.DropDownItems.Add(MenuHelper.AddMenuItem(skin.Name, String.Format("SKIN-{0}", i), Keys.None, true,
-                                                           AppPath.MainDir(SettingsManager.Settings.Window.CurrentSkin).ToLower() ==
-                                                           skin.Path.ToLower(), null, menuHandler));
+                m.DropDownItems.Add(MenuHelper.AddMenuItem(skin.Name, string.Format("SKIN-{0}", i), Keys.None, true,
+                    string.Equals(AppPath.MainDir(SettingsManager.Settings.Window.CurrentSkin), skin.Path,
+                        StringComparison.CurrentCultureIgnoreCase), null, menuHandler));
                 i++;
             }
-            /* Build rest of menu */
-            menu.DropDownItems.AddRange(
-                new ToolStripItem[]
-                    {
-                        m,
-                        new ToolStripSeparator(),
-                        MenuHelper.AddMenuItem("Effects", "EFFECTS", Keys.Control | Keys.E, true, false, Resources.menuEffects.ToBitmap(), menuHandler),
-                        MenuHelper.AddMenuItem("Options...", "OPTIONS", Keys.Control | Keys.P, true, false, Resources.menuOptions.ToBitmap(), menuHandler)
-                    });
+            menu.DropDownItems.Add(m);
             IsControlHovering = true;
         }
         #endregion
@@ -1265,7 +1274,7 @@ namespace xsMedia.Logic
                                                        menuHandler));
             m.DropDownItems.Add(MenuHelper.AddMenuItem("Randomize", "SORTRANDOM", Keys.None, true, false, Resources.menuSort.ToBitmap(),
                                                        menuHandler));
-
+            /* I farted */
             items.Add(m);
             items.AddRange(
                 new ToolStripItem[]

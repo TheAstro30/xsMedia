@@ -81,7 +81,7 @@ namespace xsMedia.Logic
                     Player.StopClip(false);
                 }
                 Video.VideoControl.SpinnerActive = true;
-                _player.Text = @"xsMedia PlayerData - Opening";
+                _player.Text = @"xsMedia Player - Opening";
                 Video.VideoControl.OpenNetwork(f.SelectedUrl);
             }
         }

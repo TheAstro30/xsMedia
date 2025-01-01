@@ -54,6 +54,9 @@ namespace xsCore.Settings.Data
         [XmlAttribute("volumeStep")]
         public int VolumeStep { get; set; }
 
+        [XmlAttribute("onTop")]
+        public bool AlwaysOnTop { get; set; }
+
         [XmlElement("video")]
         public VideoOptions Video = new VideoOptions();
 

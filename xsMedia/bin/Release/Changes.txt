@@ -31,6 +31,7 @@
 - Managed to fix changing of album art of an MP3 file to update the cached information and show the change on the video window (it's probably not a good idea to change the album art while the file is playing)
 - Fixed a focus issue to the video window after the playlist was hidden (caused every key press to make a Windows' ding sound)
 - Fixed issue with remove duplicates replaying the playlist from the start (0) if there was already media playing (not sure why I did that that way)
+- Added an "always on top" function, for people who want the player window to on top of all other windows
 
 *** Version 2.1.8 - 22 September , 2020 ***
 - Updated libVLC plugins to version 3.0.10

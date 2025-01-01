@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("xsMedia PlayerData")]
-[assembly: AssemblyDescription("Media PlayerData for Windows")]
+[assembly: AssemblyTitle("xsMedia Player")]
+[assembly: AssemblyDescription("Media Player for Windows")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("KangaSoft Software")]
-[assembly: AssemblyProduct("xsMedia PlayerData")]
+[assembly: AssemblyProduct("xsMedia Player")]
 [assembly: AssemblyCopyright("Copyright © KangaSoft Software 2013 - 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

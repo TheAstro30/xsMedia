@@ -24,12 +24,13 @@ namespace xsMedia.Forms
             /* As there's no designer, we handle the setting of properties such as icon and text here */
             Name = "FrmPlayer";
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            Text = @"xsMedia PlayerData";
+            Text = @"xsMedia Player";
             Font = new Font("Segoe UI", 9);
             BackColor = Color.Black;
             StartPosition = FormStartPosition.Manual;
             MinimumSize = new Size(620, 420);
             MaximizeBox = false;
+
             /* Setup settings file */
             SettingsManager.Load(AppPath.MainDir(@"\KangaSoft\xsMedia\xsMedia.xml", true));
             /* Main menu renderer */
@@ -41,6 +42,9 @@ namespace xsMedia.Forms
             Open.Init(this);
             Playlist.Init(this);
             Menus.Init(this); /* Init last so controls are init'ed first */
+
+            TopMost = SettingsManager.Settings.Player.AlwaysOnTop;
+
             /* Now process command line args */
             Player.BeginProcessCommandLine(args);
         }

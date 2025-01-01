@@ -158,7 +158,7 @@ namespace xsMedia.Logic
                     return;
                 }
             }
-            _player.Text = @"xsMedia PlayerData";
+            _player.Text = @"xsMedia Player";
             /* Restore original window size */
             if (keepVideoSize || SettingsManager.Settings.Player.Video.Resize == VideoWindowResizeOption.WindowSize) { return; }
             _player.Size = SettingsManager.Settings.Window.MainWindow.Size;
@@ -178,11 +178,11 @@ namespace xsMedia.Logic
                 {
                     case DiscType.Vcd:
                     case DiscType.Dvd:
-                        _player.Text = string.Format("xsMedia PlayerData - {0} {1}", Open.DriveLetter, Open.DriveLabel);
+                        _player.Text = string.Format("xsMedia Player - {0} {1}", Open.DriveLetter, Open.DriveLabel);
                         break;
 
                     default:
-                        _player.Text = string.Format("xsMedia PlayerData - {0}", AppPath.TruncatePath(Open.ClipFile, 30));
+                        _player.Text = string.Format("xsMedia Player - {0}", AppPath.TruncatePath(Open.ClipFile, 30));
                         break;
                 }
             }
