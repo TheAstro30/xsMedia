@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -136,7 +136,7 @@ namespace xsMedia.Logic
                 case MediaState.Opening:
                 case MediaState.Buffering:
                     _positionChanged = false;
-                    Player.Sync.Execute(() => _player.Text = string.Format(@"xsMedia Player - {0}", e.NewState));
+                    Player.Sync.Execute(() => _player.Text = string.Format(@"xsMedia PlayerData - {0}", e.NewState));
                     break;
 
                 case MediaState.Playing:
@@ -152,7 +152,7 @@ namespace xsMedia.Logic
                 case MediaState.Error:
                     _positionChanged = false;
                     Player.Sync.Execute(() => _player.Text =
-                        string.Format(@"xsMedia Player - {0} {1}", e.NewState, Marshal.PtrToStringAnsi(xsVlc.Interop.Api.libvlc_errmsg())));
+                        string.Format(@"xsMedia PlayerData - {0} {1}", e.NewState, Marshal.PtrToStringAnsi(xsVlc.Interop.Api.libvlc_errmsg())));
                     break;
             }
         }
@@ -191,7 +191,7 @@ namespace xsMedia.Logic
             }
             if (string.Format("{0}\\", Open.DriveLetter) == volumeLetter)
             {
-                /* DiscData was removed mid-stream ... stop playback */
+                /* Disc was removed mid-stream ... stop playback */
                 Player.StopClip(false);
             }
         }
@@ -304,7 +304,7 @@ namespace xsMedia.Logic
             }
             if (e.Button == MouseButtons.Left)
             {
-                /* This timer is necessary because of the way video playback works on the hDC via VLC; left-click doesn't get detected on the player window
+                /* This timer is necessary because of the way video playback works on the hDC via VLC; left-click doesn't get detected on the PlayerData window
                  * allowing the popup to close normally as Windows reports focus changing. We can't just set visible to false, as the item click event will
                  * be lost. So we fudge it here... */
                 _tmrVideoMenuHide.Enabled = true;

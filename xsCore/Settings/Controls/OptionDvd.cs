@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -20,7 +20,7 @@ namespace xsCore.Settings.Controls
             InitializeComponent();
             _disc = disc;
             /* Init */
-            var index = OptionsList.GetOption(":DiscData-caching", _disc.Options.Option);
+            var index = OptionsList.GetOption(":disc-caching", _disc.Options.Option);
             txtCaching.Text = index > -1 ? _disc.Options.Option[index].Data : string.Empty;
             /* Handlers */
             txtCaching.TextChanged += OnOptionChanged;
@@ -33,8 +33,8 @@ namespace xsCore.Settings.Controls
             {
                 case "CACHE":
                     var sp = txtCaching.Text.Split(' ');
-                    var index = OptionsList.GetOption(":DiscData-caching", _disc.Options.Option);
-                    var option = new MediaOptions.MediaOption(":DiscData-caching", sp[0]);
+                    var index = OptionsList.GetOption(":disc-caching", _disc.Options.Option);
+                    var option = new MediaOptions.MediaOption(":disc-caching", sp[0]);
                     if (index == -1)
                     {
                         _disc.Options.Option.Add(option);

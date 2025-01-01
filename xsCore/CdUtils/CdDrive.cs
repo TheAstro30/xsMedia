@@ -1,5 +1,5 @@
 ﻿/* xsMedia - sxCore
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using xsCore.Utils;
 
-/* CDDB (Compact DiscData Database) - Modified 2013
+/* CDDB (Compact Disc Database) - Modified 2013
  * Written by: Idael Cardoso, Brian Weeres & Jason James Newland
  * Copyright (c) 2002 - 2004, 2013
  * 

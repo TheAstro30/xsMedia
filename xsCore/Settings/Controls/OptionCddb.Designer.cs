@@ -80,7 +80,7 @@
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(337, 37);
             this.lblInfo.TabIndex = 0;
-            this.lblInfo.Text = "Compact DiscData Database (CDDB) lookups enable xsMedia to get the track and artist n" +
+            this.lblInfo.Text = "Compact Disc Database (CDDB) lookups enable xsMedia to get the track and artist n" +
                 "ames of a currently playing CD";
             // 
             // OptionCddb

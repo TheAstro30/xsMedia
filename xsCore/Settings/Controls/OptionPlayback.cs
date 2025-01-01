@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -20,9 +20,9 @@ namespace xsCore.Settings.Controls
 {
     public partial class OptionPlayback : OptionBase
     {
-        private readonly Player _player;
+        private readonly PlayerData _player;
 
-        public OptionPlayback(Player player) : base("General Playback Options")
+        public OptionPlayback(PlayerData player) : base("General Playback Options")
         {
             InitializeComponent();
 

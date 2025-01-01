@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -16,7 +16,7 @@ using xsMedia.Logic;
 namespace xsMedia
 {
     /* This program has taken years (since 2013) of development, research and trial and error.
-     * It originally started out using DirectX, which is why it was called xsMedia (extra small Media) player.
+     * It originally started out using DirectX, which is why it was called xsMedia (extra small Media) PlayerData.
      * This turned out to be way to much of a pain in the ass to work with, while VLC already existed; with built in codecs, so it
      * quickly turned in to a VLC project. I hope anyone reading this code appreciates the work that's gone in to this. I'm not the
      * best programmer in the world, and a LOT of the code could be re-written better. */

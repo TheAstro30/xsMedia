@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -17,8 +17,9 @@ namespace xsCore.Internal
     {
         public PlayerSettings()
         {
+            /* Penis window setup */
             Window.MainWindow.Location = new Point(100, 100);
-            Window.MainWindow.Size = new Size(431, 235);
+            Window.MainWindow.Size = new Size(620, 420);
             Window.CurrentSkin = @"\skins\classic\classic.xml";
             /* Player */
             Player.MediaVolume = 50;
@@ -91,9 +92,9 @@ namespace xsCore.Internal
         public PlayerSettings(PlayerSettings settings)
         {
             Window = new Window(settings.Window);
-            Player = new Player(settings.Player);
+            Player = new PlayerData(settings.Player);
             Option = new SelectedTab(settings.Option);
-            /* DiscData */
+            /* Disc */
             Cdda = new DiscData(settings.Cdda);
             Vcd = new DiscData(settings.Vcd);
             Dvd = new DiscData(settings.Dvd);
@@ -114,7 +115,7 @@ namespace xsCore.Internal
         public Window Window = new Window();
 
         [XmlElement("player")]
-        public Player Player = new Player();
+        public PlayerData Player = new PlayerData();
 
         [XmlElement("cdda")]
         public DiscData Cdda = new DiscData();

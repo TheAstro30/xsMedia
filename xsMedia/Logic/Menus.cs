@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -58,7 +58,7 @@ namespace xsMedia.Logic
         public static ContextMenuStrip MenuPlaylist { get; private set; }
         public static ContextMenuStrip MenuPlaylistItem { get; private set; }
 
-        #region Init(FrmPlayer player)
+        #region Init(FrmPlayer PlayerData)
         public static void Init(FrmPlayer player)
         {
             /* This file is pretty big and complicated... */
@@ -293,6 +293,10 @@ namespace xsMedia.Logic
             {
                 Playlist.PlaylistControl.Focus();
             }
+            else
+            {
+                Video.VideoControl.Focus();
+            }
             /* Change "arrow" direction */
             var visible = Playlist.PlaylistControl.Visible;
             MenuList.Text = visible ? ")" : "*";
@@ -358,14 +362,16 @@ namespace xsMedia.Logic
             {
                 case "MANAGE":
                     var fave = new FrmFavorites();
-                    if (FormManager.Open(fave, _player) == null)
-                    {
-                        System.Diagnostics.Debug.Print("is null");
-                    }
+                    FormManager.Open(fave, _player);
                     break;
 
                 default:
                     /* Begin playback */
+                    Video.VideoControl.OpenDiscType = DiscType.None;
+                    Player.IsVideoWindowInit = false;
+                    Media.MediaBarControl.Position = 0;
+                    Media.MediaBarControl.ElapsedTime = 0;
+                    Video.KeepVideoSize = false;
                     Video.VideoControl.OpenFile(tag);
                     break;
             }
@@ -389,6 +395,8 @@ namespace xsMedia.Logic
                     Media.MediaBarControl.ElapsedTime = 0;
                     Video.KeepVideoSize = false;
                     Video.VideoControl.OpenFile(tag);
+                    /* Bring item to top of the list */
+                    SettingsManager.BringHistoryItemToTop(tag);
                     break;
             }
         }
@@ -1122,7 +1130,7 @@ namespace xsMedia.Logic
                         menuHandler),
                     new ToolStripSeparator()
                 });
-            var m = MenuHelper.AddMenuItem("Open DiscData", Resources.menuDisc.ToBitmap());
+            var m = MenuHelper.AddMenuItem("Open Disc", Resources.menuDisc.ToBitmap());
 
             foreach (var drv in cdManager.AvailableDrives)
             {
@@ -1132,6 +1140,23 @@ namespace xsMedia.Logic
                                                            menuHandler));
             }
             items.AddRange(new ToolStripItem[] {m, new ToolStripSeparator()});
+
+            /* History */
+            if (SettingsManager.Settings.Player.FileHistory.Count > 0)
+            {
+                m = new ToolStripMenuItem("Open recent", Resources.menuRecent.ToBitmap());
+                foreach (var h in SettingsManager.Settings.Player.FileHistory)
+                {
+                    m.DropDownItems.Add(MenuHelper.AddMenuItem(h.ToString(), h.FilePath, Keys.None, true, false, Resources.menuRecentItem.ToBitmap(), OnRecentMenuItemClicked));
+                }
+                m.DropDownItems.AddRange(new ToolStripItem[]
+                {
+                    new ToolStripSeparator(),
+                    MenuHelper.AddMenuItem("Clear history", "CLEAR", Keys.None, true, false, Resources.menuClear.ToBitmap(), OnRecentMenuItemClicked)
+                });
+                items.Add(m);
+            }
+
             /* Favorites */
             m = new ToolStripMenuItem("Favorites", Resources.menuFavoriteItem.ToBitmap());
             if (SettingsManager.Settings.Favorites.Favorite.Count > 0)
@@ -1151,21 +1176,7 @@ namespace xsMedia.Logic
             m.DropDownItems.Add(MenuHelper.AddMenuItem("Manage favorites", "MANAGE", Keys.Control | Keys.H, true,
                 false, Resources.menuFavoriteEdit.ToBitmap(), OnFavoritesMenuItemClicked));
             items.Add(m);
-            /* History */
-            if (SettingsManager.Settings.Player.FileHistory.Count > 0)
-            {
-                m = new ToolStripMenuItem("Open recent", Resources.menuRecent.ToBitmap());
-                foreach (var h in SettingsManager.Settings.Player.FileHistory)
-                {
-                    m.DropDownItems.Add(MenuHelper.AddMenuItem(h.ToString(), h.FilePath, Keys.None, true, false, Resources.menuRecentItem.ToBitmap(), OnRecentMenuItemClicked));
-                }
-                m.DropDownItems.AddRange(new ToolStripItem[]
-                {
-                    new ToolStripSeparator(),
-                    MenuHelper.AddMenuItem("Clear history", "CLEAR", Keys.None, true, false, Resources.menuClear.ToBitmap(), OnRecentMenuItemClicked)
-                });
-                items.Add(m);
-            }
+
             return items.ToArray();
         }
         #endregion
@@ -1181,16 +1192,20 @@ namespace xsMedia.Logic
         {
             /* Build context menu - Glenn 20 */
             var items = new List<ToolStripItem>();
-            if (Video.VideoControl.IsVideo && Video.VideoControl.PlayerState != MediaState.Stopped)
+            if (Video.VideoControl.PlayerState == MediaState.Playing || Video.VideoControl.PlayerState == MediaState.Paused)
             {
-                if (!Video.IsFullScreen)
+                if (Video.VideoControl.IsVideo)
                 {
-                    items.Add(new ToolStripMenuItem("Full screen", Resources.menuFullScreen.ToBitmap(),
-                        OnVideoWindowFullScreenMenuClick));
-                }
-                else
-                {
-                    items.Add(new ToolStripMenuItem("Exit full screen", Resources.menuFullScreenExit.ToBitmap(), OnVideoWindowFullScreenMenuClick));
+                    if (!Video.IsFullScreen)
+                    {
+                        items.Add(new ToolStripMenuItem("Full screen", Resources.menuFullScreen.ToBitmap(),
+                            OnVideoWindowFullScreenMenuClick));
+                    }
+                    else
+                    {
+                        items.Add(new ToolStripMenuItem("Exit full screen", Resources.menuFullScreenExit.ToBitmap(),
+                            OnVideoWindowFullScreenMenuClick));
+                    }
                 }
                 if (Video.VideoControl.OpenDiscType == DiscType.None)
                 {

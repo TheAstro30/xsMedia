@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -12,14 +12,14 @@ using xsCore.Settings.Data.Enums;
 namespace xsCore.Settings.Data
 {
     [Serializable]
-    public class Player
+    public class PlayerData
     {
-        public Player()
+        public PlayerData()
         {
             /* Default constructor */
         }
 
-        public Player(Player player)
+        public PlayerData(PlayerData player)
         {
             MediaVolume = player.MediaVolume;
             CounterType = player.CounterType;

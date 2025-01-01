@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -137,7 +137,7 @@ namespace xsCore.Controls.Forms
                     new TreeNode("Video")
                 }),
 
-                new TreeNode("DiscData", new[]
+                new TreeNode("Disc", new[]
                 {
                     new TreeNode("CD Audio", new[]
                     {

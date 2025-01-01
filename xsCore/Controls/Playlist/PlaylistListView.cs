@@ -1,10 +1,12 @@
 ﻿/* xsMedia - xsPlaylist
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using libolv;
 using libolv.Rendering.Styles;
@@ -146,6 +148,16 @@ namespace xsCore.Controls.Playlist
             _lv.AddObject(entry);
         }
 
+        public void AddRange(PlaylistEntry[] entries)
+        {
+            if (InvokeRequired)
+            {
+                _sync.Execute(() => AddRange(entries));
+                return;
+            }
+            _lv.AddObjects(entries);
+        }
+
         public PlaylistEntry GetItemAt(int index)
         {
             if (index > _lv.Items.Count - 1)
@@ -209,6 +221,10 @@ namespace xsCore.Controls.Playlist
 
         private void OnListKeyDown(object sender, KeyEventArgs e)
         {
+            if (!Visible)
+            {
+                return;
+            }
             switch (e.KeyCode)
             {
                 case Keys.Return:
@@ -218,7 +234,7 @@ namespace xsCore.Controls.Playlist
                         OnItemSelected(_lv.SelectedIndex);
                     }
                     e.SuppressKeyPress = true;
-                    break;
+                    break;                    
             }
         }
 

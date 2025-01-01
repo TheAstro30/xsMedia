@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -81,7 +81,7 @@ namespace xsMedia.Logic
                     Player.StopClip(false);
                 }
                 Video.VideoControl.SpinnerActive = true;
-                _player.Text = @"xsMedia Player - Opening";
+                _player.Text = @"xsMedia PlayerData - Opening";
                 Video.VideoControl.OpenNetwork(f.SelectedUrl);
             }
         }
@@ -128,7 +128,7 @@ namespace xsMedia.Logic
             }
             else
             {
-                /* DiscData is CD/DVD Rom - attempt to open as a folder ... */
+                /* Disc is CD/DVD Rom - attempt to open as a folder ... */
                 Video.VideoControl.OpenFolder(DriveLetter);
             }
         }

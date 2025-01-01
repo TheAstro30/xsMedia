@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -42,7 +42,7 @@ namespace xsMedia.Forms
                 Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0),
                 Location = new Point(82, 9),
                 Size = new Size(161, 30),
-                Text = @"xsMedia Player"
+                Text = @"xsMedia PlayerData"
             };
 
             var lblCodeName = new Label
@@ -63,6 +63,14 @@ namespace xsMedia.Forms
                 Location = new Point(84, 61),
                 Size = new Size(234, 15),
                 Text = @"Written by: Jason James Newland && Ryan J."
+            };
+
+            var lblCopyright = new Label
+            {
+                BackColor = Color.Transparent,
+                Location = new Point(84, 116),
+                Size = new Size(365, 23),
+                Text = @"Copyright ©2013 - 2025, KangaSoft Software. All Rights Reserved."
             };
 
             /* Get version information */
@@ -98,17 +106,10 @@ namespace xsMedia.Forms
                     string.Format("xsCore: {0}", GetPluginVersion(AppPath.MainDir(@"\xsCore.dll"))),                                        
                     string.Format("xsVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\xsVlc.dll"))),
                     string.Format("libOlv: {0}", GetPluginVersion(AppPath.MainDir(@"\libolv.dll"))),
+                    @"---------------------------------------",
                     string.Format("libVlc: {0}", GetPluginVersion(AppPath.MainDir(@"\libvlc.dll"))),
                     string.Format("libVlcCore: {0}", GetPluginVersion(AppPath.MainDir(@"\libvlccore.dll")))
                 }
-            };
-
-            var lblCopyright = new Label
-            {
-                BackColor = Color.Transparent,
-                Location = new Point(84, 116),
-                Size = new Size(365, 23),
-                Text = @"Copyright ©2013 - 2024, KangaSoft Software. All Rights Reserved."
             };
 
             var linkVlc = new LinkLabel

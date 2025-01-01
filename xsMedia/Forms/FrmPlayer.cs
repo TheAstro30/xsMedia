@@ -1,5 +1,5 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -24,7 +24,7 @@ namespace xsMedia.Forms
             /* As there's no designer, we handle the setting of properties such as icon and text here */
             Name = "FrmPlayer";
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            Text = @"xsMedia Player";
+            Text = @"xsMedia PlayerData";
             Font = new Font("Segoe UI", 9);
             BackColor = Color.Black;
             StartPosition = FormStartPosition.Manual;

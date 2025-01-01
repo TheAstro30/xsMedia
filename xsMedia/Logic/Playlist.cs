@@ -1,10 +1,12 @@
 ﻿/* xsMedia - Media Player
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 using xsCore;
 using xsCore.CdUtils;
 using xsCore.Controls.Playlist;
@@ -105,7 +107,6 @@ namespace xsMedia.Logic
                         /* Get album art - have to do it the long way */
                         var bmp = MediaInfo.GetAlbumArt(entry.Location, entry.Artist, entry.Album);
                         Video.VideoControl.LogoImage = bmp != null ? new Bitmap(bmp) : MainIconUtil.VideoWindowIcon();
-                        System.Diagnostics.Debug.Print(Video.VideoControl.LogoImage.Size.ToString());
                         Video.VideoControl.LogoImageMaximumSize = Video.VideoControl.LogoImage.Size;
                         Video.VideoControl.Refresh();
                         break;
@@ -123,22 +124,14 @@ namespace xsMedia.Logic
                 Player.Sync.Execute(OnPlaylistEntriesChanged);
                 return;
             }
-            if (PlaylistManager.MediaList.Count != 0)
-            {
-                Video.VideoControl.CurrentTrack = 0;
-                Video.VideoControl.Play(Video.VideoControl.CurrentTrack);
-            }
-            else
+            if (PlaylistManager.MediaList.Count == 0)
             {
                 /* Playlist is now empty, stop playback */
                 Player.StopClip(false);
             }
-            /* Update list view */
+            /* Update list view - kind of annoying */
             PlaylistControl.Clear();
-            foreach (var entry in PlaylistManager.Playlist)
-            {
-                PlaylistControl.Add(entry);
-            }
+            PlaylistControl.AddRange(PlaylistManager.Playlist.ToArray());
         }
 
         private static void OnPlaylistItemAdded(PlaylistEntry entry)

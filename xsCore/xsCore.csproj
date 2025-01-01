@@ -160,7 +160,7 @@
     <Compile Include="Settings\Data\MediaOptions.cs" />
     <Compile Include="Settings\Data\NetworkPresets.cs" />
     <Compile Include="Settings\Data\Paths.cs" />
-    <Compile Include="Settings\Data\Player.cs" />
+    <Compile Include="Settings\Data\PlayerData.cs" />
     <Compile Include="Settings\Data\SelectedTab.cs" />
     <Compile Include="Settings\Data\VideoOptions.cs" />
     <Compile Include="Settings\Data\Window.cs" />

@@ -1,5 +1,5 @@
 ﻿/* xsMedia - sxCore
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -14,7 +14,7 @@ using xsCore.Internal;
 using xsCore.Utils;
 using xsCore.Utils.Serialization;
 
-/* CDDB (Compact DiscData Database) - Modified 2013
+/* CDDB (Compact Disc Database) - Modified 2013
  * Written by: Brian Weeres & Jason James Newland
  * Copyright (c) 2004, 2013
  * 
@@ -142,7 +142,7 @@ namespace xsCore.CdUtils
                 }
                 return;
             }
-            Debug.Print("CDDB: DiscData ID = " + discId);
+            Debug.Print("CDDB: Disc ID = " + discId);
             /* Get the fully-qualifed domain name of our computer */
             uint dwSize = 0;
             Win32.GetComputerNameEx(Win32.ComputerNameFormat.ComputerNameDnsFullyQualified, null, ref dwSize);

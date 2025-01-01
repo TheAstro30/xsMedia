@@ -1,5 +1,5 @@
 ﻿/* xsMedia - xsSettings
- * (c)2013 - 2024
+ * (c)2013 - 2025
  * Jason James Newland
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
@@ -16,9 +16,9 @@ namespace xsCore.Settings.Controls
 {
     public partial class OptionVideo : OptionBase
     {
-        private readonly Player _video;
+        private readonly PlayerData _video;
 
-        public OptionVideo(Player video) : base("Video Playback Options")
+        public OptionVideo(PlayerData video) : base("Video Playback Options")
         {
             InitializeComponent();
             _video = video;
