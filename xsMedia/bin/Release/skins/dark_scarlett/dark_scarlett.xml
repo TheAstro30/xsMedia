@@ -88,7 +88,7 @@
     <playlist>
       <item id="BACKCOLOR" color="#000000" />
       <item id="HEADER_FORECOLOR" color="#EDEDED" />
-      <item id="HEADER_BACKCOLOR" color="#DDDDDD" />
+      <item id="HEADER_BACKCOLOR" color="#9C2F2F" />
       <item id="ITEM_FORECOLOR" color="#9C2F2F" />
       <item id="SELECTED_FORECOLOR" color="#000000" />
       <item id="SELECTED_BACKCOLOR" color="#AAAAAA" />      

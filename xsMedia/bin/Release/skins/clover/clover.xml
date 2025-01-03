@@ -88,12 +88,12 @@
     </menu>
 
     <playlist>
-      <item id="BACKCOLOR" color="#000000" />
-      <item id="HEADER_FORECOLOR" color="#000000" />      
-      <item id="HEADER_BACKCOLOR" color="#6C6C6C" />
-      <item id="ITEM_FORECOLOR" color="#40DF97" />
-	  <item id="SELECTED_FORECOLOR" color="#000000" />
-      <item id="SELECTED_BACKCOLOR" color="#91ADA0" />      
+      <item id="BACKCOLOR" color="#0f7139" />
+      <item id="HEADER_FORECOLOR" color="#FFFFFF" />      
+      <item id="HEADER_BACKCOLOR" color="#164d34" />
+      <item id="ITEM_FORECOLOR" color="#FFFFFF" />
+      <item id="SELECTED_FORECOLOR" color="#000000" />
+      <item id="SELECTED_BACKCOLOR" color="#0f7139" />      
     </playlist>
   </body>
 </skin>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <head name="Dark Forces" author="Dmitry Rechetilov" version="1.0" copyright="2000" comment="Don't taunt those on the Dark Side of the Force" />
+
+  <images>
+    <image src="Player.png" id="PLAYER_MAIN" />
+  </images>
+
+  <body>
+    <resources>
+      <resource id="BAR_LEFT" imageId="PLAYER_MAIN" imageArea="0,0,289,50" />
+      <resource id="BAR_MID" imageId="PLAYER_MAIN" imageArea="290,0,324,50" />
+      <resource id="BAR_RIGHT" imageId="PLAYER_MAIN" imageArea="325,0,430,50"/>
+
+      <resource id="PLAYER_TIME" imageId="PLAYER_MAIN" imageArea="181,51,289,64" imageSize="9,13" area="178,25,99,13" />
+
+      <resource id="PLAYER_PREV" area="16,22,22,18">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="44,51,66,69" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_PLAY" area="39,22,22,18">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="67,51,89,69" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_PAUSE" area="62,22,22,18">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="90,51,112,69" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_STOP" area="85,22,22,18">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="113,51,136,69" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_NEXT" area="108,22,22,18">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="136,51,157,69" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_OPEN" area="136,23,22,16">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="158,51,180,67" />
+        </states>
+      </resource>
+
+      //uses "area" differently; area="X-start,Y-start,X-end-offset(how far in from right-hand edge of window to right-hand edge of button),rectangle-height"
+      <resource id="PLAYER_POS" area="14,5,106,11">
+         <rail color="#6b4316" area="4,2,3,8" />
+      </resource>
+
+      <resource id="PLAYER_POS_SLIDER_BUTTON" imageId="PLAYER_MAIN" area="0,0,29,11" imageArea="0,51,29,61" />  
+
+      //areaOffset is the X-start position of the slider in from the right-hand edge of window; Y value is ignored
+      <resource id="PLAYER_VOL" area="0,5,62,11" areaOffset="78,0" />
+
+      <resource id="PLAYER_VOL_SLIDER_BUTTON" imageId="PLAYER_MAIN" area="0,0,13,9" imageArea="30,51,43,60" />  
+    </resources>
+
+    <menu>
+      <item id="BG_GRADIENT_TOP" color="#090c0c" />
+      <item id="BG_GRADIENT_BOTTOM" color="#13181b" />
+      <item id="MENU_HEADER_FORECOLOR" color="#f4a53d" />
+      <item id="MENU_ITEM_FORECOLOR" color="#000000" />
+      <item id="MENU_BG_GRADIENT_TOP" color="#babcbf" />
+      <item id="MENU_BG_GRADIENT_BOTTOM" color="#d2d4d6" />
+      <item id="IMAGE_MARGIN_GRADIENT_LEFT" color="#39424a" />
+      <item id="IMAGE_MARGIN_GRADIENT_RIGHT" color="#9199a1" />
+      <item id="IMAGE_MARGIN_LINE_LIGHT" color="#FEFEFE" />
+      <item id="IMAGE_MARGIN_LINE_DARK" color="#424C74" />
+      <item id="SEPARATOR_LIGHT" color="#FEFEFE" />
+      <item id="SEPARATOR_DARK" color="#424C74" />
+      <item id="SELECTED_FORECOLOR" color="#F3F7FC" />
+      <item id="SELECTED_GRADIENT_TOP" color="#F4F2ED" />
+      <item id="SELECTED_GRADIENT_BOTTOM" color="#424C74" />
+      <item id="SELECTED_GRADIENT_BORDER" color="#262E49" />
+      <item id="SELECTED_BORDER" color="#262E49" />
+      <item id="SELECTED_DROP_BORDER" color="#959FB9" />
+      <item id="BORDER" color="#424C74" />
+      <item id="BUTTON_BORDER" color="#424C74" />
+      <item id="CHECKED_ITEM" color="#8EB4CA" />
+    </menu>
+
+    <playlist>
+      <item id="BACKCOLOR" color="#000000" />
+      <item id="HEADER_FORECOLOR" color="#f4a53d" />
+      <item id="HEADER_BACKCOLOR" color="#13181b" />
+      <item id="ITEM_FORECOLOR" color="#ffbe4f" />
+      <item id="SELECTED_FORECOLOR" color="#efe7c1" />
+      <item id="SELECTED_BACKCOLOR" color="#000000" />      
+    </playlist>
+  </body>
+</skin>

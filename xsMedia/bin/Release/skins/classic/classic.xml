@@ -50,12 +50,14 @@
         </states>
       </resource>
 
+      //uses "area" differently; area="X-start,Y-start,X-end-offset(how far in from right-hand edge of window to right-hand edge of button),rectangle-height"
       <resource id="PLAYER_POS" area="16,3,26,11">
         <rail color="#6699FF" area="2,5,3,7" />
       </resource>
 
       <resource id="PLAYER_POS_SLIDER_BUTTON" imageId="PLAYER_MAIN" area="0,0,29,11" imageArea="0,49,29,59" />  
 
+      //areaOffset is the X-start position of the slider in from the right-hand edge of window; Y value is ignored
       <resource id="PLAYER_VOL" area="0,17,57,11" areaOffset="69,0">
         <rail color="#6699FF" area="2,5,3,7" />
       </resource>

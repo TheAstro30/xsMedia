@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <head name="Silver XP" author="Christof Krüger" version="1.0" copyright="2002" comment="Windows XP style skin" />
+
+  <images>
+    <image src="Player.png" id="PLAYER_MAIN" />
+  </images>
+
+  <body>
+    <resources>
+      <resource id="BAR_LEFT" imageId="PLAYER_MAIN" imageArea="0,0,275,50" />
+      <resource id="BAR_MID" imageId="PLAYER_MAIN" imageArea="278,0,294,50" />
+      <resource id="BAR_RIGHT" imageId="PLAYER_MAIN" imageArea="295,0,398,50"/>
+
+      <resource id="PLAYER_TIME" imageId="PLAYER_MAIN" imageArea="170,51,277,64" imageSize="9,13" area="171,24,97,13" />
+
+      <resource id="PLAYER_PREV" area="18,22,19,17">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="38,51,57,68" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_PLAY" area="41,22,19,17">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="61,51,80,68" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_PAUSE" area="64,22,19,17">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="84,51,103,68" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_STOP" area="87,22,19,17">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="107,51,126,68" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_NEXT" area="109,22,19,17">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="129,51,148,68" />
+        </states>
+      </resource>
+
+      <resource id="PLAYER_OPEN" area="138,23,20,16">
+        <states>
+          <state id="Down" imageId="PLAYER_MAIN" imageArea="149,51,169,67" />
+        </states>
+      </resource>
+
+      //uses "area" differently; area="X-start,Y-start,X-end-offset(how far in from right-hand edge of window to right-hand edge of button),rectangle-height"
+      <resource id="PLAYER_POS" area="14,6,107,10">
+        <rail color="#8cba8c" area="1,1,3,9" />
+      </resource>
+
+      <resource id="PLAYER_POS_SLIDER_BUTTON" imageId="PLAYER_MAIN" area="0,0,29,10" imageArea="0,51,29,61" />  
+
+      //areaOffset is the X-start position of the slider in from the right-hand edge of window; Y value is ignored
+      <resource id="PLAYER_VOL" area="0,6,67,11" areaOffset="81,0">
+        <rail color="#8cba8c" area="2,5,3,6" />
+      </resource>
+
+      <resource id="PLAYER_VOL_SLIDER_BUTTON" imageId="PLAYER_MAIN" area="0,0,6,11" imageArea="30,51,37,62" />  
+    </resources>
+
+    <menu>
+      <item id="BG_GRADIENT_TOP" color="#ebe9ed" />
+      <item id="BG_GRADIENT_BOTTOM" color="#fbfafb" />
+      <item id="MENU_HEADER_FORECOLOR" color="#000000" />
+      <item id="MENU_ITEM_FORECOLOR" color="#000000" />
+      <item id="MENU_BG_GRADIENT_TOP" color="#f7f6f8" />
+      <item id="MENU_BG_GRADIENT_BOTTOM" color="#e4e2e6" />
+      <item id="IMAGE_MARGIN_GRADIENT_LEFT" color="#fcfcfc" />
+      <item id="IMAGE_MARGIN_GRADIENT_RIGHT" color="#ebebed" />
+      <item id="IMAGE_MARGIN_LINE_LIGHT" color="#FEFEFE" />
+      <item id="IMAGE_MARGIN_LINE_DARK" color="#424C74" />
+      <item id="SEPARATOR_LIGHT" color="#FEFEFE" />
+      <item id="SEPARATOR_DARK" color="#424C74" />
+      <item id="SELECTED_FORECOLOR" color="#000000" />
+      <item id="SELECTED_GRADIENT_TOP" color="#c2cfe5" />
+      <item id="SELECTED_GRADIENT_BOTTOM" color="#c2cfe5" />
+      <item id="SELECTED_GRADIENT_BORDER" color="#335ea8" />
+      <item id="SELECTED_BORDER" color="#335ea8" />
+      <item id="SELECTED_DROP_BORDER" color="#335ea8" />
+      <item id="BORDER" color="#335ea8" />
+      <item id="BUTTON_BORDER" color="#335ea8" />
+      <item id="CHECKED_ITEM" color="#e2e5ee" />
+    </menu>
+
+    <playlist>
+      <item id="BACKCOLOR" color="#000000" />
+      <item id="HEADER_FORECOLOR" color="#000000" />
+      <item id="HEADER_BACKCOLOR" color="#fbfafb" />
+      <item id="ITEM_FORECOLOR" color="#FFFFFF" />
+      <item id="SELECTED_FORECOLOR" color="#000000" />
+      <item id="SELECTED_BACKCOLOR" color="#ebe9ed" />      
+    </playlist>
+  </body>
+</skin>
