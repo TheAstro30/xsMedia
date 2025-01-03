@@ -253,6 +253,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\defaultSkin\skin.png" />
+    <None Include="Resources\defaultSkin\defaultSkin.xml" />
     <None Include="Icons\dialogs\dlgReset.ico" />
     <None Include="Icons\menus\menuMute.ico" />
     <None Include="Icons\dialogs\dlgClear.ico" />

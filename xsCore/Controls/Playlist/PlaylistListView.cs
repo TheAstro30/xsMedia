@@ -195,7 +195,9 @@ namespace xsCore.Controls.Playlist
                 return;
             }
             /* Update listview's appearance */            
-            _lVHeader.Normal.BackColor = SkinManager.GetPlaylistColor("HEADER_BACKCOLOR");            
+            _lVHeader.Normal.BackColor = SkinManager.GetPlaylistColor("HEADER_BACKCOLOR");
+            _lVHeader.Normal.ForeColor = SkinManager.GetPlaylistColor("HEADER_FORECOLOR");
+
             _lv.BackColor = SkinManager.GetPlaylistColor("BACKCOLOR");
             _lv.ForeColor = SkinManager.GetPlaylistColor("ITEM_FORECOLOR");
             _lv.HighlightBackgroundColor = SkinManager.GetPlaylistColor("SELECTED_BACKCOLOR");

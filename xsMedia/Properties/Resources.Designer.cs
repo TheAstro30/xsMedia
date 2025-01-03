@@ -61,6 +61,26 @@ namespace xsMedia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;skin xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///  &lt;head name=&quot;xsMedia Classic&quot; author=&quot;Ki Shodar Mirabeau&quot; version=&quot;1.0&quot; copyright=&quot;2006&quot; comment=&quot;Windows Media Player 11 style skin&quot; /&gt;
+        ///
+        ///  &lt;images&gt;
+        ///    &lt;image src=&quot;skin.png&quot; id=&quot;PLAYER_MAIN&quot; /&gt;
+        ///  &lt;/images&gt;
+        ///
+        ///  &lt;body&gt;
+        ///    &lt;resources&gt;
+        ///      &lt;resource id=&quot;BAR_LEFT&quot; imageId=&quot;PLAYER_MAIN&quot; imageArea=&quot;0,0,238,47&quot; /&gt;
+        ///      &lt;resource id=&quot;BAR_MID&quot; imageId=&quot;PLAYER [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string defaultSkin {
+            get {
+                return ResourceManager.GetString("defaultSkin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon dlgAdd {
@@ -557,6 +577,16 @@ namespace xsMedia.Properties {
             get {
                 object obj = ResourceManager.GetObject("menuZoom", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap skin {
+            get {
+                object obj = ResourceManager.GetObject("skin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

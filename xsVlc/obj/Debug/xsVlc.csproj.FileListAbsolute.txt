@@ -1,0 +1,5 @@
+D:\Data\CSharp\xsMedia\xsMedia\xsVlc\bin\Debug\xsVlc.dll
+D:\Data\CSharp\xsMedia\xsMedia\xsVlc\bin\Debug\xsVlc.pdb
+D:\Data\CSharp\xsMedia\xsMedia\xsVlc\obj\Debug\xsVlc.csprojResolveAssemblyReference.cache
+D:\Data\CSharp\xsMedia\xsMedia\xsVlc\obj\Debug\xsVlc.dll
+D:\Data\CSharp\xsMedia\xsMedia\xsVlc\obj\Debug\xsVlc.pdb

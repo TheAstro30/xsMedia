@@ -63,6 +63,10 @@ namespace xsCore.Utils.IO
 
         private void BeginSearch(DirectoryInfo baseDirectory)
         {
+            if (!baseDirectory.Exists)
+            {
+                return;
+            }
             try
             {
                 foreach (var f in _fileMasks.Select(baseDirectory.GetFiles).SelectMany(files => files.Where(f => OnFileFound != null)))

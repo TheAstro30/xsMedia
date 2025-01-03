@@ -49,6 +49,7 @@ namespace xsMedia
                     ChannelServices.RegisterChannel(channel, false);
                     var instance = (SingleInstance)Activator.GetObject(typeof (SingleInstance), string.Format("ipc://{0}/RemotingServer", currentProcess));
                     instance.Execute(command);
+                    Application.Exit();
                 }
             }
         }

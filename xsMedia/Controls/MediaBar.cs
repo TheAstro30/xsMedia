@@ -13,6 +13,7 @@ using xsCore.PlayerControls.Controls;
 using xsCore.Utils;
 using xsCore.Utils.SystemUtils;
 using xsMedia.Forms;
+using xsMedia.Properties;
 
 namespace xsMedia.Controls
 {
@@ -260,37 +261,51 @@ namespace xsMedia.Controls
 
         public void LoadSkin(string skinFile)
         {
-            bool success;
-            if (string.IsNullOrEmpty(skinFile) || !File.Exists(skinFile))
+            while (true)
             {
-                skinFile = AppPath.MainDir(@"\skins\classic\classic.xml");
-                success = SkinManager.ReadSkin(skinFile);
-            }
-            else
-            {
-                if (!SkinManager.ReadSkin(skinFile))
+                bool success;
+                if (string.IsNullOrEmpty(skinFile) || !File.Exists(skinFile))
                 {
                     skinFile = AppPath.MainDir(@"\skins\classic\classic.xml");
                     success = SkinManager.ReadSkin(skinFile);
                 }
                 else
                 {
-                    success = true;
+                    if (!SkinManager.ReadSkin(skinFile))
+                    {
+                        skinFile = AppPath.MainDir(@"\skins\classic\classic.xml");
+                        success = SkinManager.ReadSkin(skinFile);
+                    }
+                    else
+                    {
+                        success = true;
+                    }
                 }
+                if (!success)
+                {
+                    /* Build default skin file from resource */
+                    System.Diagnostics.Debug.Print("totally failed");
+                    var skinPath = AppPath.MainDir(@"\KangaSoft\xsMedia\defaultSkin", true);
+                    if (!Directory.Exists(skinPath))
+                    {
+                        Directory.CreateDirectory(skinPath);
+                    }
+                    skinFile = string.Format(@"{0}\defaultSkin.xml", skinPath);
+                    Resources.skin.Save(string.Format(@"{0}\skin.png", skinPath));
+                    File.WriteAllText(skinFile, Resources.defaultSkin);
+                    continue;
+                }
+                /* Call a redraw */
+                SettingsManager.Settings.Window.CurrentSkin = AppPath.MainDir(skinFile);
+                SkinManager.ApplySkinLayout(this);
+                var favorites = FormManager.GetForm("FrmFavorites");
+                if (favorites != null)
+                {
+                    ((FrmFavorites) favorites).SkinChanged(true);
+                }
+                Refresh();
+                break;
             }
-            if (!success)
-            {
-                /* Throw an error */
-            }
-            /* Call a redraw */
-            SettingsManager.Settings.Window.CurrentSkin = AppPath.MainDir(skinFile);
-            SkinManager.ApplySkinLayout(this);
-            var favorites = FormManager.GetForm("FrmFavorites");
-            if (favorites != null)
-            {
-                ((FrmFavorites)favorites).SkinChanged(true);
-            }
-            Refresh();
         }
     }
 }

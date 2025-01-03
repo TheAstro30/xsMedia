@@ -1,0 +1,8 @@
+D:\Data\CSharp\xsMedia\xsMedia\xsOlv\bin\Release\libolv.dll
+D:\Data\CSharp\xsMedia\xsMedia\xsOlv\bin\Release\libolv.pdb
+D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Release\libolv.csprojResolveAssemblyReference.cache
+D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Release\libolv.Properties.Resources.resources
+D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Release\libolv.Utilities.ColumnSelectionForm.resources
+D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Release\libolv.csproj.GenerateResource.Cache
+D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Release\libolv.dll
+D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Release\libolv.pdb

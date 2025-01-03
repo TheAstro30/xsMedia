@@ -3,7 +3,7 @@
   <head name="xsMedia Classic" author="Ki Shodar Mirabeau" version="1.0" copyright="2006" comment="Windows Media Player 11 style skin" />
 
   <images>
-    <image src="Player.png" id="PLAYER_MAIN" />
+    <image src="skin.png" id="PLAYER_MAIN" />
   </images>
 
   <body>
