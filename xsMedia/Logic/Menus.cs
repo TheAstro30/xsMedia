@@ -503,6 +503,21 @@ namespace xsMedia.Logic
                     {
                         Video.VideoControl.AudioTrack = track;
                     }
+                    else
+                    {
+                        /* Is it an audio device? */
+                        var d = tag.Split(new[] {':'}, StringSplitOptions.RemoveEmptyEntries);
+                        if (d.Length == 1)
+                        {
+                            return;
+                        }
+                        /* Match menu item string to device list object */
+                        foreach (var device in Video.VideoControl.OutputDevices.Where(device => device.Device.Longname.Equals(d[1], StringComparison.InvariantCultureIgnoreCase)))
+                        {
+                            Video.VideoControl.SetAudioOutputDevice(device);
+                            break;
+                        }
+                    }
                     break;
             }
         }
@@ -945,7 +960,23 @@ namespace xsMedia.Logic
             }
             var audioCount = Video.VideoControl.AudioTrackCount;
             var current = Video.VideoControl.AudioTrack;
-            var m = MenuHelper.AddMenuItem("Audio Track", "TRACKS", Keys.None, audioCount > 0, false, Resources.menuAudioTrack.ToBitmap(), menuHandler);
+            
+            /* Audio output devices */
+            var m = MenuHelper.AddMenuItem("Device");
+            var audioOutputDevice = Video.VideoControl.GetAudioOutputDevice;
+            foreach (var d in Video.VideoControl.OutputDevices)
+            {
+                var name = d.ToString();
+                m.DropDownItems.Add(MenuHelper.AddMenuItem(name, string.Format("DEVICE:{0}", name), Keys.None, true,
+                    d.Device.Id.Equals(audioOutputDevice), null, menuHandler));
+                if (name.Equals("default", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    m.DropDownItems.Add(new ToolStripSeparator());
+                }
+            }
+            menu.DropDownItems.AddRange(new ToolStripItem[] {m, new ToolStripSeparator()});
+
+            m = MenuHelper.AddMenuItem("Audio Track", "TRACKS", Keys.None, audioCount > 0, false, Resources.menuAudioTrack.ToBitmap(), menuHandler);
             var tracks = Video.VideoControl.AudioTrackDescription;
             for (var t = 0; t <= tracks.Count - 1; ++t)
             {
@@ -960,7 +991,7 @@ namespace xsMedia.Logic
             menu.DropDownItems.AddRange(new ToolStripItem[]
             {
                 new ToolStripSeparator(),
-                MenuHelper.AddMenuItem(mute ? "Unmute" : "Mute", "MUTE", Keys.None, true, false, mute ? Resources.menuAudioTrack.ToBitmap() : Resources.menuMute.ToBitmap(), menuHandler),
+                MenuHelper.AddMenuItem(mute ? "Unmute" : "Mute", "MUTE", Keys.None, true, false, mute ? Resources.menuAudio.ToBitmap() : Resources.menuMute.ToBitmap(), menuHandler),
                 MenuHelper.AddMenuItem("Effects", "EFFECTS", Keys.None, true, false, Resources.menuEffects.ToBitmap(), menuHandler)
             });
             IsControlHovering = true;

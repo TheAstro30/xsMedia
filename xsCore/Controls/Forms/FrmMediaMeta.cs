@@ -27,7 +27,7 @@ namespace xsCore.Controls.Forms
 
         private Bitmap _bmpArt;
 
-        private PlaylistEntry _entry;
+        private readonly PlaylistEntry _entry;
 
         public Action<PlaylistEntry> OnMetaDataChanged;
 

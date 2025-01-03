@@ -155,6 +155,7 @@
     <Compile Include="Forms\FrmPlayer.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helpers\AudioOutputDevices.cs" />
     <Compile Include="Helpers\MainIconUtil.cs" />
     <Compile Include="Logic\Menus.cs" />
     <Compile Include="Logic\Open.cs">
@@ -260,6 +261,8 @@
     <None Include="Icons\dialogs\dlgClear.ico" />
     <None Include="Icons\menus\menuFavoriteItem.ico" />
     <None Include="Icons\menus\menuFavoriteEdit.ico" />
+    <None Include="Icons\menus\menuAudio.ico" />
+    <None Include="Icons\menus\menuAudioTrack.ico" />
     <Content Include="mainIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

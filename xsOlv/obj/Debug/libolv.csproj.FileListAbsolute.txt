@@ -1,8 +1,0 @@
-D:\Data\CSharp\xsMedia\xsMedia\xsOlv\bin\Debug\libolv.dll
-D:\Data\CSharp\xsMedia\xsMedia\xsOlv\bin\Debug\libolv.pdb
-D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Debug\libolv.csprojResolveAssemblyReference.cache
-D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Debug\libolv.Properties.Resources.resources
-D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Debug\libolv.Utilities.ColumnSelectionForm.resources
-D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Debug\libolv.csproj.GenerateResource.Cache
-D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Debug\libolv.dll
-D:\Data\CSharp\xsMedia\xsMedia\xsOlv\obj\Debug\libolv.pdb

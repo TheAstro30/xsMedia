@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using xsCore;
 using xsCore.CdUtils;
 using xsCore.Controls.Playlist;

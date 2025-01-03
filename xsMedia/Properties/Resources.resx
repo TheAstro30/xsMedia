@@ -154,6 +154,9 @@
   <data name="menuAspect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuAspect.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="menuAudio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\menus\menuAudio.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menuAudioTrack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\menus\menuAudioTrack.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

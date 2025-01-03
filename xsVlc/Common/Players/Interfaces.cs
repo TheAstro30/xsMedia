@@ -28,6 +28,7 @@ namespace xsVlc.Common.Players
         int Volume { get; set; }
         bool Mute { get; set; }
         long Delay { get; set; }
+        string GetAudioOutputDevice { get; } /* Added January 4, 2025 */
         AudioChannelType Channel { get; set; }
         AudioOutputDeviceType DeviceType { get; set; }
         void ToggleMute();

@@ -1,5 +1,0 @@
-D:\Data\CSharp\xsMedia\xsMedia\xsVlc\bin\Release\xsVlc.dll
-D:\Data\CSharp\xsMedia\xsMedia\xsVlc\bin\Release\xsVlc.pdb
-D:\Data\CSharp\xsMedia\xsMedia\xsVlc\obj\Release\xsVlc.csprojResolveAssemblyReference.cache
-D:\Data\CSharp\xsMedia\xsMedia\xsVlc\obj\Release\xsVlc.dll
-D:\Data\CSharp\xsMedia\xsMedia\xsVlc\obj\Release\xsVlc.pdb

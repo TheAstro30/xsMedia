@@ -499,6 +499,9 @@ namespace xsVlc.Interop
         public static extern void libvlc_audio_output_device_set(IntPtr pMi, [MarshalAs(UnmanagedType.LPArray)] byte[] pszAudioOutput, [MarshalAs(UnmanagedType.LPArray)] byte[] pszDeviceId);
 
         [DllImport("libvlc", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr libvlc_audio_output_device_get(IntPtr pMi); /* Added January 4, 2025 - no idea why it wasn't included in original release */
+
+        [DllImport("libvlc", CallingConvention = CallingConvention.Cdecl)]
         public static extern LibvlcAudioOutputDeviceTypesT libvlc_audio_output_get_device_type(IntPtr pMi);
 
         [DllImport("libvlc", CallingConvention = CallingConvention.Cdecl)]

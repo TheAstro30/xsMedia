@@ -19,6 +19,7 @@ using xsCore.Utils.Asx;
 using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
+using xsMedia.Helpers;
 using xsVlc.Common;
 using xsVlc.Common.Events;
 using xsVlc.Common.Filters;
@@ -35,7 +36,7 @@ namespace xsMedia.Controls
 
         private readonly IMediaPlayerFactory _mediaFactory;
         private readonly IMediaListPlayer _listPlayer;
-        private IMedia _originalMedia;
+        private IMedia _originalMedia;        
        
         private bool _eqEnable;
 
@@ -83,16 +84,6 @@ namespace xsMedia.Controls
             _mediaFactory = new MediaPlayerFactory(options);
             _listPlayer = _mediaFactory.CreateMediaListPlayer<IMediaListPlayer>(PlaylistManager.MediaList);
 
-            //foreach (AudioOutputModuleInfo module in _mediaFactory.AudioOutputModules)
-            //{
-            //    System.Diagnostics.Debug.Print("New line");
-            //    List<AudioOutputDeviceInfo> info = _mediaFactory.GetAudioOutputDevices(module).ToList();
-            //    foreach (var s in info)
-            //    {
-            //        System.Diagnostics.Debug.Print(s.Id + "-" + s.Longname);
-            //    }
-            //}
-
             _listPlayer.Events.PlayerPositionChanged += OnPlayerPositionChanged;
             _listPlayer.Events.TimeChanged += OnTimeChanged;
             _listPlayer.Events.MediaEnded += OnMediaEnded;
@@ -119,6 +110,15 @@ namespace xsMedia.Controls
             _tmrTitleTimeOut.Tick += TmrTitleTimeOutTick;
 
             ZoomRatio = ZoomRatioMode.Mode3;
+
+            /* Audio device list */
+            OutputDevices = new AudioOutputDevices(_mediaFactory);
+            if (OutputDevices.Count > 0)
+            {
+                /* Which it should be... set the first output device as "default" */
+                SetAudioOutputDevice(OutputDevices[0]);
+            }
+
             /* Create a basic equalizer */
             EqInitPreset(SettingsManager.Settings.Filters.Eq.Preset);
             /* Read the settings and make sure eq is set to on or off */
@@ -165,6 +165,13 @@ namespace xsMedia.Controls
 
         #region Control properties
         /* Control properties */
+        public AudioOutputDevices OutputDevices { get; private set; }
+
+        public string GetAudioOutputDevice
+        {
+            get { return _listPlayer == null ? string.Empty : _listPlayer.InnerPlayer.GetAudioOutputDevice; }
+        }
+
         public Equalizer Eq { get; private set; }
         public IAdjustFilter AdjustFilter { get { return _listPlayer.InnerPlayer.Adjust; } }
         public IMarqueeFilter MarqueeFilter { get { return _listPlayer.InnerPlayer.Marquee; } }
@@ -336,6 +343,19 @@ namespace xsMedia.Controls
         #endregion
 
         #region Public methods
+        public void SetAudioOutputDevice(AudioOutputDevice device)
+        {
+            if (device == null || device.Device == null)
+            {
+                return;
+            }
+            /* Need to first disable audio track, or it won't switch */
+            var audioTrack = _listPlayer.InnerPlayer.AudioTrack;
+            _listPlayer.InnerPlayer.AudioTrack = -1;
+            _listPlayer.InnerPlayer.SetAudioOutputModuleAndDevice(device.Module, device.Device);
+            _listPlayer.InnerPlayer.AudioTrack = audioTrack;
+        }
+
         public void TakeSnapShot()
         {
             if (_listPlayer == null || !IsVideo)

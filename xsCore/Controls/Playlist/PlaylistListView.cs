@@ -4,9 +4,7 @@
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using libolv;
 using libolv.Rendering.Styles;

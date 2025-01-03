@@ -14,6 +14,7 @@
 //     
 // ========================================================================
 using System;
+using System.Runtime.InteropServices;
 using xsVlc.Common;
 using xsVlc.Common.Players;
 using xsVlc.Common.Rendering;
@@ -100,6 +101,16 @@ namespace xsVlc.Core.Players
             set
             {
                 Api.libvlc_audio_output_set_device_type(HMediaPlayer, (LibvlcAudioOutputDeviceTypesT)value);
+            }
+        }
+
+        public string GetAudioOutputDevice
+        {
+            get
+            {
+                /* Added January 4, 2025 */
+                var d = Api.libvlc_audio_output_device_get(HMediaPlayer);
+                return d == IntPtr.Zero ? string.Empty : Marshal.PtrToStringAnsi(d);
             }
         }
 

@@ -284,7 +284,6 @@ namespace xsMedia.Controls
                 if (!success)
                 {
                     /* Build default skin file from resource */
-                    System.Diagnostics.Debug.Print("totally failed");
                     var skinPath = AppPath.MainDir(@"\KangaSoft\xsMedia\defaultSkin", true);
                     if (!Directory.Exists(skinPath))
                     {
