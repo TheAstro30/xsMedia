@@ -9,7 +9,7 @@ using System.Linq;
 using xsVlc.Common;
 using xsVlc.Common.Structures;
 
-namespace xsMedia.Helpers
+namespace xsCore.Utils.SystemUtils
 {    
     public class AudioOutputDevice
     {

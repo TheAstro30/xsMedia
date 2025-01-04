@@ -310,7 +310,7 @@ namespace xsMedia.Logic
             {
                 return;
             }
-            ProcessCommandLine(_tmrStart.Tag.ToString());  
+            ProcessCommandLine(_tmrStart.Tag.ToString());
         }
     }
 }

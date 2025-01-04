@@ -155,7 +155,6 @@
     <Compile Include="Forms\FrmPlayer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Helpers\AudioOutputDevices.cs" />
     <Compile Include="Helpers\MainIconUtil.cs" />
     <Compile Include="Logic\Menus.cs" />
     <Compile Include="Logic\Open.cs">

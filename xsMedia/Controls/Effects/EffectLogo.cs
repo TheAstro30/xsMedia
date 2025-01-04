@@ -12,6 +12,7 @@ using xsCore.Controls.TrackBar;
 using xsCore.Settings.Data.Filter;
 using xsCore.Utils.IO;
 using xsMedia.Logic;
+using xsMedia.Properties;
 
 namespace xsMedia.Controls.Effects
 {
@@ -22,6 +23,14 @@ namespace xsMedia.Controls.Effects
         public EffectLogo(FilterLogo logo)
         {
             InitializeComponent();
+
+            btnAdd.Image = Resources.dlgAdd.ToBitmap();
+            btnRemove.Image = Resources.dlgRemove.ToBitmap();
+
+            var toolTip = new ToolTip();
+            toolTip.SetToolTip(btnAdd, "Select an image file");
+            toolTip.SetToolTip(btnRemove, "Remove selected image file");
+
             _logo = logo;
             /* Disable controls initially */
             EnableDisable(_logo.Enable);
@@ -31,7 +40,8 @@ namespace xsMedia.Controls.Effects
             trOpacity.Value = _logo.Opacity;
             /* Handlers */
             chkVLogoEnable.CheckedChanged += OnEffectEnable;
-            btnLoad.Click += OnSelect;
+            btnAdd.Click += OnButtonClick;
+            btnRemove.Click += OnButtonClick;
             trOpacity.ValueChanged += OnValueChanged;
             noTop.ValueChanged += OnValueChanged;
             noLeft.ValueChanged += OnValueChanged;
@@ -47,25 +57,37 @@ namespace xsMedia.Controls.Effects
             Video.VideoControl.ApplyFilters();
         }
 
-        private void OnSelect(object sender, EventArgs e)
+        private void OnButtonClick(object sender, EventArgs e)
         {
-            var path = SettingsManager.Settings.Paths.GetPath("open-logo");
-            using (var ofd = new OpenFileDialog
+            var o = (Button) sender;
+            switch (o.Tag.ToString())
             {
-                Title = @"Open Logo Image",
-                InitialDirectory = path.Location,
-                Multiselect = false,
-                Filter = FileFilters.CoverArtFilters.ToString()
-            })
-            {
-                if (ofd.ShowDialog(this) != DialogResult.OK)
-                {
-                    return;
-                }
-                path.Location = Path.GetDirectoryName(ofd.FileName);
-                _logo.File = ofd.FileName;                
-                txtFile.Text = _logo.File;
-                Video.VideoControl.ApplyFilters();
+                case "ADD":
+                    var path = SettingsManager.Settings.Paths.GetPath("open-logo");
+                    using (var ofd = new OpenFileDialog
+                    {
+                        Title = @"Open Logo Image",
+                        InitialDirectory = path.Location,
+                        Multiselect = false,
+                        Filter = FileFilters.CoverArtFilters.ToString()
+                    })
+                    {
+                        if (ofd.ShowDialog(this) != DialogResult.OK)
+                        {
+                            return;
+                        }
+                        path.Location = Path.GetDirectoryName(ofd.FileName);
+                        _logo.File = ofd.FileName;
+                        txtFile.Text = _logo.File;
+                        Video.VideoControl.ApplyFilters();
+                    }
+                    break;
+
+                case "REMOVE":
+                    txtFile.Text = string.Empty;
+                    _logo.File = string.Empty;
+                    Video.VideoControl.ApplyFilters();
+                    break;
             }
         }
 

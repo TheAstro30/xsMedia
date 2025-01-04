@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using libolv.Implementation;
+using xsCore.Utils.SystemUtils;
 
 namespace xsCore.Controls.Playlist.Playlist
 {
@@ -98,10 +99,7 @@ namespace xsCore.Controls.Playlist.Playlist
             {
                 /* Format the "Length" field as 00:00 - lengths are in milliseconds */
                 var length = Length > 1000 ? Length / 1000 : 0;
-                var ts = new TimeSpan(0, 0, 0, length);
-                return (length >= 3600
-                    ? string.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds)
-                    : string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds));
+                return MediaInfo.FormatDurationString(length);
             }
         }
 

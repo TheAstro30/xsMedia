@@ -38,7 +38,7 @@ namespace xsCore.CdUtils
         Cdda = 2,
         Vcd = 3,
         Dvd = 4,        
-        BluRay = 5 /* Not implemented as of yet */
+        BluRay = 5 /* Not implemented as of yet - I need to get hold of a BluRay drive and a disc */
     }
 
     public class CdDrive : IDisposable

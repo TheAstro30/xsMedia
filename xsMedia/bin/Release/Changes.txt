@@ -37,6 +37,7 @@
 - Fixed an issue with internal folder searching class throwing an exception if the source folder doesn't exist
 - If, for some reason, the "skins" folder doesn't exist, xsMedia now creates the default skin from internal resources so it's usable
 - Added audio output device switching to "Audio" menu
+- Added remove button to logo effect in effect dialog
 
 *** Version 2.1.8 - 22 September , 2020 ***
 - Updated libVLC plugins to version 3.0.10

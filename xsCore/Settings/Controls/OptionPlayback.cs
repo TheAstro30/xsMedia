@@ -13,6 +13,7 @@ using xsCore.Properties;
 using xsCore.Settings.Controls.Base;
 using xsCore.Settings.Data;
 using xsCore.Settings.Data.Enums;
+using xsCore.Settings.Data.Media;
 using xsCore.Utils;
 using xsCore.Utils.SystemUtils;
 
@@ -192,7 +193,7 @@ namespace xsCore.Settings.Controls
                 return;
             }
             /* Still here? */
-            var m = new MediaOptions.MediaOption("--soundfont", fileName);
+            var m = new MediaOptionData("--soundfont", fileName);
             _player.Options.Option.Add(m);
         }
 

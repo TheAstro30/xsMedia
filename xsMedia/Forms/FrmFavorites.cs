@@ -11,9 +11,10 @@ using libolv;
 using libolv.Rendering.Styles;
 using xsCore;
 using xsCore.Controls.Forms;
-using xsCore.Settings.Data;
+using xsCore.Settings.Data.History;
 using xsCore.Skin;
 using xsCore.Utils.IO;
+using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
 using xsMedia.Logic;
 using xsMedia.Properties;
@@ -307,8 +308,8 @@ namespace xsMedia.Forms
                             return;
                         }
                         var file = ofd.FileName;
-                        path.Location = Path.GetDirectoryName(file);
-                        var f = new HistoryData(file);
+                        path.Location = Path.GetDirectoryName(file);                        
+                        var f = new HistoryData(file, MediaInfo.GetDuration(file));
                         var i = SettingsManager.AddFavorite(f);
                         if (i == -1)
                         {

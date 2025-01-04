@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using xsCore.Internal;
 using xsCore.Settings.Controls.Base;
 using xsCore.Settings.Data;
+using xsCore.Settings.Data.Disc;
+using xsCore.Settings.Data.Media;
 
 namespace xsCore.Settings.Controls
 {
@@ -34,7 +36,7 @@ namespace xsCore.Settings.Controls
                 case "CACHE":
                     var sp = txtCaching.Text.Split(' ');
                     var index = OptionsList.GetOption(":disc-caching", _disc.Options.Option);
-                    var option = new MediaOptions.MediaOption(":disc-caching", sp[0]);
+                    var option = new MediaOptionData(":disc-caching", sp[0]);
                     if (index == -1)
                     {
                         _disc.Options.Option.Add(option);

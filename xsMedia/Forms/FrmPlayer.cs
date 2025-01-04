@@ -10,6 +10,7 @@ using xsCore;
 using xsCore.Settings.Data.Enums;
 using xsCore.Skin;
 using xsCore.Utils.SystemUtils;
+using xsMedia.Helpers;
 using xsMedia.Logic;
 using xsVlc.Common;
 
@@ -46,7 +47,7 @@ namespace xsMedia.Forms
             TopMost = SettingsManager.Settings.Player.AlwaysOnTop;
 
             /* Now process command line args */
-            Player.BeginProcessCommandLine(args);
+            Player.BeginProcessCommandLine(args);           
         }
 
         /* Form events */

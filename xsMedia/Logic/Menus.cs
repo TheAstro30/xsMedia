@@ -15,8 +15,8 @@ using xsCore;
 using xsCore.CdUtils;
 using xsCore.Controls.Forms;
 using xsCore.Controls.Playlist.Playlist;
-using xsCore.Settings.Data;
 using xsCore.Settings.Data.Enums;
+using xsCore.Settings.Data.History;
 using xsCore.Skin;
 using xsCore.Utils;
 using xsCore.Utils.IO;
@@ -384,7 +384,7 @@ namespace xsMedia.Logic
             switch (tag)
             {
                 case "CLEAR":
-                    SettingsManager.Settings.Player.FileHistory.Clear();
+                    SettingsManager.Settings.Player.History.HistoryData.Clear();
                     break;
 
                 default:
@@ -1182,10 +1182,10 @@ namespace xsMedia.Logic
             items.AddRange(new ToolStripItem[] {m, new ToolStripSeparator()});
 
             /* History */
-            if (SettingsManager.Settings.Player.FileHistory.Count > 0)
+            if (SettingsManager.Settings.Player.History.HistoryData.Count > 0)
             {
                 m = new ToolStripMenuItem("Open recent", Resources.menuRecent.ToBitmap());
-                foreach (var h in SettingsManager.Settings.Player.FileHistory)
+                foreach (var h in SettingsManager.Settings.Player.History.HistoryData)
                 {
                     m.DropDownItems.Add(MenuHelper.AddMenuItem(h.ToString(), h.FilePath, Keys.None, true, false, Resources.menuRecentItem.ToBitmap(), OnRecentMenuItemClicked));
                 }

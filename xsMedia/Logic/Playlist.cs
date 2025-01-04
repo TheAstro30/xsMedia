@@ -58,7 +58,7 @@ namespace xsMedia.Logic
                 return;
             }
             UpdatePlaylistMeta(meta, index, duration, parsed);
-            /* Also update favorites entry, if it exists */
+            /* Also update favorites entry, if it exists - even though it's already done when adding, just to be sure */
             var favorite = SettingsManager.GetHistoryItem(SettingsManager.Settings.Favorites.Favorite, meta.Location);
             if (favorite == null)
             {

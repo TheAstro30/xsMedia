@@ -7,6 +7,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using xsCore.Skin;
+using xsCore.Utils.SystemUtils;
 
 namespace xsCore.PlayerControls.Controls
 {
@@ -91,12 +92,10 @@ namespace xsCore.PlayerControls.Controls
 
         public override void Paint(Graphics g)
         {
-            /* Calculate which image section represents what number */            
-            var ts = new TimeSpan(0, 0, 0, CounterType == TimeDisplay.Elapsed ? _elapsed : Total - _elapsed);
+            /* Calculate which image section represents what number */
+            var length = CounterType == TimeDisplay.Elapsed ? _elapsed : Total - _elapsed;
             var remain = CounterType == TimeDisplay.Remain ? "-" : string.Empty;
-            var time = ts.TotalSeconds >= 3600
-                ? string.Format("{0}{1:00}:{2:00}:{3:00}", remain, ts.Hours, ts.Minutes, ts.Seconds)
-                : string.Format("{0}{1:00}:{2:00}", remain, ts.Minutes, ts.Seconds);
+            var time = string.Format("{0}{1}", remain, MediaInfo.FormatDurationString(length));
             /* Center the counter */
             var width = (_counterCharacterSize.Width + 1) * time.Length;
             var left = (Area.Width / 2) - (width / 2);            

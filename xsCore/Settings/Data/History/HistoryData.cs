@@ -7,8 +7,9 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using libolv.Implementation;
+using xsCore.Utils.SystemUtils;
 
-namespace xsCore.Settings.Data
+namespace xsCore.Settings.Data.History
 {
     [Serializable]
     public class HistoryData
@@ -58,11 +59,7 @@ namespace xsCore.Settings.Data
         {
             get
             {
-                var length = Length;
-                var ts = new TimeSpan(0, 0, 0, length);
-                return (length >= 3600
-                    ? string.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds)
-                    : string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds));
+                return MediaInfo.FormatDurationString(Length);
             }
         }
 

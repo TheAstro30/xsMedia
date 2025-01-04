@@ -6,7 +6,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace xsCore.Settings.Data
+namespace xsCore.Settings.Data.Disc
 {
     [Serializable]
     public class CddbData

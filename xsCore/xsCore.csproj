@@ -147,9 +147,9 @@
     <Compile Include="Internal\PlayerSettings.cs" />
     <Compile Include="Settings\Data\Enums\PlaybackLoopMode.cs" />
     <Compile Include="Settings\Data\Enums\VideoWindowResizeOption.cs" />
-    <Compile Include="Settings\Data\CddbData.cs" />
-    <Compile Include="Settings\Data\DiscData.cs" />
-    <Compile Include="Settings\Data\Favorites.cs" />
+    <Compile Include="Settings\Data\Disc\CddbData.cs" />
+    <Compile Include="Settings\Data\Disc\DiscData.cs" />
+    <Compile Include="Settings\Data\History\Favorites.cs" />
     <Compile Include="Settings\Data\Filter\FilterAdjust.cs" />
     <Compile Include="Settings\Data\Filter\FilterCrop.cs" />
     <Compile Include="Settings\Data\Filter\FilterDeinterlace.cs" />
@@ -157,13 +157,16 @@
     <Compile Include="Settings\Data\Filter\FilterLogo.cs" />
     <Compile Include="Settings\Data\Filter\FilterMarquee.cs" />
     <Compile Include="Settings\Data\Filters.cs" />
-    <Compile Include="Settings\Data\MediaOptions.cs" />
-    <Compile Include="Settings\Data\NetworkPresets.cs" />
+    <Compile Include="Settings\Data\History\FileHistory.cs" />
+    <Compile Include="Settings\Data\Media\MediaOptionData.cs" />
+    <Compile Include="Settings\Data\Media\MediaOptions.cs" />
+    <Compile Include="Settings\Data\Network\NetworkPresetData.cs" />
+    <Compile Include="Settings\Data\Network\NetworkPresets.cs" />
     <Compile Include="Settings\Data\Paths.cs" />
     <Compile Include="Settings\Data\PlayerData.cs" />
     <Compile Include="Settings\Data\SelectedTab.cs" />
     <Compile Include="Settings\Data\VideoOptions.cs" />
-    <Compile Include="Settings\Data\Window.cs" />
+    <Compile Include="Settings\Data\Window\Window.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\Enums.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\NativeMethods.cs" />
     <Compile Include="Controls\TrackBar\TrackBarBase\TrackBarDrawItemEventArgs.cs" />
@@ -179,12 +182,14 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="SettingsManager.cs" />
-    <Compile Include="Settings\Data\HistoryData.cs" />
+    <Compile Include="Settings\Data\History\HistoryData.cs" />
+    <Compile Include="Settings\Data\Window\WindowData.cs" />
     <Compile Include="Utils\Asx\AsxData.cs" />
     <Compile Include="Utils\Asx\AsxParser.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="Utils\IO\FileFilters.cs" />
     <Compile Include="Utils\FormManager.cs" />
+    <Compile Include="Utils\SystemUtils\AudioOutputDevices.cs" />
     <Compile Include="Utils\SystemUtils\MediaInfo.cs" />
     <Compile Include="Utils\Proxy.cs" />
     <Compile Include="PlayerControls\ControlRenderer.cs">

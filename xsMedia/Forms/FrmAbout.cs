@@ -21,8 +21,7 @@ namespace xsMedia.Forms
         public FrmAbout()
         {
             /* Scorched penises */
-            ClientSize = new Size(461, 379);
-            ControlBox = false;
+            ClientSize = new Size(411, 339);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -69,7 +68,7 @@ namespace xsMedia.Forms
             {
                 BackColor = Color.Transparent,
                 Location = new Point(84, 116),
-                Size = new Size(365, 23),
+                Size = new Size(315, 33),
                 Text = @"Copyright ©2013 - 2025, KangaSoft Software. All Rights Reserved."
             };
 
@@ -88,7 +87,7 @@ namespace xsMedia.Forms
             {
                 AutoSize = true,
                 BackColor = Color.Transparent,
-                Location = new Point(84, 148),
+                Location = new Point(84, 158),
                 Size = new Size(107, 15),
                 Text = @"Assembly versions:"
             };
@@ -96,11 +95,11 @@ namespace xsMedia.Forms
             var txtPlugins = new TextBox
             {
                 BackColor = Color.White,
-                Location = new Point(87, 166),
+                Location = new Point(87, 176),
                 Multiline = true,
                 ReadOnly = true,
                 ScrollBars = ScrollBars.Vertical,
-                Size = new Size(362, 162),
+                Size = new Size(312, 112),
                 Lines = new[]
                 {
                     string.Format("xsCore: {0}", GetPluginVersion(AppPath.MainDir(@"\xsCore.dll"))),                                        
@@ -115,7 +114,7 @@ namespace xsMedia.Forms
             var linkVlc = new LinkLabel
             {
                 AutoSize = true,
-                Location = new Point(9, 351),
+                Location = new Point(9, 311),
                 Size = new Size(100, 15),
                 Text = @"VideoLAN project"
             };
@@ -123,7 +122,7 @@ namespace xsMedia.Forms
             var btnOk = new Button
             {
                 DialogResult = DialogResult.OK,
-                Location = new Point(374, 347),
+                Location = new Point(324, 307),
                 Size = new Size(75, 23),
                 TabIndex = 0,
                 Text = @"Ok",

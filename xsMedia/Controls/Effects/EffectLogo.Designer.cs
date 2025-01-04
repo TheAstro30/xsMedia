@@ -30,35 +30,23 @@ namespace xsMedia.Controls.Effects
         /// </summary>
         private void InitializeComponent()
         {
-            this.trOpacity = new TrackBarEx();
             this.lblOpacity = new System.Windows.Forms.Label();
             this.chkVLogoEnable = new System.Windows.Forms.CheckBox();
             this.lblFile = new System.Windows.Forms.Label();
             this.txtFile = new System.Windows.Forms.TextBox();
-            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.lblTop = new System.Windows.Forms.Label();
             this.noTop = new System.Windows.Forms.NumericUpDown();
             this.lblPx1 = new System.Windows.Forms.Label();
             this.lblPx2 = new System.Windows.Forms.Label();
             this.noLeft = new System.Windows.Forms.NumericUpDown();
             this.lblLeft = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).BeginInit();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.trOpacity = new xsCore.Controls.TrackBar.TrackBarEx();
             ((System.ComponentModel.ISupportInitialize)(this.noTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).BeginInit();
             this.SuspendLayout();
-            // 
-            // trOpacity
-            // 
-            this.trOpacity.BackColor = System.Drawing.Color.Transparent;
-            this.trOpacity.Enabled = false;
-            this.trOpacity.LargeChange = 1;
-            this.trOpacity.Location = new System.Drawing.Point(63, 124);
-            this.trOpacity.Maximum = 255;
-            this.trOpacity.Name = "trOpacity";
-            this.trOpacity.Size = new System.Drawing.Size(137, 45);
-            this.trOpacity.TabIndex = 10;
-            this.trOpacity.Tag = "OPACITY";
-            this.trOpacity.TickFrequency = 64;
             // 
             // lblOpacity
             // 
@@ -94,25 +82,25 @@ namespace xsMedia.Controls.Effects
             this.txtFile.Location = new System.Drawing.Point(44, 41);
             this.txtFile.Name = "txtFile";
             this.txtFile.ReadOnly = true;
-            this.txtFile.Size = new System.Drawing.Size(294, 23);
+            this.txtFile.Size = new System.Drawing.Size(316, 23);
             this.txtFile.TabIndex = 2;
             this.txtFile.Tag = "TEXT";
             // 
-            // btnLoad
+            // btnAdd
             // 
-            this.btnLoad.Location = new System.Drawing.Point(344, 41);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(75, 23);
-            this.btnLoad.TabIndex = 3;
-            this.btnLoad.Text = "Select";
-            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnAdd.Location = new System.Drawing.Point(366, 41);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(23, 23);
+            this.btnAdd.TabIndex = 3;
+            this.btnAdd.Tag = "ADD";
+            this.btnAdd.UseVisualStyleBackColor = true;
             // 
             // lblTop
             // 
             this.lblTop.AutoSize = true;
             this.lblTop.Location = new System.Drawing.Point(9, 83);
             this.lblTop.Name = "lblTop";
-            this.lblTop.Size = new System.Drawing.Size(61, 15);
+            this.lblTop.Size = new System.Drawing.Size(59, 15);
             this.lblTop.TabIndex = 11;
             this.lblTop.Text = "Top offset";
             // 
@@ -134,7 +122,7 @@ namespace xsMedia.Controls.Effects
             this.lblPx1.AutoSize = true;
             this.lblPx1.Location = new System.Drawing.Point(134, 83);
             this.lblPx1.Name = "lblPx1";
-            this.lblPx1.Size = new System.Drawing.Size(36, 15);
+            this.lblPx1.Size = new System.Drawing.Size(37, 15);
             this.lblPx1.TabIndex = 14;
             this.lblPx1.Text = "pixels";
             // 
@@ -143,7 +131,7 @@ namespace xsMedia.Controls.Effects
             this.lblPx2.AutoSize = true;
             this.lblPx2.Location = new System.Drawing.Point(302, 83);
             this.lblPx2.Name = "lblPx2";
-            this.lblPx2.Size = new System.Drawing.Size(36, 15);
+            this.lblPx2.Size = new System.Drawing.Size(37, 15);
             this.lblPx2.TabIndex = 17;
             this.lblPx2.Text = "pixels";
             // 
@@ -169,18 +157,41 @@ namespace xsMedia.Controls.Effects
             this.lblLeft.TabIndex = 15;
             this.lblLeft.Text = "Left offset";
             // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(395, 41);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(23, 23);
+            this.btnRemove.TabIndex = 18;
+            this.btnRemove.Tag = "REMOVE";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            // 
+            // trOpacity
+            // 
+            this.trOpacity.BackColor = System.Drawing.Color.Transparent;
+            this.trOpacity.Enabled = false;
+            this.trOpacity.LargeChange = 1;
+            this.trOpacity.Location = new System.Drawing.Point(63, 124);
+            this.trOpacity.Maximum = 255;
+            this.trOpacity.Name = "trOpacity";
+            this.trOpacity.Size = new System.Drawing.Size(137, 45);
+            this.trOpacity.TabIndex = 10;
+            this.trOpacity.Tag = "OPACITY";
+            this.trOpacity.TickFrequency = 64;
+            // 
             // EffectLogo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.lblPx2);
             this.Controls.Add(this.noLeft);
             this.Controls.Add(this.lblLeft);
             this.Controls.Add(this.lblPx1);
             this.Controls.Add(this.noTop);
             this.Controls.Add(this.lblTop);
-            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtFile);
             this.Controls.Add(this.lblFile);
             this.Controls.Add(this.trOpacity);
@@ -189,9 +200,9 @@ namespace xsMedia.Controls.Effects
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "EffectLogo";
             this.Size = new System.Drawing.Size(431, 199);
-            ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,13 +215,14 @@ namespace xsMedia.Controls.Effects
         private System.Windows.Forms.CheckBox chkVLogoEnable;
         private System.Windows.Forms.Label lblFile;
         private System.Windows.Forms.TextBox txtFile;
-        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label lblTop;
         private System.Windows.Forms.NumericUpDown noTop;
         private System.Windows.Forms.Label lblPx1;
         private System.Windows.Forms.Label lblPx2;
         private System.Windows.Forms.NumericUpDown noLeft;
         private System.Windows.Forms.Label lblLeft;
+        private System.Windows.Forms.Button btnRemove;
 
     }
 }

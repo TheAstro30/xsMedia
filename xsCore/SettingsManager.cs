@@ -10,7 +10,7 @@ using System.Linq;
 using System.Windows.Forms;
 using xsCore.Controls.Forms;
 using xsCore.Internal;
-using xsCore.Settings.Data;
+using xsCore.Settings.Data.History;
 using xsCore.Utils.IO;
 using xsCore.Utils.Serialization;
 
@@ -86,31 +86,31 @@ namespace xsCore
                 FilePath = fileName,
                 FriendlyName = Path.GetFileNameWithoutExtension(fileName)
             };
-            var historyData = Settings.Player.FileHistory;
-            historyData.Insert(0, data);
-            if (historyData.Count - 1 >= HistoryMaxEntries)
+            var historyData = Settings.Player.History;
+            historyData.HistoryData.Insert(0, data);
+            if (historyData.HistoryData.Count - 1 >= HistoryMaxEntries)
             {
                 /* Remove last entry */
-                historyData.RemoveAt(historyData.Count - 1);
+                historyData.HistoryData.RemoveAt(historyData.HistoryData.Count - 1);
             }
         }
 
         public static bool BringHistoryItemToTop(string fileName)
         {
-            var history = Settings.Player.FileHistory;
-            var data = GetHistoryItem(history, fileName);
+            var history = Settings.Player.History;
+            var data = GetHistoryItem(history.HistoryData, fileName);
             if (data == null)
             {
                 return false;
             }
-            history.Remove(data);
-            history.Insert(0, data);
+            history.HistoryData.Remove(data);
+            history.HistoryData.Insert(0, data);
             return true;
         }
 
         public static int AddFavorite(HistoryData data)
         {
-            /* First check this is even a legal file; CD/DVD/Blueray discs are not */
+            /* First check this is even a legal file; CD/DVD/BluRay discs are not */
             if (!FileFilters.IsValidMediaFile(data.FilePath))
             {
                 return -1;

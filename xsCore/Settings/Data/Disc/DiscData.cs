@@ -6,8 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using xsCore.Settings.Data.Media;
 
-namespace xsCore.Settings.Data
+namespace xsCore.Settings.Data.Disc
 {
     [Serializable]
     public class DiscData
@@ -20,7 +21,7 @@ namespace xsCore.Settings.Data
         public DiscData(DiscData disc)
         {
             Cddb = new CddbData(disc.Cddb);
-            Options.Option = new List<MediaOptions.MediaOption>(disc.Options.Option);
+            Options.Option = new List<MediaOptionData>(disc.Options.Option);
         }
 
         [XmlElement("cddb")]

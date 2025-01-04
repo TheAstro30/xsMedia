@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace xsCore.Settings.Data
+namespace xsCore.Settings.Data.History
 {
     [Serializable]
     public class Favorites
@@ -23,7 +23,7 @@ namespace xsCore.Settings.Data
             Favorite = new List<HistoryData>(favorites.Favorite);
         }
 
-        [XmlElement("favorite")]
+        [XmlElement("file")]
         public List<HistoryData> Favorite = new List<HistoryData>();
     }
 }
