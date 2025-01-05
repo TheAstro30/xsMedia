@@ -369,9 +369,6 @@ namespace xsMedia.Logic
                     /* Begin playback */
                     Video.VideoControl.OpenDiscType = DiscType.None;
                     Player.IsVideoWindowInit = false;
-                    Media.MediaBarControl.Position = 0;
-                    Media.MediaBarControl.ElapsedTime = 0;
-                    Video.KeepVideoSize = false;
                     Video.VideoControl.OpenFile(tag);
                     break;
             }
@@ -391,10 +388,9 @@ namespace xsMedia.Logic
                     /* File name */
                     Video.VideoControl.OpenDiscType = DiscType.None;
                     Player.IsVideoWindowInit = false;
-                    Media.MediaBarControl.Position = 0;
-                    Media.MediaBarControl.ElapsedTime = 0;
-                    Video.KeepVideoSize = false;
+
                     Video.VideoControl.OpenFile(tag);
+            
                     /* Bring item to top of the list */
                     SettingsManager.BringHistoryItemToTop(tag);
                     break;

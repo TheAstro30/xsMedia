@@ -87,7 +87,8 @@ namespace xsCore.Controls.Playlist.Playlist
                 {
                     return !string.IsNullOrEmpty(Artist) ? string.Format("{0} - {1}", Title, Artist) : Title;
                 }
-                return Path.GetFileNameWithoutExtension(Location);
+                var location = Path.GetFileNameWithoutExtension(Location);
+                return !string.IsNullOrEmpty(location) ? location : Location;
             }
         }
 

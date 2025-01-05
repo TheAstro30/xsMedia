@@ -6,7 +6,6 @@
 using System;
 using System.Windows.Forms;
 using xsCore.Settings.Controls.Base;
-using xsCore.Settings.Data;
 using xsCore.Settings.Data.Disc;
 
 namespace xsCore.Settings.Controls

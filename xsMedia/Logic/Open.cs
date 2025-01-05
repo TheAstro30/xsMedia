@@ -43,10 +43,8 @@ namespace xsMedia.Logic
                 }
                 path.Location = Path.GetDirectoryName(ofd.FileName);
                 Video.VideoControl.OpenDiscType = DiscType.None;
+                /* Mainly reset this variable for video title */
                 Player.IsVideoWindowInit = false;
-                Media.MediaBarControl.Position = 0;
-                Media.MediaBarControl.ElapsedTime = 0;
-                Video.KeepVideoSize = false;
                 if (Video.VideoControl.PlayerState == MediaState.Playing || Video.VideoControl.PlayerState == MediaState.Paused)
                 {
                     Player.StopClip(false);
@@ -111,8 +109,6 @@ namespace xsMedia.Logic
             DriveLetter = drive.DriveLabel.Replace(@"\", null);
             DriveLabel = drive.VolumeLabel;
             Player.IsVideoWindowInit = false;
-            Media.MediaBarControl.Position = 0;
-            Media.MediaBarControl.ElapsedTime = 0;
             if (Video.VideoControl.PlayerState == MediaState.Playing || Video.VideoControl.PlayerState == MediaState.Paused)
             {
                 Player.StopClip(false);

@@ -4,7 +4,6 @@
  * KangaSoft Software, All Rights Reserved
  * Licenced under the GNU public licence */
 using System.Collections.Generic;
-using xsCore.Settings.Data;
 using xsCore.Settings.Data.Media;
 
 namespace xsCore.Internal

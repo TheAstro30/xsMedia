@@ -68,7 +68,18 @@ namespace xsMedia.Logic
 
         private static void OnPlay(MediaButton button)
         {
-            if (Video.VideoControl.Play()) { return; }
+            /* Check playlist selected track is the same as current track; ignore if media state is paused: just resume current file */
+            var selected = false;
+            var track = Video.VideoControl.CurrentTrack;
+            if (track != Playlist.PlaylistControl.SelectedIndex)
+            {
+                selected = true;
+                track = Playlist.PlaylistControl.SelectedIndex;
+            }
+            if (Video.VideoControl.Play(selected, track))
+            {
+                return;
+            }
             Open.OpenFile();
         }
 

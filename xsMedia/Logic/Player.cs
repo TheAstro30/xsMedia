@@ -74,9 +74,6 @@ namespace xsMedia.Logic
 
             Video.VideoControl.OpenDiscType = DiscType.None;
             IsVideoWindowInit = false;
-            Media.MediaBarControl.Position = 0;
-            Media.MediaBarControl.ElapsedTime = 0;
-            Video.KeepVideoSize = false;
 
             switch (sp[0].ToUpper())
             {
@@ -114,13 +111,14 @@ namespace xsMedia.Logic
 
         public static void StopClip(bool nextTrack, bool keepVideoSize = false)
         {
+            /* I farted, and it was a ripper! */
             Video.VideoControl.Stop();
             //Video.VideoControl.LogoImage = Properties.Resources.videoWinIcon.ToBitmap();
             Video.VideoControl.LogoImage = MainIconUtil.VideoWindowIcon();
             Video.VideoControl.LogoImageMaximumSize = Video.VideoControl.LogoImage.Size;
+
             IsVideoWindowInit = false;
-            Media.MediaBarControl.ElapsedTime = 0;
-            Media.MediaBarControl.Position = 0;
+
             var count = PlaylistManager.MediaList.Count;
             if (nextTrack && count > 1)
             {
@@ -160,7 +158,10 @@ namespace xsMedia.Logic
             }
             _player.Text = @"xsMedia Player";
             /* Restore original window size */
-            if (keepVideoSize || SettingsManager.Settings.Player.Video.Resize == VideoWindowResizeOption.WindowSize) { return; }
+            if (keepVideoSize || SettingsManager.Settings.Player.Video.Resize == VideoWindowResizeOption.WindowSize)
+            {
+                return;
+            }
             _player.Size = SettingsManager.Settings.Window.MainWindow.Size;
             Video.VideoControl.SpinnerActive = false;
             Video.KeepVideoSize = false;
@@ -182,7 +183,11 @@ namespace xsMedia.Logic
                         break;
 
                     default:
-                        _player.Text = string.Format("xsMedia Player - {0}", AppPath.TruncatePath(Open.ClipFile, 30));
+                        /* If "/" is in the path, most likely a network URL */
+                        _player.Text = string.Format("xsMedia Player - {0}",
+                            Open.ClipFile.Contains("/")
+                                ? Playlist.PlaylistControl.GetItemAt(Video.VideoControl.CurrentTrack).Location
+                                : AppPath.TruncatePath(Open.ClipFile, 30));
                         break;
                 }
             }

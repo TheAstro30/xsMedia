@@ -130,7 +130,10 @@ namespace xsCore.Controls.Playlist.Playlist.Playlists
                     {
                         try
                         {
+                            System.Diagnostics.Debug.Print(_list.Count + " hello?");
                             sw.WriteLine("[playlist]");
+                            sw.WriteLine("NumberOfEntries={0}", _list.Count);
+                            sw.WriteLine("Version=2");
                             for (var i = 1; i <= entries.Count; i++)
                             {
                                 var pls = entries[i - 1];
@@ -140,9 +143,7 @@ namespace xsCore.Controls.Playlist.Playlist.Playlists
                                     sw.WriteLine("Title{0}={1} - {2}", i, pls.Artist, pls.Title);
                                 }
                                 sw.WriteLine("Length{0}={1}", i, pls.Length / 1000);
-                            }
-                            sw.WriteLine("NumberOfEntries={0}", _list.Count);
-                            sw.WriteLine("Version=2");
+                            }                            
                             sw.Flush();
                             success = true;
                         }
@@ -163,9 +164,11 @@ namespace xsCore.Controls.Playlist.Playlist.Playlists
                 case PlaylistSortType.Title:
                     _list.Sort(new PlaylistEntry.CompareByTitle());
                     break;
+
                 case PlaylistSortType.Artist:
                     _list.Sort(new PlaylistEntry.CompareByArtist());
                     break;
+
                 case PlaylistSortType.Path:
                     _list.Sort(new PlaylistEntry.CompareByPath());
                     break;

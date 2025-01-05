@@ -93,7 +93,13 @@ namespace xsMedia.Logic
                     default:
                         if (string.IsNullOrEmpty(entry.Title))
                         {
-                            entry.Title = Video.VideoControl.CurrentMedia.GetMetaData(MetaDataType.Title);
+                            var title = Video.VideoControl.CurrentMedia.GetMetaData(MetaDataType.Title);
+                            /* "/" is an illegal character in Windows' filenames, so it's most likely a URL */
+                            if (!title.Contains("/")) /* Illegal character in Windows' filenames anyway, so probably a URL */
+                            {
+                                entry.Title = title;
+                            }
+                            
                         }
                         if (string.IsNullOrEmpty(entry.Artist))
                         {
@@ -116,21 +122,30 @@ namespace xsMedia.Logic
         }
 
         /* Callbacks/events */
-        private static void OnPlaylistEntriesChanged()
+        private static void OnPlaylistEntriesChanged(bool play)
         {
             if (PlaylistControl.InvokeRequired)
             {
-                Player.Sync.Execute(OnPlaylistEntriesChanged);
+                Player.Sync.Execute(() => OnPlaylistEntriesChanged(play));
                 return;
             }
             if (PlaylistManager.MediaList.Count == 0)
             {
                 /* Playlist is now empty, stop playback */
                 Player.StopClip(false);
+                PlaylistControl.Clear();
+                return;
             }
             /* Update list view - kind of annoying */
             PlaylistControl.Clear();
             PlaylistControl.AddRange(PlaylistManager.Playlist.ToArray());
+
+            if (!play)
+            {
+                return;
+            }
+            Video.VideoControl.Play(0);
+            SettingsManager.AddHistory(Video.VideoControl.CurrentMedia.Input);
         }
 
         private static void OnPlaylistItemAdded(PlaylistEntry entry)
@@ -150,15 +165,18 @@ namespace xsMedia.Logic
                 Player.Sync.Execute(() => OnPlaylistItemRemoved(entries));
                 return;
             }
-            if (PlaylistManager.MediaList.Count != 0)
-            {
-                Video.VideoControl.CurrentTrack = 0;
-                Video.VideoControl.Play(Video.VideoControl.CurrentTrack);
-            }
-            else
+            //if (PlaylistManager.MediaList.Count != 0)
+            //{
+            //    Video.VideoControl.CurrentTrack = 0;
+            //    Video.VideoControl.Play(Video.VideoControl.CurrentTrack);
+            //}
+            //else
+            if (PlaylistManager.MediaList.Count == 0)
             {
                 /* Playlist is now empty, stop playback */
                 Player.StopClip(false);
+                PlaylistControl.Clear();
+                return;
             }
             /* Update playlist */
             for (var index = entries.Count - 1; index >= 0; --index)
@@ -180,12 +198,11 @@ namespace xsMedia.Logic
 
         private static void OnPlaylistDoubleClick(int index)
         {
-            Video.VideoControl.OpenDiscType = DiscType.None;
+            /* Mainly reset this variable for video title */
             Player.IsVideoWindowInit = false;
-            Media.MediaBarControl.Position = 0;
-            Media.MediaBarControl.ElapsedTime = 0;
-            Video.KeepVideoSize = false;
             Video.VideoControl.Play(index);
+
+            SettingsManager.AddHistory(PlaylistControl.GetItemAt(index).Location);
         }
 
         private static void OnPlaylistRightClick(Point location)

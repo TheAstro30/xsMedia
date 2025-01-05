@@ -7,7 +7,6 @@ using System;
 using System.Windows.Forms;
 using xsCore.Internal;
 using xsCore.Settings.Controls.Base;
-using xsCore.Settings.Data;
 using xsCore.Settings.Data.Media;
 using xsCore.Settings.Data.Network;
 

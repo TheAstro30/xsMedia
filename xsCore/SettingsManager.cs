@@ -84,15 +84,10 @@ namespace xsCore
             var data = new HistoryData
             {
                 FilePath = fileName,
-                FriendlyName = Path.GetFileNameWithoutExtension(fileName)
+                FriendlyName = !fileName.Contains("/") ? Path.GetFileNameWithoutExtension(fileName) : fileName /* Ignore urls */
             };
             var historyData = Settings.Player.History;
-            historyData.HistoryData.Insert(0, data);
-            if (historyData.HistoryData.Count - 1 >= HistoryMaxEntries)
-            {
-                /* Remove last entry */
-                historyData.HistoryData.RemoveAt(historyData.HistoryData.Count - 1);
-            }
+            AddHistoryData(historyData.HistoryData, data, HistoryMaxEntries);
         }
 
         public static bool BringHistoryItemToTop(string fileName)
@@ -121,12 +116,7 @@ namespace xsCore
             {
                 return -1;
             }
-            favorite.Add(data);
-            if (favorite.Count -1 >= FavoriteMaxEntries)
-            {
-                favorite.RemoveAt(0);
-            }
-            return favorite.Count;
+            return AddHistoryData(favorite, data, FavoriteMaxEntries, true);
         }
 
         public static bool RemoveFavorite(HistoryData data)
@@ -138,6 +128,24 @@ namespace xsCore
         public static HistoryData GetHistoryItem(IEnumerable<HistoryData> historyData, string fileName)
         {
             return historyData.FirstOrDefault(h => h.FilePath.Equals(fileName, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        /* Private add method for both lists */
+        private static int AddHistoryData(IList<HistoryData> historyData, HistoryData data, int max, bool append = false)
+        {
+            if (append)
+            {
+                historyData.Add(data);
+            }
+            else
+            {
+                historyData.Insert(0, data);
+            }
+            if (historyData.Count -1 >= max)
+            {
+                historyData.RemoveAt(append ? 0 : historyData.Count -1);
+            }
+            return historyData.Count();
         }
     }
 }

@@ -23,7 +23,6 @@ namespace xsCore.Internal
         public PlayerSettings()
         {
             /* Penis window setup */
-            Window.MainWindow.Location = new Point(100, 100);
             Window.MainWindow.Size = new Size(620, 420);
             Window.CurrentSkin = @"\skins\classic\classic.xml";
             /* Player */
@@ -86,6 +85,16 @@ namespace xsCore.Internal
                 {
                     Id = "Vision Christian Radio",
                     Url = "https://streams2.vision.org.au/vision128.mp3"
+                },
+                new NetworkPresetData
+                {
+                    Id = "Web Radio Life",
+                    Url = "http://media.webradiolife.com:8000/live"
+                },
+                new NetworkPresetData
+                {
+                    Id = "Image Jamz",
+                    Url = "http://us4.internet-radio.com:8019/"
                 }
             });
             NetworkPresets.Sort();

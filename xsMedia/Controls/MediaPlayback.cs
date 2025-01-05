@@ -13,12 +13,14 @@ using System.Windows.Forms;
 using xsCore;
 using xsCore.CdUtils;
 using xsCore.Controls.Forms;
+using xsCore.Settings.Data.Enums;
 using xsCore.Settings.Data.Filter;
 using xsCore.Settings.Data.Media;
 using xsCore.Utils.Asx;
 using xsCore.Utils.IO;
 using xsCore.Utils.SystemUtils;
 using xsCore.Utils.UI;
+using xsMedia.Logic;
 using xsVlc.Common;
 using xsVlc.Common.Events;
 using xsVlc.Common.Filters;
@@ -490,6 +492,7 @@ namespace xsMedia.Controls
             CurrentTrack = PlaylistManager.MediaList.Count - 1;
             MediaEventHandlers(CurrentTrack);
             _listPlayer.PlayItemAt(CurrentTrack);
+            SettingsManager.AddHistory(networkUrl);
         }
 
         public void OpenDisc(string drive)
@@ -603,7 +606,7 @@ namespace xsMedia.Controls
         #endregion
 
         #region Playback/transport control
-        public bool Play()
+        public bool Play(bool selected = false, int track = -1)
         {            
             if (_listPlayer.PlayerState == MediaState.Paused)
             {
@@ -615,11 +618,13 @@ namespace xsMedia.Controls
             if (count <= 0)
             {
                 return false;
-            }
+            }            
             if (CurrentTrack > count - 1)
             {
                 CurrentTrack = 0;
             }
+            /* Need to check we haven't selected a different index in playlist; else play current track */
+            CurrentTrack = !selected ? CurrentTrack : track;
             Play(CurrentTrack);
             return true;
         }
@@ -635,7 +640,13 @@ namespace xsMedia.Controls
             MediaEventHandlers(CurrentTrack);
             _listPlayer.PlayItemAt(CurrentTrack);
             /* Set disc type - this *should* always be done if an item in the playlist is selected (or auto-play next track) */
-            var driveLetter = new Uri(PlaylistManager.MediaList[CurrentTrack].Input).LocalPath.Substring(0, 2);
+            var uri = new Uri(PlaylistManager.MediaList[CurrentTrack].Input).LocalPath;
+            if (uri.Length < 2)
+            {
+                OpenDiscType = DiscType.None;
+                return;
+            }
+            var driveLetter = uri.Substring(0, 2);
             var deviceId = CdControl.GetDeviceId(string.Format("{0}\\", driveLetter));
             if (deviceId != -1 && CdControl.AvailableDrives.ContainsKey(deviceId))
             {
@@ -659,42 +670,12 @@ namespace xsMedia.Controls
 
         public void Previous()
         {
-            if (PlaylistManager.MediaList.Count == 0)
-            {
-                return;
-            }
-            switch (OpenDiscType)
-            {
-                case DiscType.Vcd:
-                case DiscType.Dvd:
-                    _listPlayer.InnerPlayer.PreviousChapter();
-                    break;
-
-                default:
-                    CurrentTrack--;
-                    Play(CurrentTrack);
-                    break;
-            }
+            PreviousNextTrack(false);
         }
 
         public void Next()
         {
-            if (PlaylistManager.MediaList.Count == 0)
-            {
-                return;
-            }
-            switch (OpenDiscType)
-            {
-                case DiscType.Vcd:
-                case DiscType.Dvd:
-                    _listPlayer.InnerPlayer.NextChapter();
-                    break;
-
-                default:
-                    CurrentTrack++;
-                    Play(CurrentTrack);
-                    break;
-            }
+            PreviousNextTrack(true);
         }
         #endregion
 
@@ -996,6 +977,65 @@ namespace xsMedia.Controls
             _originalMedia.Events.StateChanged += OnMediaStateChanged;
             CurrentMedia.Events.DurationChanged += OnMediaDurationChanged;
             CurrentMedia.Events.ParsedChanged += OnMediaParseChanged;            
+        }
+
+        private void PreviousNextTrack(bool next)
+        {
+            if (PlaylistManager.MediaList.Count == 0)
+            {
+                return;
+            }
+            switch (OpenDiscType)
+            {
+                case DiscType.Vcd:
+                case DiscType.Dvd:
+                    /* TODO: verify this code below works with a DVD and if we need the "Play" part at the bottom */
+                    if (next)
+                    {
+                        _listPlayer.InnerPlayer.NextChapter();
+                    }
+                    else
+                    {
+                        _listPlayer.InnerPlayer.PreviousChapter();
+                    }
+                    break;
+
+                default:
+                    /* Need to follow loop settings for shuffle, at least; ignore loop one */
+                    switch (SettingsManager.Settings.Player.Loop)
+                    {
+                        case PlaybackLoopMode.Shuffle:
+                            var rnd = new Random();
+                            CurrentTrack = rnd.Next(0, PlaylistManager.MediaList.Count);
+                            break;
+
+                        case PlaybackLoopMode.LoopAll:
+                        case PlaybackLoopMode.LoopOne:
+                        case PlaybackLoopMode.None:
+                            if (next)
+                            {
+                                CurrentTrack++;
+                            }
+                            else
+                            {
+                                CurrentTrack--;
+                            }
+                            break;
+                    }
+                    /* If we reach the end of the list, jump to the start; or go past the start, jump to the end */
+                    if (CurrentTrack < 0)
+                    {
+                        CurrentTrack = PlaylistManager.MediaList.Count - 1;
+                    }
+                    if (CurrentTrack > PlaylistManager.MediaList.Count - 1)
+                    {
+                        CurrentTrack = 0;
+                    }
+                    /* Mainly reset this variable for video title */
+                    Player.IsVideoWindowInit = false;
+                    Play(CurrentTrack);
+                    break;
+            }
         }
 
         private void BeginTimer()

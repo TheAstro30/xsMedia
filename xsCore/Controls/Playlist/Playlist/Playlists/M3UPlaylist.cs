@@ -73,11 +73,14 @@ namespace xsCore.Controls.Playlist.Playlist.Playlists
                                     header = true;
                                     continue;
                                 }
-                                if (!header) { break; }
+                                //if (!header) { break; }
                                 if (read.ToLower().StartsWith("#extinf:"))
                                 {
                                     var sp = read.Split(':');
-                                    if (sp.Length == 1) { continue; }
+                                    if (sp.Length == 1)
+                                    {
+                                        continue;
+                                    }
                                     var data = sp[1].Split(',');
                                     int length;
                                     Int32.TryParse(data[0], out length);
@@ -85,19 +88,23 @@ namespace xsCore.Controls.Playlist.Playlist.Playlists
                                               {
                                                   Length = length > 0 ? length * 1000 : 0
                                               };
-                                    if (data.Length == 1) { continue; }
+                                    if (data.Length == 1)
+                                    {
+                                        continue;
+                                    }
                                     var title = data[1].Split('-');
                                     pls.Artist = title[0].Trim();
                                     pls.Title = title.Length > 1 ? title[1].Trim() : null;
                                 }
                                 else
                                 {
-                                    if (pls != null)
+                                    if (pls == null)
                                     {
-                                        pls.Location = read;
-                                        _list.Add(pls);
                                         pls = new PlaylistEntry();
                                     }
+                                    pls.Location = read;
+                                    _list.Add(pls);
+                                    pls = null;
                                 }
                             }
                             success = true;

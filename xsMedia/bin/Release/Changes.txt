@@ -1,4 +1,4 @@
-*** Version 2.1.9 - , 2025 ***
+*** Version 2.1.9 - 5 January, 2025 ***
 - Updated VLC libraries to version 3.0.21
 - Implemented an audio mute function
 - Replaced all icons (except main application icon) with better looking ones, and ones that made more sense to the function they were representing
@@ -38,6 +38,13 @@
 - If, for some reason, the "skins" folder doesn't exist, xsMedia now creates the default skin from internal resources so it's usable
 - Added audio output device switching to "Audio" menu
 - Added remove button to logo effect in effect dialog
+- Fixed a bug with M3U playlist loading
+- Fixed a bug with PLS playlist writing 0 for NumberOfEntries field
+- Fixed a crash bug with playing of files in a playlist that just say "/" as the file name
+- Fixed a bug with playlist showing "/" as a title name, or variations of, when opening network streams; now it just displays the full URL
+- Removed the "play from 0 position" of playlist when removing files in the playlist (kind of annoying operation, no idea why I wrote it like that)
+- Fixed issue with title bar showing open network streams as "/", or similiar; now shows entire URL
+- When hitting the play button, if there is a selected track in the playlist, it will play that selected track
 
 *** Version 2.1.8 - 22 September , 2020 ***
 - Updated libVLC plugins to version 3.0.10

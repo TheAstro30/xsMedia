@@ -19,7 +19,7 @@ namespace xsCore
     {
         public static IPlaylist Playlist { get; set; }
 
-        public static event Action PlaylistEntriesChanged;
+        public static event Action<bool> PlaylistEntriesChanged;
         public static event Action<PlaylistEntry> PlaylistItemAdded;
         public static event Action<IList<int>> PlaylistItemRemoved;
         public static event Action<int, PlaylistEntry> PlaylistMetaDataChanged;
@@ -170,7 +170,7 @@ namespace xsCore
             ContentsChanged = changed;
             if (PlaylistEntriesChanged != null)
             {
-                PlaylistEntriesChanged();
+                PlaylistEntriesChanged(false);
             }
         }
 
@@ -182,18 +182,23 @@ namespace xsCore
                 case PlaylistType.Xspf:
                     Playlist = new XspfPlaylist();
                     break;
+
                 case PlaylistType.Wpl:
                     Playlist = new WplPlaylist();
                     break;
+
                 case PlaylistType.M3U:
                     Playlist = new M3UPlaylist(PlaylistType.M3U);
                     break;
+
                 case PlaylistType.M3U8:
                     Playlist = new M3UPlaylist(PlaylistType.M3U8);
                     break;
+
                 case PlaylistType.Pls:
                     Playlist = new PlsPlaylist();
                     break;
+
                 default:
                     Playlist = new XsplPlaylist();
                     break;
@@ -204,7 +209,7 @@ namespace xsCore
                 MediaList.Clear();
                 if (PlaylistEntriesChanged != null)
                 {
-                    PlaylistEntriesChanged();
+                    PlaylistEntriesChanged(false);
                 }
                 return;
             }
@@ -212,7 +217,7 @@ namespace xsCore
             ContentsChanged = false;
             if (PlaylistEntriesChanged != null)
             {
-                PlaylistEntriesChanged();
+                PlaylistEntriesChanged(true);
             }
         }
 
@@ -284,14 +289,17 @@ namespace xsCore
             UpdateMediaObjects();
             if (PlaylistEntriesChanged != null)
             {
-                PlaylistEntriesChanged();
+                PlaylistEntriesChanged(false);
             }
             ContentsChanged = true;
         }
 
         private static void BackgroundRemoval(IList<int> entries)
-        {            
-            if (Playlist.Count == 0 || entries.Count == 0) { return; }
+        {
+            if (Playlist.Count == 0 || entries.Count == 0)
+            {
+                return;
+            }
             for (var index = entries.Count - 1; index >= 0; --index)
             {
                 Playlist.RemoveAt(entries[index]);
@@ -311,7 +319,7 @@ namespace xsCore
             UpdateMediaObjects();
             if (PlaylistEntriesChanged != null)
             {
-                PlaylistEntriesChanged();
+                PlaylistEntriesChanged(false);
             }
             ContentsChanged = true;
         }
